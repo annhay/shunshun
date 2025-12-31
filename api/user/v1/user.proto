@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package template;
+
+option go_package = "../../../internal/proto";
+
+message SendTextMessageReq {
+  string phone = 1;
+}
+message SendTextMessageResp {}
+
+service User {
+  rpc SendTextMessage(SendTextMessageReq) returns(SendTextMessageResp);//短信发送
+}
