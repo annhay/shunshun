@@ -9,6 +9,56 @@ message SendTextMessageReq {
 }
 message SendTextMessageResp {}
 
+message RegisterReq {
+  string phone = 1;
+  string verificationCode = 2;
+  string password = 3;
+}
+message RegisterResp {
+  int64 id = 1;
+}
+
+message LoginReq {
+  string phone = 1;
+  string password = 2;
+  string verificationCode = 3;
+}
+message LoginResp {
+  int64 id = 1;
+}
+
+message ForgotPasswordReq {
+  string phone = 1;
+  string verificationCode = 2;
+  string password = 3;
+  string confirmPassword = 4;
+}
+message ForgotPasswordResp {}
+
+message CompleteInformationReq {
+  int64 userId = 1;
+  string cover = 2;
+  string nickname = 3;
+  string sex = 4;
+  string realName = 5;
+  string idCard = 6;
+  string birthdayTime = 7;
+}
+message CompleteInformationResp {}
+
+message StudentVerificationReq {
+  int64 userId = 1;
+  string schoolName = 2;
+  string studentId = 3;
+  string enrollmentYear = 4;
+  string studentIdPhoto = 5;
+}
+message StudentVerificationResp {}
 service User {
   rpc SendTextMessage(SendTextMessageReq) returns(SendTextMessageResp);//短信发送
+  rpc Register(RegisterReq) returns(RegisterResp);//注册(自动登录)
+  rpc Login(LoginReq) returns(LoginResp);//登录
+  rpc ForgotPassword(ForgotPasswordReq) returns(ForgotPasswordResp);//修改密码
+  rpc CompleteInformation(CompleteInformationReq) returns(CompleteInformationResp);//完善信息(身份证的绑定)
+  rpc StudentVerification(StudentVerificationReq) returns(StudentVerificationResp);//学生认证
 }

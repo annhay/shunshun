@@ -14,8 +14,15 @@ type AppConfig struct {
 		Password string `json:"password"`
 		DB       int    `json:"db"`
 	}
-	HuYi struct {
-		APIID  string `json:"APIID,omitempty"`
+	Zap struct {
+		LogDir      string `json:"logDir"`
+		MaxAge      int    `json:"maxAge"`
+		Compress    bool   `json:"compress"`
+		Level       string `json:"level"`
+		Development bool   `json:"development"`
+	}
+	Huyi struct {
+		APIID  string `json:",omitempty"`
 		APIKEY string `json:"APIKEY,omitempty"`
 	}
 }

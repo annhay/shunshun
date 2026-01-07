@@ -20,7 +20,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-// 客户端管理器
+// ClientManager 客户端管理器
 type ClientManager struct {
 	clients   map[*websocket.Conn]bool
 	mutex     sync.Mutex

@@ -4,11 +4,13 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"shunshun/internal/api-gateway/router"
+	"shunshun/internal/pkg/initialization"
 	"syscall"
 	"time"
 
@@ -16,6 +18,7 @@ import (
 )
 
 func main() {
+	initialization.GatewayInit()
 	r := router.LoadRouter()
 	r.GET("/", func(c *gin.Context) {
 		time.Sleep(5 * time.Second)
@@ -28,7 +31,7 @@ func main() {
 	}
 	go func() {
 		// service connections
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()

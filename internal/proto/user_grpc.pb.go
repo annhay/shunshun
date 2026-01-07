@@ -19,7 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_SendTextMessage_FullMethodName = "/template.User/SendTextMessage"
+	User_SendTextMessage_FullMethodName     = "/template.User/SendTextMessage"
+	User_Register_FullMethodName            = "/template.User/Register"
+	User_Login_FullMethodName               = "/template.User/Login"
+	User_ForgotPassword_FullMethodName      = "/template.User/ForgotPassword"
+	User_CompleteInformation_FullMethodName = "/template.User/CompleteInformation"
+	User_StudentVerification_FullMethodName = "/template.User/StudentVerification"
 )
 
 // UserClient is the client API for User service.
@@ -27,6 +32,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserClient interface {
 	SendTextMessage(ctx context.Context, in *SendTextMessageReq, opts ...grpc.CallOption) (*SendTextMessageResp, error)
+	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	ForgotPassword(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*ForgotPasswordResp, error)
+	CompleteInformation(ctx context.Context, in *CompleteInformationReq, opts ...grpc.CallOption) (*CompleteInformationResp, error)
+	StudentVerification(ctx context.Context, in *StudentVerificationReq, opts ...grpc.CallOption) (*StudentVerificationResp, error)
 }
 
 type userClient struct {
@@ -47,11 +57,66 @@ func (c *userClient) SendTextMessage(ctx context.Context, in *SendTextMessageReq
 	return out, nil
 }
 
+func (c *userClient) Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegisterResp)
+	err := c.cc.Invoke(ctx, User_Register_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, User_Login_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) ForgotPassword(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*ForgotPasswordResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ForgotPasswordResp)
+	err := c.cc.Invoke(ctx, User_ForgotPassword_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) CompleteInformation(ctx context.Context, in *CompleteInformationReq, opts ...grpc.CallOption) (*CompleteInformationResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CompleteInformationResp)
+	err := c.cc.Invoke(ctx, User_CompleteInformation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) StudentVerification(ctx context.Context, in *StudentVerificationReq, opts ...grpc.CallOption) (*StudentVerificationResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StudentVerificationResp)
+	err := c.cc.Invoke(ctx, User_StudentVerification_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
 type UserServer interface {
 	SendTextMessage(context.Context, *SendTextMessageReq) (*SendTextMessageResp, error)
+	Register(context.Context, *RegisterReq) (*RegisterResp, error)
+	Login(context.Context, *LoginReq) (*LoginResp, error)
+	ForgotPassword(context.Context, *ForgotPasswordReq) (*ForgotPasswordResp, error)
+	CompleteInformation(context.Context, *CompleteInformationReq) (*CompleteInformationResp, error)
+	StudentVerification(context.Context, *StudentVerificationReq) (*StudentVerificationResp, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -64,6 +129,21 @@ type UnimplementedUserServer struct{}
 
 func (UnimplementedUserServer) SendTextMessage(context.Context, *SendTextMessageReq) (*SendTextMessageResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendTextMessage not implemented")
+}
+func (UnimplementedUserServer) Register(context.Context, *RegisterReq) (*RegisterResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedUserServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedUserServer) ForgotPassword(context.Context, *ForgotPasswordReq) (*ForgotPasswordResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ForgotPassword not implemented")
+}
+func (UnimplementedUserServer) CompleteInformation(context.Context, *CompleteInformationReq) (*CompleteInformationResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompleteInformation not implemented")
+}
+func (UnimplementedUserServer) StudentVerification(context.Context, *StudentVerificationReq) (*StudentVerificationResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StudentVerification not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -104,6 +184,96 @@ func _User_SendTextMessage_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_Register_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).Register(ctx, req.(*RegisterReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).Login(ctx, req.(*LoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_ForgotPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForgotPasswordReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).ForgotPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_ForgotPassword_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).ForgotPassword(ctx, req.(*ForgotPasswordReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_CompleteInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompleteInformationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).CompleteInformation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_CompleteInformation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).CompleteInformation(ctx, req.(*CompleteInformationReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_StudentVerification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StudentVerificationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).StudentVerification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_StudentVerification_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).StudentVerification(ctx, req.(*StudentVerificationReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +284,26 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendTextMessage",
 			Handler:    _User_SendTextMessage_Handler,
+		},
+		{
+			MethodName: "Register",
+			Handler:    _User_Register_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _User_Login_Handler,
+		},
+		{
+			MethodName: "ForgotPassword",
+			Handler:    _User_ForgotPassword_Handler,
+		},
+		{
+			MethodName: "CompleteInformation",
+			Handler:    _User_CompleteInformation_Handler,
+		},
+		{
+			MethodName: "StudentVerification",
+			Handler:    _User_StudentVerification_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

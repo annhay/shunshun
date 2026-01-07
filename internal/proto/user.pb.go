@@ -101,6 +101,558 @@ func (*SendTextMessageResp) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{1}
 }
 
+type RegisterReq struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Phone            string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	VerificationCode string                 `protobuf:"bytes,2,opt,name=verificationCode,proto3" json:"verificationCode,omitempty"`
+	Password         string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *RegisterReq) Reset() {
+	*x = RegisterReq{}
+	mi := &file_user_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterReq) ProtoMessage() {}
+
+func (x *RegisterReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterReq.ProtoReflect.Descriptor instead.
+func (*RegisterReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RegisterReq) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *RegisterReq) GetVerificationCode() string {
+	if x != nil {
+		return x.VerificationCode
+	}
+	return ""
+}
+
+func (x *RegisterReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type RegisterResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterResp) Reset() {
+	*x = RegisterResp{}
+	mi := &file_user_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterResp) ProtoMessage() {}
+
+func (x *RegisterResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterResp.ProtoReflect.Descriptor instead.
+func (*RegisterResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RegisterResp) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type LoginReq struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Phone            string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	Password         string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	VerificationCode string                 `protobuf:"bytes,3,opt,name=verificationCode,proto3" json:"verificationCode,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *LoginReq) Reset() {
+	*x = LoginReq{}
+	mi := &file_user_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginReq) ProtoMessage() {}
+
+func (x *LoginReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginReq.ProtoReflect.Descriptor instead.
+func (*LoginReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *LoginReq) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *LoginReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *LoginReq) GetVerificationCode() string {
+	if x != nil {
+		return x.VerificationCode
+	}
+	return ""
+}
+
+type LoginResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginResp) Reset() {
+	*x = LoginResp{}
+	mi := &file_user_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginResp) ProtoMessage() {}
+
+func (x *LoginResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginResp.ProtoReflect.Descriptor instead.
+func (*LoginResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *LoginResp) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type ForgotPasswordReq struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Phone            string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	VerificationCode string                 `protobuf:"bytes,2,opt,name=verificationCode,proto3" json:"verificationCode,omitempty"`
+	Password         string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	ConfirmPassword  string                 `protobuf:"bytes,4,opt,name=confirmPassword,proto3" json:"confirmPassword,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *ForgotPasswordReq) Reset() {
+	*x = ForgotPasswordReq{}
+	mi := &file_user_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ForgotPasswordReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ForgotPasswordReq) ProtoMessage() {}
+
+func (x *ForgotPasswordReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ForgotPasswordReq.ProtoReflect.Descriptor instead.
+func (*ForgotPasswordReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ForgotPasswordReq) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *ForgotPasswordReq) GetVerificationCode() string {
+	if x != nil {
+		return x.VerificationCode
+	}
+	return ""
+}
+
+func (x *ForgotPasswordReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *ForgotPasswordReq) GetConfirmPassword() string {
+	if x != nil {
+		return x.ConfirmPassword
+	}
+	return ""
+}
+
+type ForgotPasswordResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ForgotPasswordResp) Reset() {
+	*x = ForgotPasswordResp{}
+	mi := &file_user_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ForgotPasswordResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ForgotPasswordResp) ProtoMessage() {}
+
+func (x *ForgotPasswordResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ForgotPasswordResp.ProtoReflect.Descriptor instead.
+func (*ForgotPasswordResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{7}
+}
+
+type CompleteInformationReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	Cover         string                 `protobuf:"bytes,2,opt,name=cover,proto3" json:"cover,omitempty"`
+	Nickname      string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Sex           string                 `protobuf:"bytes,4,opt,name=sex,proto3" json:"sex,omitempty"`
+	RealName      string                 `protobuf:"bytes,5,opt,name=realName,proto3" json:"realName,omitempty"`
+	IdCard        string                 `protobuf:"bytes,6,opt,name=idCard,proto3" json:"idCard,omitempty"`
+	BirthdayTime  string                 `protobuf:"bytes,7,opt,name=birthdayTime,proto3" json:"birthdayTime,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CompleteInformationReq) Reset() {
+	*x = CompleteInformationReq{}
+	mi := &file_user_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompleteInformationReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompleteInformationReq) ProtoMessage() {}
+
+func (x *CompleteInformationReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompleteInformationReq.ProtoReflect.Descriptor instead.
+func (*CompleteInformationReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *CompleteInformationReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *CompleteInformationReq) GetCover() string {
+	if x != nil {
+		return x.Cover
+	}
+	return ""
+}
+
+func (x *CompleteInformationReq) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *CompleteInformationReq) GetSex() string {
+	if x != nil {
+		return x.Sex
+	}
+	return ""
+}
+
+func (x *CompleteInformationReq) GetRealName() string {
+	if x != nil {
+		return x.RealName
+	}
+	return ""
+}
+
+func (x *CompleteInformationReq) GetIdCard() string {
+	if x != nil {
+		return x.IdCard
+	}
+	return ""
+}
+
+func (x *CompleteInformationReq) GetBirthdayTime() string {
+	if x != nil {
+		return x.BirthdayTime
+	}
+	return ""
+}
+
+type CompleteInformationResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CompleteInformationResp) Reset() {
+	*x = CompleteInformationResp{}
+	mi := &file_user_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompleteInformationResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompleteInformationResp) ProtoMessage() {}
+
+func (x *CompleteInformationResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompleteInformationResp.ProtoReflect.Descriptor instead.
+func (*CompleteInformationResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{9}
+}
+
+type StudentVerificationReq struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	UserId         int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	SchoolName     string                 `protobuf:"bytes,2,opt,name=schoolName,proto3" json:"schoolName,omitempty"`
+	StudentId      string                 `protobuf:"bytes,3,opt,name=studentId,proto3" json:"studentId,omitempty"`
+	EnrollmentYear string                 `protobuf:"bytes,4,opt,name=enrollmentYear,proto3" json:"enrollmentYear,omitempty"`
+	StudentIdPhoto string                 `protobuf:"bytes,5,opt,name=studentIdPhoto,proto3" json:"studentIdPhoto,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *StudentVerificationReq) Reset() {
+	*x = StudentVerificationReq{}
+	mi := &file_user_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StudentVerificationReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StudentVerificationReq) ProtoMessage() {}
+
+func (x *StudentVerificationReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StudentVerificationReq.ProtoReflect.Descriptor instead.
+func (*StudentVerificationReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *StudentVerificationReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *StudentVerificationReq) GetSchoolName() string {
+	if x != nil {
+		return x.SchoolName
+	}
+	return ""
+}
+
+func (x *StudentVerificationReq) GetStudentId() string {
+	if x != nil {
+		return x.StudentId
+	}
+	return ""
+}
+
+func (x *StudentVerificationReq) GetEnrollmentYear() string {
+	if x != nil {
+		return x.EnrollmentYear
+	}
+	return ""
+}
+
+func (x *StudentVerificationReq) GetStudentIdPhoto() string {
+	if x != nil {
+		return x.StudentIdPhoto
+	}
+	return ""
+}
+
+type StudentVerificationResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StudentVerificationResp) Reset() {
+	*x = StudentVerificationResp{}
+	mi := &file_user_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StudentVerificationResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StudentVerificationResp) ProtoMessage() {}
+
+func (x *StudentVerificationResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StudentVerificationResp.ProtoReflect.Descriptor instead.
+func (*StudentVerificationResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{11}
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -109,9 +661,50 @@ const file_user_proto_rawDesc = "" +
 	"user.proto\x12\btemplate\"*\n" +
 	"\x12SendTextMessageReq\x12\x14\n" +
 	"\x05phone\x18\x01 \x01(\tR\x05phone\"\x15\n" +
-	"\x13SendTextMessageResp2V\n" +
+	"\x13SendTextMessageResp\"k\n" +
+	"\vRegisterReq\x12\x14\n" +
+	"\x05phone\x18\x01 \x01(\tR\x05phone\x12*\n" +
+	"\x10verificationCode\x18\x02 \x01(\tR\x10verificationCode\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"\x1e\n" +
+	"\fRegisterResp\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"h\n" +
+	"\bLoginReq\x12\x14\n" +
+	"\x05phone\x18\x01 \x01(\tR\x05phone\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12*\n" +
+	"\x10verificationCode\x18\x03 \x01(\tR\x10verificationCode\"\x1b\n" +
+	"\tLoginResp\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"\x9b\x01\n" +
+	"\x11ForgotPasswordReq\x12\x14\n" +
+	"\x05phone\x18\x01 \x01(\tR\x05phone\x12*\n" +
+	"\x10verificationCode\x18\x02 \x01(\tR\x10verificationCode\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\x12(\n" +
+	"\x0fconfirmPassword\x18\x04 \x01(\tR\x0fconfirmPassword\"\x14\n" +
+	"\x12ForgotPasswordResp\"\xcc\x01\n" +
+	"\x16CompleteInformationReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
+	"\x05cover\x18\x02 \x01(\tR\x05cover\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\x12\x10\n" +
+	"\x03sex\x18\x04 \x01(\tR\x03sex\x12\x1a\n" +
+	"\brealName\x18\x05 \x01(\tR\brealName\x12\x16\n" +
+	"\x06idCard\x18\x06 \x01(\tR\x06idCard\x12\"\n" +
+	"\fbirthdayTime\x18\a \x01(\tR\fbirthdayTime\"\x19\n" +
+	"\x17CompleteInformationResp\"\xbe\x01\n" +
+	"\x16StudentVerificationReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x1e\n" +
+	"\n" +
+	"schoolName\x18\x02 \x01(\tR\n" +
+	"schoolName\x12\x1c\n" +
+	"\tstudentId\x18\x03 \x01(\tR\tstudentId\x12&\n" +
+	"\x0eenrollmentYear\x18\x04 \x01(\tR\x0eenrollmentYear\x12&\n" +
+	"\x0estudentIdPhoto\x18\x05 \x01(\tR\x0estudentIdPhoto\"\x19\n" +
+	"\x17StudentVerificationResp2\xc8\x03\n" +
 	"\x04User\x12N\n" +
-	"\x0fSendTextMessage\x12\x1c.template.SendTextMessageReq\x1a\x1d.template.SendTextMessageRespB\x19Z\x17../../../internal/protob\x06proto3"
+	"\x0fSendTextMessage\x12\x1c.template.SendTextMessageReq\x1a\x1d.template.SendTextMessageResp\x129\n" +
+	"\bRegister\x12\x15.template.RegisterReq\x1a\x16.template.RegisterResp\x120\n" +
+	"\x05Login\x12\x12.template.LoginReq\x1a\x13.template.LoginResp\x12K\n" +
+	"\x0eForgotPassword\x12\x1b.template.ForgotPasswordReq\x1a\x1c.template.ForgotPasswordResp\x12Z\n" +
+	"\x13CompleteInformation\x12 .template.CompleteInformationReq\x1a!.template.CompleteInformationResp\x12Z\n" +
+	"\x13StudentVerification\x12 .template.StudentVerificationReq\x1a!.template.StudentVerificationRespB\x19Z\x17../../../internal/protob\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -125,19 +718,39 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_user_proto_goTypes = []any{
-	(*SendTextMessageReq)(nil),  // 0: template.SendTextMessageReq
-	(*SendTextMessageResp)(nil), // 1: template.SendTextMessageResp
+	(*SendTextMessageReq)(nil),      // 0: template.SendTextMessageReq
+	(*SendTextMessageResp)(nil),     // 1: template.SendTextMessageResp
+	(*RegisterReq)(nil),             // 2: template.RegisterReq
+	(*RegisterResp)(nil),            // 3: template.RegisterResp
+	(*LoginReq)(nil),                // 4: template.LoginReq
+	(*LoginResp)(nil),               // 5: template.LoginResp
+	(*ForgotPasswordReq)(nil),       // 6: template.ForgotPasswordReq
+	(*ForgotPasswordResp)(nil),      // 7: template.ForgotPasswordResp
+	(*CompleteInformationReq)(nil),  // 8: template.CompleteInformationReq
+	(*CompleteInformationResp)(nil), // 9: template.CompleteInformationResp
+	(*StudentVerificationReq)(nil),  // 10: template.StudentVerificationReq
+	(*StudentVerificationResp)(nil), // 11: template.StudentVerificationResp
 }
 var file_user_proto_depIdxs = []int32{
-	0, // 0: template.User.SendTextMessage:input_type -> template.SendTextMessageReq
-	1, // 1: template.User.SendTextMessage:output_type -> template.SendTextMessageResp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: template.User.SendTextMessage:input_type -> template.SendTextMessageReq
+	2,  // 1: template.User.Register:input_type -> template.RegisterReq
+	4,  // 2: template.User.Login:input_type -> template.LoginReq
+	6,  // 3: template.User.ForgotPassword:input_type -> template.ForgotPasswordReq
+	8,  // 4: template.User.CompleteInformation:input_type -> template.CompleteInformationReq
+	10, // 5: template.User.StudentVerification:input_type -> template.StudentVerificationReq
+	1,  // 6: template.User.SendTextMessage:output_type -> template.SendTextMessageResp
+	3,  // 7: template.User.Register:output_type -> template.RegisterResp
+	5,  // 8: template.User.Login:output_type -> template.LoginResp
+	7,  // 9: template.User.ForgotPassword:output_type -> template.ForgotPasswordResp
+	9,  // 10: template.User.CompleteInformation:output_type -> template.CompleteInformationResp
+	11, // 11: template.User.StudentVerification:output_type -> template.StudentVerificationResp
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -151,7 +764,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

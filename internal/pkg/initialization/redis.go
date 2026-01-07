@@ -3,7 +3,6 @@ package initialization
 import (
 	"context"
 	"fmt"
-	"log"
 	"shunshun/internal/pkg/global"
 
 	"github.com/redis/go-redis/v9"
@@ -17,11 +16,9 @@ func RedisInit() {
 		Password: data.Password, // no password set
 		DB:       data.DB,       // use default DB
 	})
-
 	err := global.Rdb.Set(context.Background(), "key", "value", 0).Err()
 	if err != nil {
 		panic(err)
 	}
-
-	log.Println("redis init success")
+	global.Logger.Info("redis init success")
 }

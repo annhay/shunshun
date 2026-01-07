@@ -5,6 +5,7 @@ import (
 	"shunshun/internal/proto"
 
 	"github.com/redis/go-redis/v9"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
 
@@ -13,4 +14,5 @@ var (
 	DB         *gorm.DB
 	Rdb        *redis.Client
 	UserClient proto.UserClient
+	Logger     *zap.Logger
 )

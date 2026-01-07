@@ -12,6 +12,13 @@ Redis:
   Password: "a93abe0beb4bfc8767596e16461b1ab6"
   DB: 0
 #互亿第三方短信平台
-HuYi:
+Huyi:
   APIID: "C32660721"
   APIKEY: "5a9b8ef9e6ae7a0188f9f0c1ecf3129b"
+# zap 日志配置
+Zap:
+  LogDir: "internal/logger"
+  MaxAge: 7
+  Compress: false
+  Level: "info"
+  Development: false
