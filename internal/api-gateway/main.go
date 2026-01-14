@@ -19,6 +19,21 @@ import (
 
 func main() {
 	initialization.GatewayInit()
+	
+	// 注册API网关到Consul
+	consul := initialization.NewConsul("14.103.173.254:8500")
+	kv := initialization.ConsulKV{
+		Name:    "api-gateway",
+		Tags:    []string{"api-gateway"},
+		Address: "127.0.0.1",
+		Port:    8080,
+	}
+	serviceID, err := consul.RegisterServer(kv)
+	if err != nil {
+		log.Printf("failed to register service: %v", err)
+	}
+	defer consul.DeregisterServer(serviceID)
+	
 	r := router.LoadRouter()
 	r.GET("/", func(c *gin.Context) {
 		time.Sleep(5 * time.Second)

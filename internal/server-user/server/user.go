@@ -75,7 +75,7 @@ func (s *Server) Register(_ context.Context, in *proto.RegisterReq) (*proto.Regi
 		return nil, errors.New("短信验证码错误,请重新输入")
 	}
 	user.Phone = in.Phone
-	user.Password = in.Password
+	user.Password = utils.Md5(in.Password)
 	user.Cover = "https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" // 设置默认头像
 	if err := user.CreateUser(global.DB); err != nil {
 		return nil, err
@@ -125,7 +125,7 @@ func (s *Server) Login(_ context.Context, in *proto.LoginReq) (*proto.LoginResp,
 		if count >= 3 {
 			return nil, errors.New("登录次数过多,请2小时后在登录")
 		}
-		if user.Password != in.Password { //密码错误
+		if user.Password != utils.Md5(in.Password) { //密码错误
 			incr := global.Rdb.Incr(context.Background(), banKey) //记录错误次数
 			if incr.Val() == 1 {
 				global.Rdb.Expire(context.Background(), banKey, time.Hour*2) //设置过期时间2小时
@@ -162,7 +162,7 @@ func (s *Server) ForgotPassword(_ context.Context, in *proto.ForgotPasswordReq) 
 	if in.VerificationCode != result {
 		return nil, errors.New("短信验证码错误,请重新输入")
 	}
-	user.Password = in.Password
+	user.Password = utils.Md5(in.Password)
 	if in.Password != in.ConfirmPassword {
 		return nil, errors.New("两次输入的密码不一致,请重新输入")
 	}
@@ -212,4 +212,40 @@ func (s *Server) StudentVerification(_ context.Context, in *proto.StudentVerific
 		return nil, err
 	}
 	return &proto.StudentVerificationResp{}, nil
+}
+
+// PersonalCenter 个人中心
+func (s *Server) PersonalCenter(_ context.Context, in *proto.PersonalCenterReq) (*proto.PersonalCenterResp, error) {
+	//账号查询
+	var user model.ShunUser
+	if err := user.GetUserById(global.DB, int(in.UserId)); err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+	}
+	return &proto.PersonalCenterResp{
+		Phone:        utils.PhoneDesensitization(user.Phone),
+		Cover:        user.Cover,
+		Nickname:     user.Nickname,
+		Sex:          user.Sex,
+		BirthdayTime: utils.TimeTransformationString(user.BirthdayTime),
+	}, nil
+}
+
+// Logout 账号注销
+func (s *Server) Logout(_ context.Context, in *proto.LogoutReq) (*proto.LogoutResp, error) {
+	var user model.ShunUser
+	if err := user.GetUserById(global.DB, int(in.UserId)); err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("账号不存在")
+		}
+	}
+	if err := user.Remove(global.DB); err != nil {
+		return nil, err
+	}
+	user.Status = "3" //将账号状态改为3注销
+	if err := user.Editor(global.DB); err != nil {
+		return nil, err
+	}
+	return &proto.LogoutResp{}, nil
 }

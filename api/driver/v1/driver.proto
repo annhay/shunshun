@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package v1;
+
+option go_package = "../../../internal/proto";
+
+message NewDriverReq {
+  int64 userId = 1;
+  string RealName = 2;
+  string IdCardNo = 3;
+  string IdCardFrontUrl = 4;
+  string IdCardBackUrl = 5;
+  string IdCardExpireTime = 6;
+  string DriverLicenseNo = 7;
+  string DriverLicenseUrl = 8;
+  string DriverLicenseGetTime = 9;
+  string DriverLicenseExpireTime = 10;
+  int64 DriverAge = 11;
+  string HealthCertUrl = 12;
+  string ResidencePermitUrl = 13;
+  string CityCode = 14;
+  string VehicleNo = 15;
+  string VehicleType = 16;
+  string VehicleBrand = 17;
+  string VehicleModel = 18;
+  string VehicleColor = 19;
+  string Vin = 20;
+  string EngineNo = 21;
+  string LicenseNo = 22;
+  string LicenseExpireDate = 23;
+  string InsuranceExpireDate = 24;
+}
+message NewDriverResp {}
+
+message UpdDriverReq {
+  int64 userId = 1;
+  string RealName = 2;
+  string IdCardNo = 3;
+  string IdCardFrontUrl = 4;
+  string IdCardBackUrl = 5;
+  string IdCardExpireTime = 6;
+  string DriverLicenseNo = 7;
+  string DriverLicenseUrl = 8;
+  string DriverLicenseGetTime = 9;
+  string DriverLicenseExpireTime = 10;
+  int64 DriverAge = 11;
+  string HealthCertUrl = 12;
+  string ResidencePermitUrl = 13;
+  string CityCode = 14;
+  string VehicleNo = 15;
+  string VehicleType = 16;
+  string VehicleBrand = 17;
+  string VehicleModel = 18;
+  string VehicleColor = 19;
+  string Vin = 20;
+  string EngineNo = 21;
+  string LicenseNo = 22;
+  string LicenseExpireDate = 23;
+  string InsuranceExpireDate = 24;
+}
+message UpdDriverResp {}
+service Driver {
+  rpc NewDriver(NewDriverReq) returns(NewDriverResp);//司机信息添加
+  rpc UpdDriver(UpdDriverReq) returns(UpdDriverResp);//司机信息修改
+}

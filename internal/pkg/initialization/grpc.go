@@ -31,19 +31,6 @@ import (
 
 // UserGrpcClient 用户服务客户端
 func UserGrpcClient() {
-	// consul 服务实例注册
-	consul := NewConsul("14.103.173.254:8500")
-	kv := ConsulKV{
-		Name:    "user-server",
-		Tags:    []string{"user-server"},
-		Address: "127.0.0.1",
-		Port:    50051,
-	}
-	err := consul.RegisterServer(kv)
-	if err != nil {
-		return
-	}
-	
 	flag.Parse()
 	// Set up a connection to the server.
 	conn, err := grpc.NewClient("127.0.0.1:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -51,4 +38,15 @@ func UserGrpcClient() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	global.UserClient = proto.NewUserClient(conn)
+}
+
+// DriverGrpcClient 司机服务客户端
+func DriverGrpcClient() {
+	flag.Parse()
+	// Set up a connection to the server.
+	conn, err := grpc.NewClient("127.0.0.1:50052", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	global.DriverClient = proto.NewDriverClient(conn)
 }

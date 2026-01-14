@@ -10,9 +10,10 @@ import (
 )
 
 var (
-	AppConf    *configs.AppConfig
-	DB         *gorm.DB
-	Rdb        *redis.Client
-	UserClient proto.UserClient
-	Logger     *zap.Logger
+	AppConf      *configs.AppConfig
+	DB           *gorm.DB
+	Rdb          *redis.Client
+	Logger       *zap.Logger
+	UserClient   proto.UserClient
+	DriverClient proto.DriverClient
 )

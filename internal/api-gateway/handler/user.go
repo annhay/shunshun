@@ -135,3 +135,27 @@ func StudentVerification(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "认证成功"})
 }
+
+// PersonalCenter 个人中心
+func PersonalCenter(c *gin.Context) {
+	center, err := global.UserClient.PersonalCenter(c, &proto.PersonalCenterReq{
+		UserId: int64(c.GetUint("userId")),
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": center})
+}
+
+// Logout 账号注销
+func Logout(c *gin.Context) {
+	_, err := global.UserClient.Logout(c, &proto.LogoutReq{
+		UserId: int64(c.GetUint("userId")),
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "账号已注销"})
+}

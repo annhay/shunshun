@@ -653,12 +653,212 @@ func (*StudentVerificationResp) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{11}
 }
 
+type PersonalCenterReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PersonalCenterReq) Reset() {
+	*x = PersonalCenterReq{}
+	mi := &file_user_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PersonalCenterReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PersonalCenterReq) ProtoMessage() {}
+
+func (x *PersonalCenterReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PersonalCenterReq.ProtoReflect.Descriptor instead.
+func (*PersonalCenterReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *PersonalCenterReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type PersonalCenterResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Phone         string                 `protobuf:"bytes,1,opt,name=phone,proto3" json:"phone,omitempty"`
+	Cover         string                 `protobuf:"bytes,2,opt,name=cover,proto3" json:"cover,omitempty"`
+	Nickname      string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Sex           string                 `protobuf:"bytes,4,opt,name=sex,proto3" json:"sex,omitempty"`
+	BirthdayTime  string                 `protobuf:"bytes,5,opt,name=birthdayTime,proto3" json:"birthdayTime,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PersonalCenterResp) Reset() {
+	*x = PersonalCenterResp{}
+	mi := &file_user_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PersonalCenterResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PersonalCenterResp) ProtoMessage() {}
+
+func (x *PersonalCenterResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PersonalCenterResp.ProtoReflect.Descriptor instead.
+func (*PersonalCenterResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *PersonalCenterResp) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *PersonalCenterResp) GetCover() string {
+	if x != nil {
+		return x.Cover
+	}
+	return ""
+}
+
+func (x *PersonalCenterResp) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *PersonalCenterResp) GetSex() string {
+	if x != nil {
+		return x.Sex
+	}
+	return ""
+}
+
+func (x *PersonalCenterResp) GetBirthdayTime() string {
+	if x != nil {
+		return x.BirthdayTime
+	}
+	return ""
+}
+
+type LogoutReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutReq) Reset() {
+	*x = LogoutReq{}
+	mi := &file_user_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutReq) ProtoMessage() {}
+
+func (x *LogoutReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutReq.ProtoReflect.Descriptor instead.
+func (*LogoutReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *LogoutReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type LogoutResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutResp) Reset() {
+	*x = LogoutResp{}
+	mi := &file_user_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutResp) ProtoMessage() {}
+
+func (x *LogoutResp) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutResp.ProtoReflect.Descriptor instead.
+func (*LogoutResp) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{15}
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"user.proto\x12\btemplate\"*\n" +
+	"user.proto\x12\x02v1\"*\n" +
 	"\x12SendTextMessageReq\x12\x14\n" +
 	"\x05phone\x18\x01 \x01(\tR\x05phone\"\x15\n" +
 	"\x13SendTextMessageResp\"k\n" +
@@ -697,14 +897,28 @@ const file_user_proto_rawDesc = "" +
 	"\tstudentId\x18\x03 \x01(\tR\tstudentId\x12&\n" +
 	"\x0eenrollmentYear\x18\x04 \x01(\tR\x0eenrollmentYear\x12&\n" +
 	"\x0estudentIdPhoto\x18\x05 \x01(\tR\x0estudentIdPhoto\"\x19\n" +
-	"\x17StudentVerificationResp2\xc8\x03\n" +
-	"\x04User\x12N\n" +
-	"\x0fSendTextMessage\x12\x1c.template.SendTextMessageReq\x1a\x1d.template.SendTextMessageResp\x129\n" +
-	"\bRegister\x12\x15.template.RegisterReq\x1a\x16.template.RegisterResp\x120\n" +
-	"\x05Login\x12\x12.template.LoginReq\x1a\x13.template.LoginResp\x12K\n" +
-	"\x0eForgotPassword\x12\x1b.template.ForgotPasswordReq\x1a\x1c.template.ForgotPasswordResp\x12Z\n" +
-	"\x13CompleteInformation\x12 .template.CompleteInformationReq\x1a!.template.CompleteInformationResp\x12Z\n" +
-	"\x13StudentVerification\x12 .template.StudentVerificationReq\x1a!.template.StudentVerificationRespB\x19Z\x17../../../internal/protob\x06proto3"
+	"\x17StudentVerificationResp\"+\n" +
+	"\x11PersonalCenterReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\"\x92\x01\n" +
+	"\x12PersonalCenterResp\x12\x14\n" +
+	"\x05phone\x18\x01 \x01(\tR\x05phone\x12\x14\n" +
+	"\x05cover\x18\x02 \x01(\tR\x05cover\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\x12\x10\n" +
+	"\x03sex\x18\x04 \x01(\tR\x03sex\x12\"\n" +
+	"\fbirthdayTime\x18\x05 \x01(\tR\fbirthdayTime\"#\n" +
+	"\tLogoutReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\"\f\n" +
+	"\n" +
+	"LogoutResp2\xea\x03\n" +
+	"\x04User\x12B\n" +
+	"\x0fSendTextMessage\x12\x16.v1.SendTextMessageReq\x1a\x17.v1.SendTextMessageResp\x12-\n" +
+	"\bRegister\x12\x0f.v1.RegisterReq\x1a\x10.v1.RegisterResp\x12$\n" +
+	"\x05Login\x12\f.v1.LoginReq\x1a\r.v1.LoginResp\x12?\n" +
+	"\x0eForgotPassword\x12\x15.v1.ForgotPasswordReq\x1a\x16.v1.ForgotPasswordResp\x12N\n" +
+	"\x13CompleteInformation\x12\x1a.v1.CompleteInformationReq\x1a\x1b.v1.CompleteInformationResp\x12N\n" +
+	"\x13StudentVerification\x12\x1a.v1.StudentVerificationReq\x1a\x1b.v1.StudentVerificationResp\x12?\n" +
+	"\x0ePersonalCenter\x12\x15.v1.PersonalCenterReq\x1a\x16.v1.PersonalCenterResp\x12'\n" +
+	"\x06Logout\x12\r.v1.LogoutReq\x1a\x0e.v1.LogoutRespB\x19Z\x17../../../internal/protob\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once
@@ -718,36 +932,44 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_user_proto_goTypes = []any{
-	(*SendTextMessageReq)(nil),      // 0: template.SendTextMessageReq
-	(*SendTextMessageResp)(nil),     // 1: template.SendTextMessageResp
-	(*RegisterReq)(nil),             // 2: template.RegisterReq
-	(*RegisterResp)(nil),            // 3: template.RegisterResp
-	(*LoginReq)(nil),                // 4: template.LoginReq
-	(*LoginResp)(nil),               // 5: template.LoginResp
-	(*ForgotPasswordReq)(nil),       // 6: template.ForgotPasswordReq
-	(*ForgotPasswordResp)(nil),      // 7: template.ForgotPasswordResp
-	(*CompleteInformationReq)(nil),  // 8: template.CompleteInformationReq
-	(*CompleteInformationResp)(nil), // 9: template.CompleteInformationResp
-	(*StudentVerificationReq)(nil),  // 10: template.StudentVerificationReq
-	(*StudentVerificationResp)(nil), // 11: template.StudentVerificationResp
+	(*SendTextMessageReq)(nil),      // 0: v1.SendTextMessageReq
+	(*SendTextMessageResp)(nil),     // 1: v1.SendTextMessageResp
+	(*RegisterReq)(nil),             // 2: v1.RegisterReq
+	(*RegisterResp)(nil),            // 3: v1.RegisterResp
+	(*LoginReq)(nil),                // 4: v1.LoginReq
+	(*LoginResp)(nil),               // 5: v1.LoginResp
+	(*ForgotPasswordReq)(nil),       // 6: v1.ForgotPasswordReq
+	(*ForgotPasswordResp)(nil),      // 7: v1.ForgotPasswordResp
+	(*CompleteInformationReq)(nil),  // 8: v1.CompleteInformationReq
+	(*CompleteInformationResp)(nil), // 9: v1.CompleteInformationResp
+	(*StudentVerificationReq)(nil),  // 10: v1.StudentVerificationReq
+	(*StudentVerificationResp)(nil), // 11: v1.StudentVerificationResp
+	(*PersonalCenterReq)(nil),       // 12: v1.PersonalCenterReq
+	(*PersonalCenterResp)(nil),      // 13: v1.PersonalCenterResp
+	(*LogoutReq)(nil),               // 14: v1.LogoutReq
+	(*LogoutResp)(nil),              // 15: v1.LogoutResp
 }
 var file_user_proto_depIdxs = []int32{
-	0,  // 0: template.User.SendTextMessage:input_type -> template.SendTextMessageReq
-	2,  // 1: template.User.Register:input_type -> template.RegisterReq
-	4,  // 2: template.User.Login:input_type -> template.LoginReq
-	6,  // 3: template.User.ForgotPassword:input_type -> template.ForgotPasswordReq
-	8,  // 4: template.User.CompleteInformation:input_type -> template.CompleteInformationReq
-	10, // 5: template.User.StudentVerification:input_type -> template.StudentVerificationReq
-	1,  // 6: template.User.SendTextMessage:output_type -> template.SendTextMessageResp
-	3,  // 7: template.User.Register:output_type -> template.RegisterResp
-	5,  // 8: template.User.Login:output_type -> template.LoginResp
-	7,  // 9: template.User.ForgotPassword:output_type -> template.ForgotPasswordResp
-	9,  // 10: template.User.CompleteInformation:output_type -> template.CompleteInformationResp
-	11, // 11: template.User.StudentVerification:output_type -> template.StudentVerificationResp
-	6,  // [6:12] is the sub-list for method output_type
-	0,  // [0:6] is the sub-list for method input_type
+	0,  // 0: v1.User.SendTextMessage:input_type -> v1.SendTextMessageReq
+	2,  // 1: v1.User.Register:input_type -> v1.RegisterReq
+	4,  // 2: v1.User.Login:input_type -> v1.LoginReq
+	6,  // 3: v1.User.ForgotPassword:input_type -> v1.ForgotPasswordReq
+	8,  // 4: v1.User.CompleteInformation:input_type -> v1.CompleteInformationReq
+	10, // 5: v1.User.StudentVerification:input_type -> v1.StudentVerificationReq
+	12, // 6: v1.User.PersonalCenter:input_type -> v1.PersonalCenterReq
+	14, // 7: v1.User.Logout:input_type -> v1.LogoutReq
+	1,  // 8: v1.User.SendTextMessage:output_type -> v1.SendTextMessageResp
+	3,  // 9: v1.User.Register:output_type -> v1.RegisterResp
+	5,  // 10: v1.User.Login:output_type -> v1.LoginResp
+	7,  // 11: v1.User.ForgotPassword:output_type -> v1.ForgotPasswordResp
+	9,  // 12: v1.User.CompleteInformation:output_type -> v1.CompleteInformationResp
+	11, // 13: v1.User.StudentVerification:output_type -> v1.StudentVerificationResp
+	13, // 14: v1.User.PersonalCenter:output_type -> v1.PersonalCenterResp
+	15, // 15: v1.User.Logout:output_type -> v1.LogoutResp
+	8,  // [8:16] is the sub-list for method output_type
+	0,  // [0:8] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -764,7 +986,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_proto_rawDesc), len(file_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

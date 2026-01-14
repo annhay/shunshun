@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package template;
+
+option go_package = "../../../internal/proto";
+
+message NewOrderReq {
+
+}
+message NewOrderResp {
+
+}
+service Order {
+  rpc NewOrder(NewOrderReq) returns(NewOrderResp);
+}

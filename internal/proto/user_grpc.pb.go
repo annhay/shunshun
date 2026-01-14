@@ -19,12 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_SendTextMessage_FullMethodName     = "/template.User/SendTextMessage"
-	User_Register_FullMethodName            = "/template.User/Register"
-	User_Login_FullMethodName               = "/template.User/Login"
-	User_ForgotPassword_FullMethodName      = "/template.User/ForgotPassword"
-	User_CompleteInformation_FullMethodName = "/template.User/CompleteInformation"
-	User_StudentVerification_FullMethodName = "/template.User/StudentVerification"
+	User_SendTextMessage_FullMethodName     = "/v1.User/SendTextMessage"
+	User_Register_FullMethodName            = "/v1.User/Register"
+	User_Login_FullMethodName               = "/v1.User/Login"
+	User_ForgotPassword_FullMethodName      = "/v1.User/ForgotPassword"
+	User_CompleteInformation_FullMethodName = "/v1.User/CompleteInformation"
+	User_StudentVerification_FullMethodName = "/v1.User/StudentVerification"
+	User_PersonalCenter_FullMethodName      = "/v1.User/PersonalCenter"
+	User_Logout_FullMethodName              = "/v1.User/Logout"
 )
 
 // UserClient is the client API for User service.
@@ -37,6 +39,8 @@ type UserClient interface {
 	ForgotPassword(ctx context.Context, in *ForgotPasswordReq, opts ...grpc.CallOption) (*ForgotPasswordResp, error)
 	CompleteInformation(ctx context.Context, in *CompleteInformationReq, opts ...grpc.CallOption) (*CompleteInformationResp, error)
 	StudentVerification(ctx context.Context, in *StudentVerificationReq, opts ...grpc.CallOption) (*StudentVerificationResp, error)
+	PersonalCenter(ctx context.Context, in *PersonalCenterReq, opts ...grpc.CallOption) (*PersonalCenterResp, error)
+	Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error)
 }
 
 type userClient struct {
@@ -107,6 +111,26 @@ func (c *userClient) StudentVerification(ctx context.Context, in *StudentVerific
 	return out, nil
 }
 
+func (c *userClient) PersonalCenter(ctx context.Context, in *PersonalCenterReq, opts ...grpc.CallOption) (*PersonalCenterResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PersonalCenterResp)
+	err := c.cc.Invoke(ctx, User_PersonalCenter_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LogoutResp)
+	err := c.cc.Invoke(ctx, User_Logout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility.
@@ -117,6 +141,8 @@ type UserServer interface {
 	ForgotPassword(context.Context, *ForgotPasswordReq) (*ForgotPasswordResp, error)
 	CompleteInformation(context.Context, *CompleteInformationReq) (*CompleteInformationResp, error)
 	StudentVerification(context.Context, *StudentVerificationReq) (*StudentVerificationResp, error)
+	PersonalCenter(context.Context, *PersonalCenterReq) (*PersonalCenterResp, error)
+	Logout(context.Context, *LogoutReq) (*LogoutResp, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -144,6 +170,12 @@ func (UnimplementedUserServer) CompleteInformation(context.Context, *CompleteInf
 }
 func (UnimplementedUserServer) StudentVerification(context.Context, *StudentVerificationReq) (*StudentVerificationResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StudentVerification not implemented")
+}
+func (UnimplementedUserServer) PersonalCenter(context.Context, *PersonalCenterReq) (*PersonalCenterResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PersonalCenter not implemented")
+}
+func (UnimplementedUserServer) Logout(context.Context, *LogoutReq) (*LogoutResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -274,11 +306,47 @@ func _User_StudentVerification_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_PersonalCenter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PersonalCenterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).PersonalCenter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_PersonalCenter_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).PersonalCenter(ctx, req.(*PersonalCenterReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).Logout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_Logout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).Logout(ctx, req.(*LogoutReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var User_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "template.User",
+	ServiceName: "v1.User",
 	HandlerType: (*UserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -304,6 +372,14 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "StudentVerification",
 			Handler:    _User_StudentVerification_Handler,
+		},
+		{
+			MethodName: "PersonalCenter",
+			Handler:    _User_PersonalCenter_Handler,
+		},
+		{
+			MethodName: "Logout",
+			Handler:    _User_Logout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

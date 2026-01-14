@@ -7,6 +7,7 @@ import (
 // GatewayInit 网关层初始化
 func GatewayInit() {
 	UserGrpcClient()
+	DriverGrpcClient()
 }
 
 // ServerInit 服务初始化

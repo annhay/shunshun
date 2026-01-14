@@ -25,6 +25,10 @@ func LoadRouter() *gin.Engine {
 	{
 		private.POST("/completeInformation", handler.CompleteInformation) //完善信息
 		private.POST("/studentVerification", handler.StudentVerification) //学生认证
+		private.GET("/personalCenter", handler.PersonalCenter)            //个人中心
+		private.POST("/logout", handler.Logout)                           //账号注销
+		private.POST("/newDriver", handler.NewDriver)                     //司机信息添加
+		private.POST("/updDriver", handler.UpdDriver)                     //司机信息修改
 	}
 	return router
 }

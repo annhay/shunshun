@@ -29,7 +29,7 @@ type ConsulKV struct {
 }
 
 // RegisterServer consul注册方法
-func (c *ConsulClient) RegisterServer(cfg ConsulKV) error {
+func (c *ConsulClient) RegisterServer(cfg ConsulKV) (string, error) {
 	registration := capi.AgentServiceRegistration{
 		ID:      uuid.NewString(),
 		Name:    cfg.Name,
@@ -37,5 +37,11 @@ func (c *ConsulClient) RegisterServer(cfg ConsulKV) error {
 		Port:    cfg.Port,
 		Address: cfg.Address,
 	}
-	return c.Client.Agent().ServiceRegister(&registration)
+	err := c.Client.Agent().ServiceRegister(&registration)
+	return registration.ID, err
+}
+
+// DeregisterServer consul注销方法
+func (c *ConsulClient) DeregisterServer(serviceID string) error {
+	return c.Client.Agent().ServiceDeregister(serviceID)
 }

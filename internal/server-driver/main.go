@@ -27,7 +27,7 @@ import (
 	"os/signal"
 	"shunshun/internal/pkg/initialization"
 	"shunshun/internal/proto"
-	"shunshun/internal/server-user/server"
+	"shunshun/internal/server-driver/server"
 	"syscall"
 
 	"google.golang.org/grpc"
@@ -40,10 +40,10 @@ func main() {
 	// 注册到Consul
 	consul := initialization.NewConsul("14.103.173.254:8500")
 	kv := initialization.ConsulKV{
-		Name:    "user-server",
-		Tags:    []string{"user-server"},
+		Name:    "driver-server",
+		Tags:    []string{"driver-server"},
 		Address: "127.0.0.1",
-		Port:    50051,
+		Port:    50052,
 	}
 	serviceID, err := consul.RegisterServer(kv)
 	if err != nil {
@@ -52,12 +52,12 @@ func main() {
 	defer consul.DeregisterServer(serviceID)
 
 	flag.Parse()
-	lis, err := net.Listen("tcp", "127.0.0.1:50051")
+	lis, err := net.Listen("tcp", "127.0.0.1:50052")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	proto.RegisterUserServer(s, &server.Server{})
+	proto.RegisterDriverServer(s, &server.Server{})
 	log.Printf("server listening at %v", lis.Addr())
 
 	// 启动服务

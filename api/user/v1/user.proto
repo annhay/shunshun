@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package template;
+package v1;
 
 option go_package = "../../../internal/proto";
 
@@ -54,6 +54,22 @@ message StudentVerificationReq {
   string studentIdPhoto = 5;
 }
 message StudentVerificationResp {}
+
+message PersonalCenterReq {
+  int64 userId = 1;
+}
+message PersonalCenterResp {
+  string phone = 1;
+  string cover = 2;
+  string nickname = 3;
+  string sex = 4;
+  string birthdayTime = 5;
+}
+
+message LogoutReq {
+  int64 userId = 1;
+}
+message LogoutResp {}
 service User {
   rpc SendTextMessage(SendTextMessageReq) returns(SendTextMessageResp);//短信发送
   rpc Register(RegisterReq) returns(RegisterResp);//注册(自动登录)
@@ -61,4 +77,6 @@ service User {
   rpc ForgotPassword(ForgotPasswordReq) returns(ForgotPasswordResp);//修改密码
   rpc CompleteInformation(CompleteInformationReq) returns(CompleteInformationResp);//完善信息(身份证的绑定)
   rpc StudentVerification(StudentVerificationReq) returns(StudentVerificationResp);//学生认证
+  rpc PersonalCenter(PersonalCenterReq) returns(PersonalCenterResp);//个人中心****
+  rpc Logout(LogoutReq) returns(LogoutResp);//账号注销
 }

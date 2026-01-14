@@ -8,14 +8,15 @@
 ## 技术栈
 
 ### 后端
-- **编程语言**: Go
+- **编程语言**: Go 1.18+
 - **Web框架**: 自定义API网关
 - **RPC框架**: gRPC
-- **数据库**: MySQL
-- **缓存**: Redis
-- **服务注册与发现**: Consul
+- **数据库**: MySQL 8.0+
+- **缓存**: Redis 6.0+
+- **服务注册与发现**: Consul 1.10+
 - **配置管理**: Viper
 - **认证**: JWT (支持用户/司机双角色认证)
+- **日志**: Zap
 - **容器化**: Docker
 
 ### 工具与中间件
@@ -29,40 +30,27 @@
 ## 项目结构
 
 ```
-shunshun/
-├── api/                   # API定义目录
-│   └── user/              # 用户/司机统一API定义
-│       └── v1/            # API版本
-│           └── user.proto # Protobuf定义
-├── build/                 # 构建目录
-│   └── Dockerfile         # Docker构建文件
-├── configs/               # 配置文件目录
-│   └── config.yaml        # 主配置文件
-├── internal/              # 内部代码目录
-│   ├── api-gateway/       # API网关服务
-│   │   ├── handler/       # 请求处理器
-│   │   ├── middleware/    # 中间件
-│   │   ├── request/       # 请求结构定义
-│   │   ├── router/        # 路由配置
-│   │   └── main.go        # 网关入口
-│   ├── pkg/               # 公共包
-│   │   ├── configs/       # 配置处理
-│   │   ├── global/        # 全局变量
-│   │   ├── initialization/# 初始化组件
-│   │   ├── model/         # 数据模型
-│   │   └── utils/         # 工具函数
-│   ├── proto/             # Protobuf生成代码
-│   └── server-user/       # 用户/司机服务 (统一服务实现)
-│       ├── server/        # 服务实现
-│       └── main.go        # 服务入口
-├── scripts/               # 脚本目录
-│   ├── k6.js              # 性能测试脚本
-│   ├── migrate.sh         # 数据库迁移脚本
-│   └── rebate.sql         # 返利SQL
-├── .gitignore             # Git忽略文件
-├── LICENSE                # 许可证
-├── Makefile               # 构建脚本
-└── README.md              # 项目文档
+├── api/                # API接口定义
+├── configs/            # 配置文件目录
+│   └── config.yaml     # 主配置文件
+├── internal/           # 内部代码
+│   ├── api-gateway/    # API网关
+│   ├── pkg/            # 公共包
+│   │   ├── configs/    # 配置定义
+│   │   ├── global/     # 全局变量
+│   │   ├── initialization/ # 初始化
+│   │   ├── model/      # 数据模型
+│   │   └── utils/      # 工具函数
+│   ├── proto/          # Protobuf生成代码
+│   └── server/         # 服务层
+├── scripts/            # 脚本文件
+│   ├── build.sh        # 构建脚本
+│   ├── start.sh        # 启动脚本
+│   └── sql/            # SQL文件
+├── .gitignore          # Git忽略文件
+├── LICENSE             # 许可证
+├── Makefile            # 构建脚本
+└── README.md           # 项目文档
 ```
 
 ## 核心功能模块
@@ -141,12 +129,13 @@ shunshun/
 - MySQL 8.0+
 - Redis 6.0+
 - Consul 1.10+
+- Docker (可选，用于容器化部署)
 
 ### 安装步骤
 
 1. **克隆项目**
 ```bash
-git clone <项目仓库地址>
+git clone https://github.com/annhay/shunshun.git
 cd shunshun
 ```
 
@@ -168,8 +157,14 @@ make proto
 # 启动API网关
 make run-gateway
 
-# 启动用户/司机统一服务
+# 启动用户服务
 make run-user
+
+# 启动司机服务
+make run-driver
+
+# 启动订单服务
+make run-order
 ```
 
 ## 配置说明
@@ -181,50 +176,114 @@ make run-user
 - **redis**: Redis配置
 - **consul**: 服务注册与发现配置
 - **jwt**: JWT双角色认证配置
-- **log**: 日志配置
-- **map**: 地图服务API配置
-- **push**: 消息推送配置
+- **zap**: 日志配置（目录、级别、保留时间等）
 
-## 开发流程
+## API文档
+
+### 用户相关API
+- `POST /api/v1/user/register` - 用户注册
+- `POST /api/v1/user/login` - 用户登录
+- `GET /api/v1/user/profile` - 获取用户信息
+- `PUT /api/v1/user/profile` - 更新用户信息
+
+### 司机相关API
+- `POST /api/v1/driver/register` - 司机注册
+- `POST /api/v1/driver/login` - 司机登录
+- `GET /api/v1/driver/profile` - 获取司机信息
+- `PUT /api/v1/driver/profile` - 更新司机信息
+- `POST /api/v1/driver/certify` - 司机认证
+
+### 订单相关API
+- `POST /api/v1/order/create` - 创建订单
+- `GET /api/v1/order/list` - 获取订单列表
+- `GET /api/v1/order/detail` - 获取订单详情
+- `PUT /api/v1/order/cancel` - 取消订单
+- `PUT /api/v1/order/confirm` - 确认订单
+
+## 开发指南
 
 ### 代码规范
-- 遵循Go语言官方代码规范
+- 遵循Go语言标准规范
 - 使用 `go fmt` 格式化代码
-- 使用 `golint` 检查代码质量
+- 使用 `golangci-lint` 进行代码检查
 
 ### 提交规范
-- 使用语义化版本控制
-- 提交信息清晰明了
-- 遵循Conventional Commits规范
+- 提交信息使用中文
+- 提交信息格式：`[模块] 描述`
+- 例如：`[user] 修复用户登录验证问题`
 
-## 部署方式
+### 测试
+- 单元测试：`go test ./...`
+- API测试：使用K6进行压测
 
-### Docker部署
-```bash
-docker build -t shunshun-api-gateway -f build/Dockerfile .
-docker run -p 8080:8080 shunshun-api-gateway
-```
+## 部署方案
 
-### Kubernetes部署
-使用项目提供的Kubernetes配置文件进行部署（需单独创建）。
+### 本地开发环境
+- 使用Docker Compose启动依赖服务
+- 直接运行各个服务
 
-## 性能测试
+### 生产环境
+- 使用Kubernetes集群部署
+- 配置HPA自动扩缩容
+- 使用Ingress进行流量管理
+- 配置监控和告警
 
-使用K6进行性能测试：
-```bash
-k6 run scripts/k6.js
-```
+## 监控与日志
+
+### 监控
+- 使用Prometheus监控服务指标
+- 使用Grafana可视化监控数据
+- 配置告警规则
+
+### 日志
+- 使用Zap进行结构化日志
+- 日志分级：debug、info、warn、error
+- 日志轮转：每日轮转，保留7天
+- 错误日志单独存储
+
+## 安全注意事项
+
+1. **密码安全**: 使用bcrypt加密存储密码
+2. **JWT密钥**: 定期更换JWT密钥
+3. **API安全**: 实现请求频率限制，防止暴力攻击
+4. **数据脱敏**: 敏感数据（如身份证号）进行脱敏处理
+5. **HTTPS**: 生产环境使用HTTPS
+
+## 常见问题
+
+### Q: 如何添加新的API接口？
+A: 在对应的API目录下添加新的路由和处理函数，然后在API网关中注册。
+
+### Q: 如何扩展新的服务？
+A: 在internal目录下创建新的服务目录，定义Protobuf接口，实现服务逻辑，然后注册到Consul。
+
+### Q: 如何处理订单状态变更？
+A: 使用事件驱动架构，订单状态变更时触发相应的事件，通知相关服务。
+
+### Q: 如何优化系统性能？
+A: 可以从以下几个方面入手：
+   - 使用缓存减少数据库查询
+   - 优化数据库索引
+   - 使用并发处理提高效率
+   - 合理设计服务拆分
+
+## 贡献指南
+
+1. **Fork项目**
+2. **创建分支**
+3. **提交代码**
+4. **创建Pull Request**
 
 ## 许可证
 
-该项目使用MIT许可证，详见 [LICENSE](LICENSE) 文件。
-
-## 贡献
-
-欢迎提交Issue和Pull Request！
+本项目采用MIT许可证，详见LICENSE文件。
 
 ## 联系方式
+- 邮箱私信
+- 项目维护者: 无
+- 技术交流群: 无
+- 问题反馈: <issue链接>
 
-如有问题或建议，请通过以下方式联系：
-- 邮箱：contact@shunshun.com
-- 官网：www.shunshun.com
+---
+
+**顺顺网约车项目** - 让出行更简单、更安全、更便捷！
