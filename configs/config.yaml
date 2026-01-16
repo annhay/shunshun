@@ -24,6 +24,6 @@ Zap:
   Development: false
 # 阿里云服务配置
 AliYun:
-  AccessKeyID: "LTAI5tPeoGsiUTu14TXqssq6"
+  AccessKeyID: "791f39a1138d14b7378e870ebbf28609739fed53"
   AccessKeySecret: "xzbuoAlwawSI4eabx6QN1v5rUMtE9e"
 # 高德地图 Api
