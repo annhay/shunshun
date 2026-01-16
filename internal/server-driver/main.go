@@ -37,7 +37,7 @@ func main() {
 	//初始化服务
 	initialization.ServerInit()
 
-	// 注册到Consul
+	// 注册到 Consul
 	consul := initialization.NewConsul("14.103.173.254:8500")
 	kv := initialization.ConsulKV{
 		Name:    "driver-server",

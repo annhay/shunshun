@@ -20,13 +20,13 @@ func Md5(str string) string {
 	return md5str1
 }
 
-//高级加密标准（Adevanced Encryption Standard ,AES）
+//高级加密标准（Advanced Encryption Standard ,AES）
 
 // PwdKey 16,24,32位字符串的话，分别对应AES-128，AES-192，AES-256 加密方法
 // key不能泄露
 var PwdKey = []byte("DIS**#KKKDJJSKDI")
 
-// PKCS7 填充模式
+// PKCS7Padding PKCS7 填充模式
 func PKCS7Padding(ciphertext []byte, blockSize int) []byte {
 	padding := blockSize - len(ciphertext)%blockSize
 	//Repeat()函数的功能是把切片[]byte{byte(padding)}复制padding个，然后合并成新的字节切片返回
@@ -59,7 +59,7 @@ func AesEcrypt(origData []byte, key []byte) ([]byte, error) {
 	blockSize := block.BlockSize()
 	//对数据进行填充，让数据长度满足需求
 	origData = PKCS7Padding(origData, blockSize)
-	//采用AES加密方法中CBC加密模式
+	//采用 AES 加密方法中 CBC 加密模式
 	blocMode := cipher.NewCBCEncrypter(block, key[:blockSize])
 	crypted := make([]byte, len(origData))
 	//执行加密
@@ -105,7 +105,7 @@ func DePwdCode(pwd string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	//执行AES解密
+	//执行 AES 解密
 	return AesDeCrypt(pwdByte, PwdKey)
 
 }

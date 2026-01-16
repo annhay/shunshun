@@ -544,10 +544,11 @@ func (*CompleteInformationResp) Descriptor() ([]byte, []int) {
 type StudentVerificationReq struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	UserId         int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
-	SchoolName     string                 `protobuf:"bytes,2,opt,name=schoolName,proto3" json:"schoolName,omitempty"`
-	StudentId      string                 `protobuf:"bytes,3,opt,name=studentId,proto3" json:"studentId,omitempty"`
-	EnrollmentYear string                 `protobuf:"bytes,4,opt,name=enrollmentYear,proto3" json:"enrollmentYear,omitempty"`
-	StudentIdPhoto string                 `protobuf:"bytes,5,opt,name=studentIdPhoto,proto3" json:"studentIdPhoto,omitempty"`
+	RealName       string                 `protobuf:"bytes,2,opt,name=realName,proto3" json:"realName,omitempty"`
+	SchoolName     string                 `protobuf:"bytes,3,opt,name=schoolName,proto3" json:"schoolName,omitempty"`
+	StudentId      string                 `protobuf:"bytes,4,opt,name=studentId,proto3" json:"studentId,omitempty"`
+	EnrollmentYear string                 `protobuf:"bytes,5,opt,name=enrollmentYear,proto3" json:"enrollmentYear,omitempty"`
+	StudentIdPhoto string                 `protobuf:"bytes,6,opt,name=studentIdPhoto,proto3" json:"studentIdPhoto,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -587,6 +588,13 @@ func (x *StudentVerificationReq) GetUserId() int64 {
 		return x.UserId
 	}
 	return 0
+}
+
+func (x *StudentVerificationReq) GetRealName() string {
+	if x != nil {
+		return x.RealName
+	}
+	return ""
 }
 
 func (x *StudentVerificationReq) GetSchoolName() string {
@@ -888,15 +896,16 @@ const file_user_proto_rawDesc = "" +
 	"\brealName\x18\x05 \x01(\tR\brealName\x12\x16\n" +
 	"\x06idCard\x18\x06 \x01(\tR\x06idCard\x12\"\n" +
 	"\fbirthdayTime\x18\a \x01(\tR\fbirthdayTime\"\x19\n" +
-	"\x17CompleteInformationResp\"\xbe\x01\n" +
+	"\x17CompleteInformationResp\"\xda\x01\n" +
 	"\x16StudentVerificationReq\x12\x16\n" +
-	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x1e\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
+	"\brealName\x18\x02 \x01(\tR\brealName\x12\x1e\n" +
 	"\n" +
-	"schoolName\x18\x02 \x01(\tR\n" +
+	"schoolName\x18\x03 \x01(\tR\n" +
 	"schoolName\x12\x1c\n" +
-	"\tstudentId\x18\x03 \x01(\tR\tstudentId\x12&\n" +
-	"\x0eenrollmentYear\x18\x04 \x01(\tR\x0eenrollmentYear\x12&\n" +
-	"\x0estudentIdPhoto\x18\x05 \x01(\tR\x0estudentIdPhoto\"\x19\n" +
+	"\tstudentId\x18\x04 \x01(\tR\tstudentId\x12&\n" +
+	"\x0eenrollmentYear\x18\x05 \x01(\tR\x0eenrollmentYear\x12&\n" +
+	"\x0estudentIdPhoto\x18\x06 \x01(\tR\x0estudentIdPhoto\"\x19\n" +
 	"\x17StudentVerificationResp\"+\n" +
 	"\x11PersonalCenterReq\x12\x16\n" +
 	"\x06userId\x18\x01 \x01(\x03R\x06userId\"\x92\x01\n" +

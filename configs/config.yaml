@@ -22,4 +22,8 @@ Zap:
   Compress: false
   Level: "info"
   Development: false
+# 阿里云服务配置
+AliYun:
+  AccessKeyID: "LTAI5tPeoGsiUTu14TXqssq6"
+  AccessKeySecret: "xzbuoAlwawSI4eabx6QN1v5rUMtE9e"
 # 高德地图 Api

@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"errors"
+	"fmt"
 	"shunshun/internal/pkg/global"
 	"shunshun/internal/pkg/model"
 	"shunshun/internal/pkg/utils"
@@ -30,6 +31,54 @@ func (s *Server) NewDriver(_ context.Context, in *proto.NewDriverReq) (*proto.Ne
 			return nil, errors.New("您已认证")
 		}
 	}
+
+	// 如果司机上传了身份证正面照片，使用OCR自动识别信息
+	if in.IdCardFrontUrl != "" {
+		// 实际使用时，需要根据前端传递的参数进行调整
+		ocrResult, err := utils.AliOCR(in.IdCardFrontUrl, "id-card-front")
+		if err == nil {
+			// 解析 OCR 识别结果
+			parsedResult, parseErr := utils.ParseOCRResult(ocrResult, "id-card-front")
+			if parseErr == nil {
+				// 使用 OCR 识别结果填充字段
+				if parsedResult.RealName != "" && in.RealName == "" {
+					in.RealName = parsedResult.RealName
+				}
+				if parsedResult.IdCard != "" && in.IdCardNo == "" {
+					in.IdCardNo = parsedResult.IdCard
+				}
+			}
+		}
+	}
+
+	// 如果司机上传了驾驶证照片，使用OCR自动识别信息
+	if in.DriverLicenseUrl != "" {
+		// 这里假设 in.DriverLicenseUrl 是驾驶证照片的URL
+		// 实际使用时，需要根据前端传递的参数进行调整
+		ocrResult, err := utils.AliOCR(in.DriverLicenseUrl, "id-card-front")
+		if err == nil {
+			// 解析 OCR 识别结果
+			parsedResult, parseErr := utils.ParseOCRResult(ocrResult, "id-card-front")
+			if parseErr == nil {
+				// 使用 OCR 识别结果填充字段
+				if parsedResult.IdCard != "" && in.DriverLicenseNo == "" {
+					in.DriverLicenseNo = parsedResult.IdCard
+				}
+			}
+		}
+	}
+
+	// 身份证验证
+	if in.RealName != "" && in.IdCardNo != "" {
+		isValid, err := utils.VerifyIdCard(in.RealName, in.IdCardNo)
+		if err != nil {
+			return nil, fmt.Errorf("身份证验证失败: %v", err)
+		}
+		if !isValid {
+			return nil, errors.New("身份证信息不匹配")
+		}
+	}
+
 	newDriver := &model.ShunDriver{
 		UserId:                  uint64(in.UserId),
 		DriverNo:                utils.DriverNoRandom(in.UserId, in.CityCode),
@@ -85,19 +134,80 @@ func (s *Server) UpdDriver(_ context.Context, in *proto.UpdDriverReq) (*proto.Up
 		}
 	}
 
+	// 如果司机上传了身份证正面照片，使用OCR自动识别信息
+	if in.IdCardFrontUrl != "" {
+		// 这里假设 in.IdCardFrontUrl 是身份证正面照片的URL
+		// 实际使用时，需要根据前端传递的参数进行调整
+		ocrResult, err := utils.AliOCR(in.IdCardFrontUrl, "id-card-front")
+		if err == nil {
+			// 解析 OCR 识别结果
+			parsedResult, parseErr := utils.ParseOCRResult(ocrResult, "id-card-front")
+			if parseErr == nil {
+				// 使用 OCR 识别结果填充字段
+				if parsedResult.RealName != "" && in.RealName == "" {
+					in.RealName = parsedResult.RealName
+				}
+				if parsedResult.IdCard != "" && in.IdCardNo == "" {
+					in.IdCardNo = parsedResult.IdCard
+				}
+			}
+		}
+	}
+
+	// 如果司机上传了驾驶证照片，使用OCR自动识别信息
+	if in.DriverLicenseUrl != "" {
+		// 这里假设 in.DriverLicenseUrl 是驾驶证照片的URL
+		// 实际使用时，需要根据前端传递的参数进行调整
+		ocrResult, err := utils.AliOCR(in.DriverLicenseUrl, "id-card-front")
+		if err == nil {
+			// 解析 OCR 识别结果
+			parsedResult, parseErr := utils.ParseOCRResult(ocrResult, "id-card-front")
+			if parseErr == nil {
+				// 使用 OCR 识别结果填充字段
+				if parsedResult.IdCard != "" && in.DriverLicenseNo == "" {
+					in.DriverLicenseNo = parsedResult.IdCard
+				}
+			}
+		}
+	}
+
 	// 只更新提供的字段
-	driver.RealName = in.RealName
-	driver.IdCardNo = in.IdCardNo
-	driver.IdCardFrontUrl = in.IdCardFrontUrl
-	driver.IdCardBackUrl = in.IdCardBackUrl
-	driver.IdCardExpireTime = utils.StringTransformationTime(in.IdCardExpireTime)
-	driver.DriverLicenseNo = in.DriverLicenseNo
-	driver.DriverLicenseUrl = in.DriverLicenseUrl
-	driver.DriverLicenseGetTime = utils.StringTransformationTime(in.DriverLicenseGetTime)
-	driver.DrivingAge = uint8(in.DriverAge)
-	driver.HealthCertUrl = in.HealthCertUrl
-	driver.ResidencePermitUrl = in.ResidencePermitUrl
-	driver.CityCode = in.CityCode
+	if in.RealName != "" {
+		driver.RealName = in.RealName
+	}
+	if in.IdCardNo != "" {
+		driver.IdCardNo = in.IdCardNo
+	}
+	if in.IdCardFrontUrl != "" {
+		driver.IdCardFrontUrl = in.IdCardFrontUrl
+	}
+	if in.IdCardBackUrl != "" {
+		driver.IdCardBackUrl = in.IdCardBackUrl
+	}
+	if in.IdCardExpireTime != "" {
+		driver.IdCardExpireTime = utils.StringTransformationTime(in.IdCardExpireTime)
+	}
+	if in.DriverLicenseNo != "" {
+		driver.DriverLicenseNo = in.DriverLicenseNo
+	}
+	if in.DriverLicenseUrl != "" {
+		driver.DriverLicenseUrl = in.DriverLicenseUrl
+	}
+	if in.DriverLicenseGetTime != "" {
+		driver.DriverLicenseGetTime = utils.StringTransformationTime(in.DriverLicenseGetTime)
+	}
+	if in.DriverAge > 0 {
+		driver.DrivingAge = uint8(in.DriverAge)
+	}
+	if in.HealthCertUrl != "" {
+		driver.HealthCertUrl = in.HealthCertUrl
+	}
+	if in.ResidencePermitUrl != "" {
+		driver.ResidencePermitUrl = in.ResidencePermitUrl
+	}
+	if in.CityCode != "" {
+		driver.CityCode = in.CityCode
+	}
 	if err := driver.Editor(global.DB); err != nil {
 		return nil, err
 	}

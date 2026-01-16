@@ -22,7 +22,11 @@ type AppConfig struct {
 		Development bool   `json:"development"`
 	}
 	Huyi struct {
-		APIID  string `json:",omitempty"`
+		APIID  string `json:"APIID,omitempty"`
 		APIKEY string `json:"APIKEY,omitempty"`
+	}
+	AliYun struct {
+		AccessKeyID     string `json:"accessKeyID"`
+		AccessKeySecret string `json:"accessKeySecret"`
 	}
 }

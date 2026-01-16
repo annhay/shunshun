@@ -180,6 +180,45 @@ func (s *Server) CompleteInformation(_ context.Context, in *proto.CompleteInform
 			return nil, err
 		}
 	}
+
+	// 如果用户上传了身份证照片，使用OCR自动识别信息
+	if in.IdCard != "" {
+		// 这里假设 in.IdCard 是身份证照片的URL
+		// 实际使用时，需要根据前端传递的参数进行调整
+		ocrResult, err := utils.AliOCR(in.IdCard, "id-card-front")
+		if err == nil {
+			// 解析 OCR 识别结果
+			parsedResult, parseErr := utils.ParseOCRResult(ocrResult, "id-card-front")
+			if parseErr == nil {
+				// 使用 OCR 识别结果填充字段
+				if parsedResult.RealName != "" {
+					in.RealName = parsedResult.RealName
+				}
+				if parsedResult.IdCard != "" {
+					// 这里需要注意，in.IdCard 可能是照片URL，而 parsedResult.IdCard 是识别出的身份证号
+					// 实际使用时，需要根据前端传递的参数进行调整
+				}
+				if parsedResult.Birthday != "" {
+					in.BirthdayTime = parsedResult.Birthday
+				}
+				if parsedResult.Gender != "" {
+					in.Sex = parsedResult.Gender
+				}
+			}
+		}
+	}
+
+	// 身份证验证
+	if in.RealName != "" && in.IdCard != "" {
+		isValid, err := utils.VerifyIdCard(in.RealName, in.IdCard)
+		if err != nil {
+			return nil, fmt.Errorf("身份证验证失败: %v", err)
+		}
+		if !isValid {
+			return nil, errors.New("身份证信息不匹配")
+		}
+	}
+
 	newUser := &model.ShunUser{
 		Cover:        in.Cover,
 		Nickname:     in.Nickname,
@@ -202,6 +241,38 @@ func (s *Server) StudentVerification(_ context.Context, in *proto.StudentVerific
 			return nil, err
 		}
 	}
+
+	// 如果用户上传了学生证照片，使用OCR自动识别信息
+	if in.StudentIdPhoto != "" {
+		// 这里假设 in.StudentIdPhoto 是学生证照片的URL
+		// 实际使用时，需要根据前端传递的参数进行调整
+		ocrResult, err := utils.AliOCR(in.StudentIdPhoto, "id-card-front")
+		if err == nil {
+			// 解析OCR识别结果
+			parsedResult, parseErr := utils.ParseOCRResult(ocrResult, "id-card-front")
+			if parseErr == nil {
+				// 使用OCR识别结果填充字段
+				if parsedResult.SchoolName != "" {
+					in.SchoolName = parsedResult.SchoolName
+				}
+				if parsedResult.StudentId != "" {
+					in.StudentId = parsedResult.StudentId
+				}
+			}
+		}
+	}
+
+	// 学生认证
+	if in.RealName != "" && in.StudentId != "" && in.SchoolName != "" {
+		isValid, err := utils.StudentVerification(in.RealName, in.StudentId, in.SchoolName)
+		if err != nil {
+			return nil, fmt.Errorf("学生认证失败: %v", err)
+		}
+		if !isValid {
+			return nil, errors.New("学生信息不匹配")
+		}
+	}
+
 	newUser := &model.ShunUser{
 		SchoolName:     in.SchoolName,
 		StudentId:      in.StudentId,

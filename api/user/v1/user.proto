@@ -48,10 +48,11 @@ message CompleteInformationResp {}
 
 message StudentVerificationReq {
   int64 userId = 1;
-  string schoolName = 2;
-  string studentId = 3;
-  string enrollmentYear = 4;
-  string studentIdPhoto = 5;
+  string realName = 2;
+  string schoolName = 3;
+  string studentId = 4;
+  string enrollmentYear = 5;
+  string studentIdPhoto = 6;
 }
 message StudentVerificationResp {}
 
@@ -77,6 +78,6 @@ service User {
   rpc ForgotPassword(ForgotPasswordReq) returns(ForgotPasswordResp);//修改密码
   rpc CompleteInformation(CompleteInformationReq) returns(CompleteInformationResp);//完善信息(身份证的绑定)
   rpc StudentVerification(StudentVerificationReq) returns(StudentVerificationResp);//学生认证
-  rpc PersonalCenter(PersonalCenterReq) returns(PersonalCenterResp);//个人中心****
+  rpc PersonalCenter(PersonalCenterReq) returns(PersonalCenterResp);//个人中心
   rpc Logout(LogoutReq) returns(LogoutResp);//账号注销
 }
