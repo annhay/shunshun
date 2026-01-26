@@ -43,6 +43,7 @@ message CompleteInformationReq {
   string realName = 5;
   string idCard = 6;
   string birthdayTime = 7;
+  string idCardFrontUrl = 8;
 }
 message CompleteInformationResp {}
 

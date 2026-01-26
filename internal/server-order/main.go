@@ -26,8 +26,10 @@ import (
 	"os"
 	"os/signal"
 	"shunshun/internal/pkg/initialization"
+	"shunshun/internal/pkg/utils"
 	"shunshun/internal/proto"
 	"shunshun/internal/server-order/server"
+	"shunshun/internal/server-order/task"
 	"syscall"
 
 	"google.golang.org/grpc"
@@ -36,6 +38,26 @@ import (
 func main() {
 	//初始化服务
 	initialization.ServerInit()
+
+	// 启动RabbitMQ消息消费者
+	err := utils.ConsumeOrderNotifications(func(notification utils.OrderNotification) error {
+		log.Printf("Received order notification: OrderID=%d, UserID=%d, Status=%s, Message=%s",
+			notification.OrderID, notification.UserID, notification.OrderStatus, notification.Message)
+
+		// 这里可以添加具体的通知处理逻辑，比如：
+		// 1. 发送短信通知
+		// 2. 推送消息到用户App
+		// 3. 更新订单状态
+
+		return nil
+	})
+	if err != nil {
+		log.Printf("Failed to start RabbitMQ consumer: %v", err)
+		// 这里不panic，因为RabbitMQ可能暂时不可用，但系统其他功能仍可运行
+	}
+
+	// 启动订单任务调度器
+	task.StartOrderTaskScheduler()
 
 	// 注册到 Consul
 	consul := initialization.NewConsul("14.103.173.254:8500")

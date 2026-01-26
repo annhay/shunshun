@@ -13,13 +13,21 @@ import (
 )
 
 // lazyWriteSyncer 延迟打开文件的WriteSyncer
+// 只有在第一次写入时才打开文件，节省资源
+
 type lazyWriteSyncer struct {
-	filePath string
-	file     *os.File
-	mutex    sync.Mutex
+	filePath string // 文件路径
+	file     *os.File // 文件指针
+	mutex    sync.Mutex // 互斥锁，保证线程安全
 }
 
 // NewLazyWriteSyncer 创建一个延迟打开文件的WriteSyncer
+// 
+// 参数:
+//   - filePath string: 文件路径
+// 
+// 返回值:
+//   - *lazyWriteSyncer: 延迟写入器实例
 func NewLazyWriteSyncer(filePath string) *lazyWriteSyncer {
 	return &lazyWriteSyncer{
 		filePath: filePath,
@@ -27,6 +35,13 @@ func NewLazyWriteSyncer(filePath string) *lazyWriteSyncer {
 }
 
 // Write 实现WriteSyncer接口
+// 
+// 参数:
+//   - p []byte: 要写入的数据
+// 
+// 返回值:
+//   - n int: 写入的字节数
+//   - err error: 错误信息
 func (l *lazyWriteSyncer) Write(p []byte) (n int, err error) {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
@@ -44,6 +59,9 @@ func (l *lazyWriteSyncer) Write(p []byte) (n int, err error) {
 }
 
 // Sync 实现WriteSyncer接口
+// 
+// 返回值:
+//   - error: 错误信息
 func (l *lazyWriteSyncer) Sync() error {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
@@ -55,6 +73,9 @@ func (l *lazyWriteSyncer) Sync() error {
 }
 
 // InitLogger 初始化zap日志
+// 
+// 返回值:
+//   - *zap.Logger: 初始化后的zap日志实例
 func InitLogger() *zap.Logger {
 	// 获取当前文件的目录
 	currentDir, err := os.Getwd()
@@ -86,6 +107,8 @@ func InitLogger() *zap.Logger {
 		fmt.Printf("转换日志目录为绝对路径失败: %v\n", err)
 		os.Exit(1)
 	}
+	
+	// 创建日志目录
 	if err := os.MkdirAll(logDir, 0755); err != nil {
 		fmt.Printf("创建日志目录失败: %v\n", err)
 		os.Exit(1)
@@ -99,49 +122,64 @@ func InitLogger() *zap.Logger {
 
 	// 清除过期日志
 	cleanupOldLogs(logDir, maxAge)
+	
 	// 获取当前日期
 	today := time.Now().Format("2006-01-02")
 	todayLogDir := filepath.Join(logDir, today)
+	
+	// 创建今日日志目录
 	if err := os.MkdirAll(todayLogDir, 0755); err != nil {
 		fmt.Printf("创建今日日志目录失败: %v\n", err)
 		os.Exit(1)
 	}
+	
 	// 定义日志文件路径
 	infoLogPath := filepath.Join(todayLogDir, "info.log")
 	errorLogPath := filepath.Join(todayLogDir, "error.log")
+	
 	// 创建 info 日志文件
 	infoFile, err := os.OpenFile(infoLogPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Printf("创建info日志文件失败: %v\n", err)
 		os.Exit(1)
 	}
+	
 	// 配置 zap
 	config := zap.NewProductionEncoderConfig()
 	config.EncodeTime = zapcore.ISO8601TimeEncoder
+	
 	// 创建编码器
 	infoEncoder := zapcore.NewConsoleEncoder(config)
 	errorEncoder := zapcore.NewConsoleEncoder(config)
+	
 	// 创建核心
 	// Info核心只处理Info级别
 	infoCore := zapcore.NewCore(infoEncoder, zapcore.AddSync(infoFile), zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
 		return lvl == zapcore.InfoLevel
 	}))
+	
 	// Error核心处理Error及以上级别
 	// 使用延迟写入器，只有在有错误时才创建error.log文件
 	errorCore := zapcore.NewCore(errorEncoder, NewLazyWriteSyncer(errorLogPath), zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
 		return lvl >= zapcore.ErrorLevel
 	}))
+	
 	// 创建复合核心
 	core := zapcore.NewTee(
 		infoCore,
 		errorCore,
 	)
-	// logger
+	
+	// 创建logger，添加调用者信息
 	logger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1))
 	return logger
 }
 
 // cleanupOldLogs 清除过期日志
+// 
+// 参数:
+//   - logDir string: 日志目录
+//   - maxAge int: 保留天数
 func cleanupOldLogs(logDir string, maxAge int) {
 	// 获取过期日期
 	expireDate := time.Now().AddDate(0, 0, -maxAge)
@@ -154,12 +192,12 @@ func cleanupOldLogs(logDir string, maxAge int) {
 		return
 	}
 
-	// 遍历目录，删除7天前的日志
+	// 遍历目录，删除过期日志
 	for _, dir := range dirs {
 		if dir.IsDir() {
 			// 检查目录名是否为日期格式
 			if _, err := time.Parse("2006-01-02", dir.Name()); err == nil {
-				// 如果目录日期早于7天前，则删除
+				// 如果目录日期早于过期日期，则删除
 				if dir.Name() < expireDateStr {
 					dirPath := filepath.Join(logDir, dir.Name())
 					if err := os.RemoveAll(dirPath); err != nil {

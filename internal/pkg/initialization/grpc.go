@@ -50,3 +50,14 @@ func DriverGrpcClient() {
 	}
 	global.DriverClient = proto.NewDriverClient(conn)
 }
+
+// OrderGrpcClient 订单服务客户端
+func OrderGrpcClient() {
+	flag.Parse()
+	// Set up a connection to the server.
+	conn, err := grpc.NewClient("127.0.0.1:50053", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	global.OrderClient = proto.NewOrderClient(conn)
+}

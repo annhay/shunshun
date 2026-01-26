@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完善信息 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .input-focus {
+                @apply focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-primary font-medium">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 完善信息表单 -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center mb-6">
+                        <a href="personal-center.html" class="text-gray-600 hover:text-primary mr-4">
+                            <i class="fa fa-arrow-left text-xl"></i>
+                        </a>
+                        <h2 class="text-2xl font-bold text-gray-800">完善个人信息</h2>
+                    </div>
+                    
+                    <form id="complete-information-form" class="space-y-6">
+                        <!-- 头像上传 -->
+                        <div class="text-center">
+                            <div class="relative inline-block mb-4">
+                                <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden border-4 border-gray-100 shadow-md">
+                                    <img src="https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" 
+                                         alt="用户头像" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute bottom-0 right-0 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
+                                    <i class="fa fa-camera"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">点击更换头像</p>
+                            <input type="file" id="avatar" name="avatar" class="hidden" accept="image/*">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 昵称 -->
+                            <div>
+                                <label for="nickname" class="block text-sm font-medium text-gray-700 mb-1">昵称</label>
+                                <input type="text" id="nickname" name="nickname" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="请输入昵称" value="张三">
+                            </div>
+                            
+                            <!-- 性别 -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">性别</label>
+                                <div class="flex space-x-4">
+                                    <div class="flex items-center">
+                                        <input id="sex-male" name="sex" type="radio" value="1" 
+                                            class="h-4 w-4 text-primary focus:ring-primary border-gray-300" checked>
+                                        <label for="sex-male" class="ml-2 block text-sm text-gray-700">男</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="sex-female" name="sex" type="radio" value="2" 
+                                            class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
+                                        <label for="sex-female" class="ml-2 block text-sm text-gray-700">女</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 真实姓名 -->
+                            <div>
+                                <label for="real-name" class="block text-sm font-medium text-gray-700 mb-1">真实姓名</label>
+                                <input type="text" id="real-name" name="real-name" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="请输入真实姓名">
+                            </div>
+                            
+                            <!-- 身份证号 -->
+                            <div>
+                                <label for="id-card" class="block text-sm font-medium text-gray-700 mb-1">身份证号</label>
+                                <input type="text" id="id-card" name="id-card" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="请输入身份证号">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 出生日期 -->
+                            <div>
+                                <label for="birthday" class="block text-sm font-medium text-gray-700 mb-1">出生日期</label>
+                                <input type="date" id="birthday" name="birthday" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus">
+                            </div>
+                        </div>
+                        
+                        <!-- 身份证正面照片 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">身份证正面照片</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-all-300 cursor-pointer">
+                                <i class="fa fa-id-card text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-sm text-gray-600">点击上传身份证正面照片</p>
+                                <p class="text-xs text-gray-500 mt-1">请确保照片清晰可见，身份证信息完整</p>
+                                <input type="file" id="id-card-front" name="id-card-front" class="hidden" accept="image/*">
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <button type="submit" 
+                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all-300">
+                                保存信息
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 头像上传
+        document.querySelector('.relative.inline-block .bg-primary').addEventListener('click', function() {
+            document.getElementById('avatar').click();
+        });
+        
+        document.getElementById('avatar').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.querySelector('.relative.inline-block img');
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // 身份证照片上传
+        document.querySelector('.border-dashed').addEventListener('click', function() {
+            document.getElementById('id-card-front').click();
+        });
+        
+        document.getElementById('id-card-front').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const uploadArea = document.querySelector('.border-dashed');
+                    uploadArea.innerHTML = `
+                        <img src="${e.target.result}" alt="身份证正面" class="max-h-48 object-contain mb-2">
+                        <p class="text-sm text-gray-600">身份证正面照片</p>
+                        <p class="text-xs text-gray-500 mt-1">点击更换照片</p>
+                        <input type="file" id="id-card-front" name="id-card-front" class="hidden" accept="image/*">
+                    `;
+                    // 重新绑定点击事件
+                    document.querySelector('.border-dashed').addEventListener('click', function() {
+                        document.getElementById('id-card-front').click();
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // 表单提交
+        document.getElementById('complete-information-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nickname = document.getElementById('nickname').value.trim();
+            const realName = document.getElementById('real-name').value.trim();
+            const idCard = document.getElementById('id-card').value.trim();
+            
+            if (!nickname) {
+                alert('请输入昵称');
+                return;
+            }
+            
+            if (!realName) {
+                alert('请输入真实姓名');
+                return;
+            }
+            
+            if (!idCard) {
+                alert('请输入身份证号');
+                return;
+            }
+            
+            if (!/^[1-9]\d{5}(18|19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/.test(idCard)) {
+                alert('请输入正确的身份证号');
+                return;
+            }
+            
+            // 这里可以添加实际的保存信息API调用
+            console.log('保存个人信息:', {
+                nickname,
+                realName,
+                idCard,
+                birthday: document.getElementById('birthday').value,
+                sex: document.querySelector('input[name="sex"]:checked').value
+            });
+            
+            alert('信息保存成功');
+            window.location.href = 'personal-center.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                @apply hover:shadow-lg transition-all-300;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-primary font-medium">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 个人中心内容 -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- 侧边栏 -->
+                <div class="w-full md:w-64 bg-white rounded-xl shadow-md p-6">
+                    <div class="flex flex-col items-center mb-8">
+                        <div class="relative mb-4">
+                            <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden border-4 border-primary">
+                                <img src="https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" 
+                                     alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800">张三</h3>
+                        <p class="text-sm text-gray-500">普通用户</p>
+                    </div>
+                    
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="personal-center.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-user-circle w-6"></i>
+                                <span class="ml-3">个人信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="complete-information.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-id-card w-6"></i>
+                                <span class="ml-3">完善信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="student-verification.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-graduation-cap w-6"></i>
+                                <span class="ml-3">学生认证</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="orders.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-car w-6"></i>
+                                <span class="ml-3">我的订单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-credit-card w-6"></i>
+                                <span class="ml-3">我的钱包</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 bg-blue-50 text-primary rounded-lg">
+                                <i class="fa fa-cog w-6"></i>
+                                <span class="ml-3">设置</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-sign-out w-6"></i>
+                                <span class="ml-3">退出登录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 主内容区 -->
+                <div class="flex-1 bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">设置</h2>
+                    
+                    <!-- 设置选项卡 -->
+                    <div class="border-b border-gray-200 mb-6">
+                        <div class="flex space-x-8">
+                            <button class="px-1 py-4 border-b-2 border-primary text-primary font-medium">账户设置</button>
+                            <button class="px-1 py-4 border-b-2 border-transparent text-gray-600 hover:text-primary transition-all-300">安全设置</button>
+                            <button class="px-1 py-4 border-b-2 border-transparent text-gray-600 hover:text-primary transition-all-300">通知设置</button>
+                            <button class="px-1 py-4 border-b-2 border-transparent text-gray-600 hover:text-primary transition-all-300">关于我们</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 账户设置内容 -->
+                    <div class="space-y-6">
+                        <!-- 基本信息 -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">基本信息</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-600">昵称</span>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-800 mr-4">张三</span>
+                                        <button class="text-primary hover:underline text-sm">修改</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-600">手机号码</span>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-800 mr-4">138****5678</span>
+                                        <button class="text-primary hover:underline text-sm">修改</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-600">邮箱</span>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-800 mr-4">zhangsan@example.com</span>
+                                        <button class="text-primary hover:underline text-sm">修改</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-600">性别</span>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-800 mr-4">男</span>
+                                        <button class="text-primary hover:underline text-sm">修改</button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-600">生日</span>
+                                    <div class="flex items-center">
+                                        <span class="text-gray-800 mr-4">1990-01-01</span>
+                                        <button class="text-primary hover:underline text-sm">修改</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 密码设置 -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">密码设置</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">登录密码</span>
+                                <button class="text-primary hover:underline text-sm">修改</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 第三方登录 -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">第三方登录</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                            <i class="fa fa-wechat text-green-500"></i>
+                                        </div>
+                                        <span class="text-gray-600">微信</span>
+                                    </div>
+                                    <button class="text-primary hover:underline text-sm">绑定</button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                            <i class="fa fa-qq text-blue-500"></i>
+                                        </div>
+                                        <span class="text-gray-600">QQ</span>
+                                    </div>
+                                    <button class="text-primary hover:underline text-sm">绑定</button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                            <i class="fa fa-weibo text-red-500"></i>
+                                        </div>
+                                        <span class="text-gray-600">微博</span>
+                                    </div>
+                                    <button class="text-primary hover:underline text-sm">绑定</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 清除缓存 -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">缓存设置</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">缓存大小</span>
+                                <button class="text-primary hover:underline text-sm">清除缓存 (12.5MB)</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 版本信息 -->
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">版本信息</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">当前版本</span>
+                                <span class="text-gray-800">v1.0.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // API基础URL
+        const API_BASE_URL = 'http://localhost:8080/api/v1';
+        
+        // 工具函数
+        function showLoading() {
+            // 显示加载状态
+            if (!document.querySelector('#loading-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.id = 'loading-overlay';
+                overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                overlay.innerHTML = `
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        <p class="mt-2 text-center">加载中...</p>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        }
+        
+        function hideLoading() {
+            // 隐藏加载状态
+            const overlay = document.querySelector('#loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function showError(message) {
+            // 显示错误信息
+            alert(message);
+        }
+        
+        function showSuccess(message) {
+            // 显示成功信息
+            alert(message);
+        }
+        
+        // API调用函数
+        async function fetchAPI(endpoint, method = 'GET', data = null) {
+            showLoading();
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                };
+                
+                const options = {
+                    method,
+                    headers,
+                    credentials: 'include'
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API request failed:', error);
+                showError('网络请求失败，请稍后重试');
+                throw error;
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // 退出登录
+        document.querySelector('a[href="#"]:contains("退出登录")').addEventListener('click', async function(e) {
+            e.preventDefault();
+            if (confirm('确定要退出登录吗？')) {
+                try {
+                    await fetchAPI('/user/logout', 'POST');
+                    localStorage.removeItem('token');
+                    showSuccess('退出登录成功');
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    // 即使API调用失败，也跳转到登录页面
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+        
+        // 设置选项卡切换
+        document.querySelectorAll('.border-b button').forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有选项卡的选中状态
+                document.querySelectorAll('.border-b button').forEach(btn => {
+                    btn.classList.remove('border-primary', 'text-primary');
+                    btn.classList.add('border-transparent', 'text-gray-600');
+                });
+                
+                // 添加当前选项卡的选中状态
+                this.classList.remove('border-transparent', 'text-gray-600');
+                this.classList.add('border-primary', 'text-primary');
+            });
+        });
+        
+        // 修改按钮点击事件
+        document.querySelectorAll('button:contains("修改")').forEach(button => {
+            button.addEventListener('click', function() {
+                const field = this.closest('div.flex').querySelector('span.text-gray-600').textContent;
+                const currentValue = this.closest('div.flex').querySelector('span.text-gray-800').textContent;
+                
+                let newValue;
+                if (field === '昵称') {
+                    newValue = prompt('请输入新昵称:', currentValue);
+                    if (newValue && newValue.trim() !== currentValue) {
+                        updateUserInfo('nickname', newValue.trim());
+                    }
+                } else if (field === '手机号码') {
+                    alert('修改手机号需要验证，请联系客服');
+                } else if (field === '邮箱') {
+                    newValue = prompt('请输入新邮箱:', currentValue);
+                    if (newValue && newValue.trim() !== currentValue) {
+                        updateUserInfo('email', newValue.trim());
+                    }
+                }
+            });
+        });
+        
+        // 绑定按钮点击事件
+        document.querySelectorAll('button:contains("绑定")').forEach(button => {
+            button.addEventListener('click', function() {
+                const platform = this.closest('div.flex').querySelector('span.text-gray-600').textContent;
+                alert(`${platform}绑定功能开发中`);
+            });
+        });
+        
+        // 清除缓存按钮点击事件
+        document.querySelector('button:contains("清除缓存")').addEventListener('click', function() {
+            if (confirm('确定要清除缓存吗？')) {
+                // 清除本地缓存
+                localStorage.clear();
+                sessionStorage.clear();
+                showSuccess('缓存清除成功');
+                this.textContent = '清除缓存 (0KB)';
+            }
+        });
+        
+        // 更新用户信息
+        async function updateUserInfo(field, value) {
+            try {
+                const data = {};
+                data[field] = value;
+                
+                const result = await fetchAPI('/user/update', 'POST', data);
+                if (result.code === 0) {
+                    showSuccess('修改成功');
+                    // 刷新页面
+                    location.reload();
+                } else {
+                    showError(result.message || '修改失败');
+                }
+            } catch (error) {
+                console.error('Update user info failed:', error);
+            }
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查登录状态
+            if (!localStorage.getItem('token')) {
+                window.location.href = 'login.html';
+                return;
+            }
+        });
+    </script>
+</body>
+</html>

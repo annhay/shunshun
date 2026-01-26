@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>司机认证 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                @apply hover:shadow-lg transition-all-300;
+            }
+            .step-active {
+                @apply bg-primary text-white;
+            }
+            .step-completed {
+                @apply bg-success text-white;
+            }
+            .step-pending {
+                @apply bg-gray-200 text-gray-600;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-gray-600 hover:text-primary transition-all-300">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 司机认证内容 -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- 侧边栏 -->
+                <div class="w-full md:w-64 bg-white rounded-xl shadow-md p-6">
+                    <div class="flex flex-col items-center mb-8">
+                        <div class="relative mb-4">
+                            <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden border-4 border-primary">
+                                <img src="https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" 
+                                     alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800">张三</h3>
+                        <p class="text-sm text-gray-500">普通用户</p>
+                    </div>
+                    
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="personal-center.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-user-circle w-6"></i>
+                                <span class="ml-3">个人信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="complete-information.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-id-card w-6"></i>
+                                <span class="ml-3">完善信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="student-verification.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-graduation-cap w-6"></i>
+                                <span class="ml-3">学生认证</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="driver-verification.html" class="flex items-center p-3 bg-blue-50 text-primary rounded-lg">
+                                <i class="fa fa-car w-6"></i>
+                                <span class="ml-3">司机认证</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="orders.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-list w-6"></i>
+                                <span class="ml-3">我的订单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-credit-card w-6"></i>
+                                <span class="ml-3">我的钱包</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-cog w-6"></i>
+                                <span class="ml-3">设置</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300" id="logout-btn">
+                                <i class="fa fa-sign-out w-6"></i>
+                                <span class="ml-3">退出登录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 主内容区 -->
+                <div class="flex-1 bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">司机认证</h2>
+                    
+                    <!-- 认证步骤 -->
+                    <div class="flex justify-between mb-8">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full step-active flex items-center justify-center mb-2">
+                                <span>1</span>
+                            </div>
+                            <span class="text-sm text-gray-600">基本信息</span>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 mx-2 relative">
+                            <div class="h-full bg-primary w-0 transition-all duration-500" id="progress-bar"></div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full step-pending flex items-center justify-center mb-2">
+                                <span>2</span>
+                            </div>
+                            <span class="text-sm text-gray-600">驾驶证验证</span>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full step-pending flex items-center justify-center mb-2">
+                                <span>3</span>
+                            </div>
+                            <span class="text-sm text-gray-600">车辆信息</span>
+                        </div>
+                        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full step-pending flex items-center justify-center mb-2">
+                                <span>4</span>
+                            </div>
+                            <span class="text-sm text-gray-600">运营资质</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 认证表单 -->
+                    <div class="space-y-8">
+                        <!-- 基本信息表单 -->
+                        <div class="content-section" id="step-1">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">基本信息</h3>
+                                <form id="basic-info-form" class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="real-name">
+                                                真实姓名 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="real-name" type="text" placeholder="请输入真实姓名">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="id-card">
+                                                身份证号 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="id-card" type="text" placeholder="请输入身份证号">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="phone">
+                                                手机号 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="phone" type="tel" placeholder="请输入手机号">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="email">
+                                                邮箱
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="email" type="email" placeholder="请输入邮箱">
+                                        </div>
+                                    </div>
+                                    <div class="mt-6">
+                                        <button type="button" class="btn-next bg-primary hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all-300" data-step="2">
+                                            下一步
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- 驾驶证验证表单 -->
+                        <div class="content-section hidden" id="step-2">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">驾驶证验证</h3>
+                                <form id="license-form" class="space-y-4">
+                                    <div>
+                                        <label class="block text-gray-700 text-sm font-medium mb-2" for="license-number">
+                                            驾驶证号 <span class="text-danger">*</span>
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                               id="license-number" type="text" placeholder="请输入驾驶证号">
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="license-issue-date">
+                                                发证日期 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="license-issue-date" type="date">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="license-expiry-date">
+                                                有效期至 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="license-expiry-date" type="date">
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2">
+                                                驾驶证正面 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <input type="file" class="hidden" id="license-front" accept="image/*">
+                                                <label for="license-front" class="cursor-pointer">
+                                                    <i class="fa fa-cloud-upload text-gray-400 text-3xl mb-2"></i>
+                                                    <p class="text-sm text-gray-500">点击上传驾驶证正面照片</p>
+                                                    <p class="text-xs text-gray-400 mt-1">支持JPG、PNG格式，大小不超过2MB</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2">
+                                                驾驶证反面 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <input type="file" class="hidden" id="license-back" accept="image/*">
+                                                <label for="license-back" class="cursor-pointer">
+                                                    <i class="fa fa-cloud-upload text-gray-400 text-3xl mb-2"></i>
+                                                    <p class="text-sm text-gray-500">点击上传驾驶证反面照片</p>
+                                                    <p class="text-xs text-gray-400 mt-1">支持JPG、PNG格式，大小不超过2MB</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 flex justify-between">
+                                        <button type="button" class="btn-prev bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all-300" data-step="1">
+                                            上一步
+                                        </button>
+                                        <button type="button" class="btn-next bg-primary hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all-300" data-step="3">
+                                            下一步
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- 车辆信息表单 -->
+                        <div class="content-section hidden" id="step-3">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">车辆信息</h3>
+                                <form id="vehicle-form" class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="vehicle-brand">
+                                                车辆品牌 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="vehicle-brand" type="text" placeholder="请输入车辆品牌">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="vehicle-model">
+                                                车辆型号 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="vehicle-model" type="text" placeholder="请输入车辆型号">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="vehicle-plate">
+                                                车牌号 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="vehicle-plate" type="text" placeholder="请输入车牌号">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2" for="vehicle-color">
+                                                车辆颜色 <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                                   id="vehicle-color" type="text" placeholder="请输入车辆颜色">
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2">
+                                                行驶证正面 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <input type="file" class="hidden" id="vehicle-front" accept="image/*">
+                                                <label for="vehicle-front" class="cursor-pointer">
+                                                    <i class="fa fa-cloud-upload text-gray-400 text-3xl mb-2"></i>
+                                                    <p class="text-sm text-gray-500">点击上传行驶证正面照片</p>
+                                                    <p class="text-xs text-gray-400 mt-1">支持JPG、PNG格式，大小不超过2MB</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2">
+                                                车辆照片 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <input type="file" class="hidden" id="vehicle-photo" accept="image/*">
+                                                <label for="vehicle-photo" class="cursor-pointer">
+                                                    <i class="fa fa-cloud-upload text-gray-400 text-3xl mb-2"></i>
+                                                    <p class="text-sm text-gray-500">点击上传车辆照片</p>
+                                                    <p class="text-xs text-gray-400 mt-1">支持JPG、PNG格式，大小不超过2MB</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 flex justify-between">
+                                        <button type="button" class="btn-prev bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all-300" data-step="2">
+                                            上一步
+                                        </button>
+                                        <button type="button" class="btn-next bg-primary hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all-300" data-step="4">
+                                            下一步
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- 运营资质表单 -->
+                        <div class="content-section hidden" id="step-4">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">运营资质</h3>
+                                <form id="operation-form" class="space-y-4">
+                                    <div>
+                                        <label class="block text-gray-700 text-sm font-medium mb-2" for="operation-number">
+                                            运营证号 <span class="text-danger">*</span>
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary" 
+                                               id="operation-number" type="text" placeholder="请输入运营证号">
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2">
+                                                运营证照片 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <input type="file" class="hidden" id="operation-photo" accept="image/*">
+                                                <label for="operation-photo" class="cursor-pointer">
+                                                    <i class="fa fa-cloud-upload text-gray-400 text-3xl mb-2"></i>
+                                                    <p class="text-sm text-gray-500">点击上传运营证照片</p>
+                                                    <p class="text-xs text-gray-400 mt-1">支持JPG、PNG格式，大小不超过2MB</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-medium mb-2">
+                                                车辆保险单 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                                <input type="file" class="hidden" id="insurance-photo" accept="image/*">
+                                                <label for="insurance-photo" class="cursor-pointer">
+                                                    <i class="fa fa-cloud-upload text-gray-400 text-3xl mb-2"></i>
+                                                    <p class="text-sm text-gray-500">点击上传车辆保险单照片</p>
+                                                    <p class="text-xs text-gray-400 mt-1">支持JPG、PNG格式，大小不超过2MB</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 flex justify-between">
+                                        <button type="button" class="btn-prev bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-6 rounded-lg transition-all-300" data-step="3">
+                                            上一步
+                                        </button>
+                                        <button type="submit" class="bg-primary hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all-300">
+                                            提交认证
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- 认证成功页面 -->
+                        <div class="content-section hidden" id="success-page">
+                            <div class="bg-gray-50 rounded-lg p-6 text-center">
+                                <div class="w-20 h-20 rounded-full bg-success flex items-center justify-center mx-auto mb-4">
+                                    <i class="fa fa-check text-white text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">认证提交成功</h3>
+                                <p class="text-gray-600 mb-6">您的认证信息已提交，我们将在1-3个工作日内审核，请耐心等待</p>
+                                <a href="personal-center.html" class="inline-flex items-center px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all-300">
+                                    <i class="fa fa-home mr-2"></i>
+                                    返回个人中心
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // API基础URL
+        const API_BASE_URL = 'http://localhost:8080/api/v1';
+        
+        // 工具函数
+        function showLoading() {
+            // 显示加载状态
+            if (!document.querySelector('#loading-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.id = 'loading-overlay';
+                overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                overlay.innerHTML = `
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        <p class="mt-2 text-center">加载中...</p>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        }
+        
+        function hideLoading() {
+            // 隐藏加载状态
+            const overlay = document.querySelector('#loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function showError(message) {
+            // 显示错误信息
+            alert(message);
+        }
+        
+        function showSuccess(message) {
+            // 显示成功信息
+            alert(message);
+        }
+        
+        // API调用函数
+        async function fetchAPI(endpoint, method = 'GET', data = null) {
+            showLoading();
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                };
+                
+                const options = {
+                    method,
+                    headers,
+                    credentials: 'include'
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API request failed:', error);
+                showError('网络请求失败，请稍后重试');
+                throw error;
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // 退出登录
+        document.getElementById('logout-btn').addEventListener('click', async function(e) {
+            e.preventDefault();
+            if (confirm('确定要退出登录吗？')) {
+                try {
+                    await fetchAPI('/user/logout', 'POST');
+                    localStorage.removeItem('token');
+                    showSuccess('退出登录成功');
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    // 即使API调用失败，也跳转到登录页面
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+        
+        // 步骤切换函数
+        function switchStep(step) {
+            // 隐藏所有步骤
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // 显示选中的步骤
+            const selectedStep = document.getElementById(`step-${step}`);
+            if (selectedStep) {
+                selectedStep.classList.remove('hidden');
+            }
+            
+            // 更新步骤状态
+            const steps = document.querySelectorAll('.step-pending, .step-active, .step-completed');
+            steps.forEach((stepEl, index) => {
+                const stepNum = index + 1;
+                if (stepNum < step) {
+                    stepEl.className = 'w-10 h-10 rounded-full step-completed flex items-center justify-center mb-2';
+                } else if (stepNum === step) {
+                    stepEl.className = 'w-10 h-10 rounded-full step-active flex items-center justify-center mb-2';
+                } else {
+                    stepEl.className = 'w-10 h-10 rounded-full step-pending flex items-center justify-center mb-2';
+                }
+            });
+            
+            // 更新进度条
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                const progress = ((step - 1) / 3) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+        }
+        
+        // 下一步按钮点击事件
+        document.querySelectorAll('.btn-next').forEach(button => {
+            button.addEventListener('click', function() {
+                const nextStep = parseInt(this.getAttribute('data-step'));
+                switchStep(nextStep);
+            });
+        });
+        
+        // 上一步按钮点击事件
+        document.querySelectorAll('.btn-prev').forEach(button => {
+            button.addEventListener('click', function() {
+                const prevStep = parseInt(this.getAttribute('data-step'));
+                switchStep(prevStep);
+            });
+        });
+        
+        // 认证表单提交
+        document.getElementById('operation-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // 收集所有认证信息
+            const formData = {
+                // 基本信息
+                realName: document.getElementById('real-name').value,
+                idCard: document.getElementById('id-card').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                
+                // 驾驶证信息
+                licenseNumber: document.getElementById('license-number').value,
+                licenseIssueDate: document.getElementById('license-issue-date').value,
+                licenseExpiryDate: document.getElementById('license-expiry-date').value,
+                
+                // 车辆信息
+                vehicleBrand: document.getElementById('vehicle-brand').value,
+                vehicleModel: document.getElementById('vehicle-model').value,
+                vehiclePlate: document.getElementById('vehicle-plate').value,
+                vehicleColor: document.getElementById('vehicle-color').value,
+                
+                // 运营资质
+                operationNumber: document.getElementById('operation-number').value
+            };
+            
+            try {
+                // 这里应该调用上传图片的API，然后将图片URL添加到formData中
+                // 简化处理，直接提交表单
+                const result = await fetchAPI('/driver/verify', 'POST', formData);
+                showSuccess('认证提交成功');
+                
+                // 显示成功页面
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById('success-page').classList.remove('hidden');
+            } catch (error) {
+                console.error('Driver verification failed:', error);
+            }
+        });
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查登录状态
+            if (!localStorage.getItem('token')) {
+                window.location.href = 'login.html';
+            }
+            
+            // 初始化步骤
+            switchStep(1);
+        });
+    </script>
+</body>
+</html>

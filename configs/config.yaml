@@ -26,4 +26,26 @@ Zap:
 AliYun:
   AccessKeyID: "LTAI5tPeoGsiUTu14TXqssq6"
   AccessKeySecret: "xzbuoAlwawSI4eabx6QN1v5rUMtE9e"
-# 高德地图 Api
+# 高德地图配置
+Amap:
+  APIKey: "18a073a8116fc383375623341583cef5"
+  SecretKey: "2848ba1df05282fdba42723c67f454c2" # 个人账号可不用
+  BaseURL: "https://restapi.amap.com"
+# 通义千问 AI 配置
+Tongyi:
+  APIKey: "LTAI5tPeoGsiUTu14TXqssq6" # 请替换为您的通义千问API Key
+  BaseURL: "https://dashscope.aliyuncs.com/api/v1"
+  Model: "qwen-turbo"
+# AES 加密配置
+AES:
+  SecretKey: "ShunShunSecureKey2026AES256EncryptionKey"
+# RabbitMQ 配置
+RabbitMQ:
+  Host: "localhost"
+  Port: 5672
+  User: "guest"
+  Password: "guest"
+  VHost: "/"
+  Exchange: "order_exchange"
+  Queue: "order_queue"
+  RoutingKey: "order.notification"

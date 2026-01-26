@@ -16,4 +16,5 @@ var (
 	Logger       *zap.Logger
 	UserClient   proto.UserClient
 	DriverClient proto.DriverClient
+	OrderClient  proto.OrderClient
 )

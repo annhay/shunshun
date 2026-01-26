@@ -414,16 +414,17 @@ func (*ForgotPasswordResp) Descriptor() ([]byte, []int) {
 }
 
 type CompleteInformationReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
-	Cover         string                 `protobuf:"bytes,2,opt,name=cover,proto3" json:"cover,omitempty"`
-	Nickname      string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	Sex           string                 `protobuf:"bytes,4,opt,name=sex,proto3" json:"sex,omitempty"`
-	RealName      string                 `protobuf:"bytes,5,opt,name=realName,proto3" json:"realName,omitempty"`
-	IdCard        string                 `protobuf:"bytes,6,opt,name=idCard,proto3" json:"idCard,omitempty"`
-	BirthdayTime  string                 `protobuf:"bytes,7,opt,name=birthdayTime,proto3" json:"birthdayTime,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	UserId         int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	Cover          string                 `protobuf:"bytes,2,opt,name=cover,proto3" json:"cover,omitempty"`
+	Nickname       string                 `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Sex            string                 `protobuf:"bytes,4,opt,name=sex,proto3" json:"sex,omitempty"`
+	RealName       string                 `protobuf:"bytes,5,opt,name=realName,proto3" json:"realName,omitempty"`
+	IdCard         string                 `protobuf:"bytes,6,opt,name=idCard,proto3" json:"idCard,omitempty"`
+	BirthdayTime   string                 `protobuf:"bytes,7,opt,name=birthdayTime,proto3" json:"birthdayTime,omitempty"`
+	IdCardFrontUrl string                 `protobuf:"bytes,8,opt,name=idCardFrontUrl,proto3" json:"idCardFrontUrl,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *CompleteInformationReq) Reset() {
@@ -501,6 +502,13 @@ func (x *CompleteInformationReq) GetIdCard() string {
 func (x *CompleteInformationReq) GetBirthdayTime() string {
 	if x != nil {
 		return x.BirthdayTime
+	}
+	return ""
+}
+
+func (x *CompleteInformationReq) GetIdCardFrontUrl() string {
+	if x != nil {
+		return x.IdCardFrontUrl
 	}
 	return ""
 }
@@ -887,7 +895,7 @@ const file_user_proto_rawDesc = "" +
 	"\x10verificationCode\x18\x02 \x01(\tR\x10verificationCode\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12(\n" +
 	"\x0fconfirmPassword\x18\x04 \x01(\tR\x0fconfirmPassword\"\x14\n" +
-	"\x12ForgotPasswordResp\"\xcc\x01\n" +
+	"\x12ForgotPasswordResp\"\xf4\x01\n" +
 	"\x16CompleteInformationReq\x12\x16\n" +
 	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
 	"\x05cover\x18\x02 \x01(\tR\x05cover\x12\x1a\n" +
@@ -895,7 +903,8 @@ const file_user_proto_rawDesc = "" +
 	"\x03sex\x18\x04 \x01(\tR\x03sex\x12\x1a\n" +
 	"\brealName\x18\x05 \x01(\tR\brealName\x12\x16\n" +
 	"\x06idCard\x18\x06 \x01(\tR\x06idCard\x12\"\n" +
-	"\fbirthdayTime\x18\a \x01(\tR\fbirthdayTime\"\x19\n" +
+	"\fbirthdayTime\x18\a \x01(\tR\fbirthdayTime\x12&\n" +
+	"\x0eidCardFrontUrl\x18\b \x01(\tR\x0eidCardFrontUrl\"\x19\n" +
 	"\x17CompleteInformationResp\"\xda\x01\n" +
 	"\x16StudentVerificationReq\x12\x16\n" +
 	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +

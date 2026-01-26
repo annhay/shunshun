@@ -6,60 +6,83 @@ option go_package = "../../../internal/proto";
 
 message NewDriverReq {
   int64 userId = 1;
-  string RealName = 2;
-  string IdCardNo = 3;
-  string IdCardFrontUrl = 4;
-  string IdCardBackUrl = 5;
-  string IdCardExpireTime = 6;
-  string DriverLicenseNo = 7;
-  string DriverLicenseUrl = 8;
-  string DriverLicenseGetTime = 9;
-  string DriverLicenseExpireTime = 10;
-  int64 DriverAge = 11;
-  string HealthCertUrl = 12;
-  string ResidencePermitUrl = 13;
-  string CityCode = 14;
-  string VehicleNo = 15;
-  string VehicleType = 16;
-  string VehicleBrand = 17;
-  string VehicleModel = 18;
-  string VehicleColor = 19;
-  string Vin = 20;
-  string EngineNo = 21;
-  string LicenseNo = 22;
-  string LicenseExpireDate = 23;
-  string InsuranceExpireDate = 24;
+  string realName = 2;
+  string idCardNo = 3;
+  string idCardFrontUrl = 4;
+  string idCardBackUrl = 5;
+  string idCardExpireTime = 6;
+  string driverLicenseNo = 7;
+  string driverLicenseUrl = 8;
+  string driverLicenseGetTime = 9;
+  string driverLicenseExpireTime = 10;
+  int64 driverAge = 11;
+  string healthCertUrl = 12;
+  string residencePermitUrl = 13;
+  string cityCode = 14;
+  string vehicleNo = 15;
+  string vehicleType = 16;
+  string vehicleBrand = 17;
+  string vehicleModel = 18;
+  string vehicleColor = 19;
+  string vin = 20;
+  string engineNo = 21;
+  string licenseNo = 22;
+  string licenseExpireDate = 23;
+  string insuranceExpireDate = 24;
 }
 message NewDriverResp {}
 
+message DetailDriverReq {
+  int64 userId = 1;
+}
+message DetailDriverResp {
+  string driverLicenseNo = 1;
+  string driverLicenseUrl = 2;
+  string driverLicenseGetTime = 3;
+  string driverLicenseExpireTime = 4;
+  int64 driverAge = 5;
+  string healthCertUrl = 6;
+  string residencePermitUrl = 7;
+  string cityCode = 8;
+  string vehicleNo = 9;
+  string vehicleType = 10;
+  string vehicleBrand = 11;
+  string vehicleModel = 12;
+  string vehicleColor = 13;
+  string licenseNo = 14;
+  string licenseExpireDate = 15;
+  string insuranceExpireDate = 16;
+}
+
 message UpdDriverReq {
   int64 userId = 1;
-  string RealName = 2;
-  string IdCardNo = 3;
-  string IdCardFrontUrl = 4;
-  string IdCardBackUrl = 5;
-  string IdCardExpireTime = 6;
-  string DriverLicenseNo = 7;
-  string DriverLicenseUrl = 8;
-  string DriverLicenseGetTime = 9;
-  string DriverLicenseExpireTime = 10;
-  int64 DriverAge = 11;
-  string HealthCertUrl = 12;
-  string ResidencePermitUrl = 13;
-  string CityCode = 14;
-  string VehicleNo = 15;
-  string VehicleType = 16;
-  string VehicleBrand = 17;
-  string VehicleModel = 18;
-  string VehicleColor = 19;
-  string Vin = 20;
-  string EngineNo = 21;
-  string LicenseNo = 22;
-  string LicenseExpireDate = 23;
-  string InsuranceExpireDate = 24;
+  string realName = 2;
+  string idCardNo = 3;
+  string idCardFrontUrl = 4;
+  string idCardBackUrl = 5;
+  string idCardExpireTime = 6;
+  string driverLicenseNo = 7;
+  string driverLicenseUrl = 8;
+  string driverLicenseGetTime = 9;
+  string driverLicenseExpireTime = 10;
+  int64 driverAge = 11;
+  string healthCertUrl = 12;
+  string residencePermitUrl = 13;
+  string cityCode = 14;
+  string vehicleNo = 15;
+  string vehicleType = 16;
+  string vehicleBrand = 17;
+  string vehicleModel = 18;
+  string vehicleColor = 19;
+  string vin = 20;
+  string engineNo = 21;
+  string licenseNo = 22;
+  string licenseExpireDate = 23;
+  string insuranceExpireDate = 24;
 }
 message UpdDriverResp {}
 service Driver {
   rpc NewDriver(NewDriverReq) returns(NewDriverResp);//司机信息添加
+  rpc DetailDriver(DetailDriverReq) returns(DetailDriverResp);//司机信息详情
   rpc UpdDriver(UpdDriverReq) returns(UpdDriverResp);//司机信息修改
 }

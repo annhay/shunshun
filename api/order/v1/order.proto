@@ -5,11 +5,95 @@ package template;
 option go_package = "../../../internal/proto";
 
 message NewOrderReq {
-
+  int64 userId = 1;
+  string tripType = 2;
+  string rideMode = 3;
+  int64 passengerNum = 4;
+  string carType = 5;
+  string departureTime = 6;
+  int64 waitingTime = 7;
+  string stratDetailAddress = 8;
+  string endDetailAddress = 9;
+  string remark = 10;
+  int64 couponId = 11;
+  string paymentMethod = 12;
 }
 message NewOrderResp {
+  string orderCode = 1;
+  string payUrl = 2;
+}
+
+message OrderNotifyReq {
+
+}
+message OrderNotifyResp {
+
+}
+
+message OrderReturnsReq {
+
+}
+message OrderReturnsResp {
+
+}
+
+message CancelOrderReq {
+
+}
+message CancelOrderResp {
+
+}
+
+message UserOrderListReq {
+
+}
+message UserOrderListResp {
+
+}
+
+message UserOrderDetailReq {
+
+}
+message UserOrderDetailResp {
+
+}
+
+message MatchOrderListReq {
+
+}
+message MatchOrderListResp {
+
+}
+
+message AcceptOrdersReq {
+  int64 userId = 1;
+  int64 orderId = 2;
+  int64 actualPassengerNum = 3; // 实际乘车人数（司机填写）【打车】
+}
+message AcceptOrdersResp {}
+
+message StatementListReq {
+
+}
+message StatementListResp{
+
+}
+
+message DriverOrderDetailReq {
+
+}
+message DriverOrderDetailResp {
 
 }
 service Order {
-  rpc NewOrder(NewOrderReq) returns(NewOrderResp);
+  rpc NewOrder(NewOrderReq) returns(NewOrderResp);//创建订单
+  rpc OrderNotify(OrderNotifyReq) returns(OrderNotifyResp);//订单异步回调
+  rpc OrderReturns(OrderReturnsReq) returns(OrderReturnsResp);//订单同步回调
+  rpc CancelOrder(CancelOrderReq) returns(CancelOrderResp);//取消订单
+  rpc UserOrderList(UserOrderListReq) returns(UserOrderListResp);//用户订单列表
+  rpc UserOrderDetail(UserOrderDetailReq) returns(UserOrderDetailResp);//用户订单详情
+  rpc MatchOrderList(MatchOrderListReq) returns(MatchOrderListResp);//司机匹配订单列表
+  rpc AcceptOrders(AcceptOrdersReq) returns(AcceptOrdersResp);//司机接单
+  rpc StatementList(StatementListReq) returns(StatementListResp);//司机接单列表
+  rpc DriverOrderDetail(DriverOrderDetailReq) returns(DriverOrderDetailResp);//司机接单详情
 }

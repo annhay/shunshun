@@ -29,4 +29,27 @@ type AppConfig struct {
 		AccessKeyID     string `json:"accessKeyID"`
 		AccessKeySecret string `json:"accessKeySecret"`
 	}
+	Amap struct {
+		APIKey    string `json:"apiKey" yaml:"apiKey"`
+		SecretKey string `json:"secretKey" yaml:"secretKey"`
+		BaseURL   string `json:"baseURL" yaml:"baseURL"`
+	}
+	Tongyi struct {
+		APIKey  string `json:"apiKey" yaml:"apiKey"`
+		BaseURL string `json:"baseURL" yaml:"baseURL"`
+		Model   string `json:"model" yaml:"model"`
+	}
+	AES struct {
+		SecretKey string `json:"secretKey" yaml:"secretKey"`
+	}
+	RabbitMQ struct {
+		Host       string `json:"host" yaml:"host"`
+		Port       int    `json:"port" yaml:"port"`
+		User       string `json:"user" yaml:"user"`
+		Password   string `json:"password" yaml:"password"`
+		VHost      string `json:"vHost" yaml:"vHost"`
+		Exchange   string `json:"exchange" yaml:"exchange"`
+		Queue      string `json:"queue" yaml:"queue"`
+		RoutingKey string `json:"routingKey" yaml:"routingKey"`
+	}
 }
