@@ -5,6 +5,8 @@
 
 该项目采用微服务架构，支持用户/司机注册登录、叫车/接单、支付结算、行程管理、消息通知等全流程功能，旨在打造一个技术架构简洁、业务功能完整的网约车解决方案。
 
+其中叫车分为打车和顺风车，顺风车就相当于司机正好要走顺便带带别人，是指乘客起终点的路线规划和司机起终点的路线规划相似度达75%。
+
 ## 技术栈
 
 ### 后端
@@ -26,42 +28,68 @@
 - **加密工具**: AES/RSA
 - **地图服务**: 高德地图/百度地图API
 - **消息推送**: 极光推送
+- **OCR服务**: 阿里云OCR
+
+## 项目架构设计
+
+### 架构概述
+顺顺网约车项目采用**分层微服务架构**，通过明确的职责划分和标准化的通信协议，实现了系统的高可维护性、可扩展性和可靠性。
+
+**核心架构特点**：
+- **分层设计**: API网关层 → 服务层 → 领域层 → 基础设施层
+- **服务化拆分**: 按业务领域拆分为独立的微服务
+- **标准化通信**: 内部服务间使用gRPC，外部接口使用HTTP/JSON
+- **统一基础设施**: 共享配置、日志、监控等基础设施组件
 
 ## 项目结构
 
 ```
-├── api/                # API接口定义
-├── configs/            # 配置文件目录
-│   └── config.yaml     # 主配置文件
-├── internal/           # 内部代码
-│   ├── api-gateway/    # API网关
-│   ├── pkg/            # 公共包
-│   │   ├── configs/    # 配置定义
-│   │   ├── global/     # 全局变量
-│   │   ├── initialization/ # 初始化
-│   │   ├── model/      # 数据模型
-│   │   └── utils/      # 工具函数
-│   ├── proto/          # Protobuf生成代码
-│   └── server/         # 服务层
-├── scripts/            # 脚本文件
-│   ├── build.sh        # 构建脚本
-│   ├── start.sh        # 启动脚本
-│   └── sql/            # SQL文件
-├── .gitignore          # Git忽略文件
-├── LICENSE             # 许可证
-├── Makefile            # 构建脚本
-└── README.md           # 项目文档
+├── api/                    # API接口定义
+│   └── */                  # 相关API
+│       └── v1/             # 版本v1
+├── build/                  # 构建脚本和配置
+│   └── Dockerfile          # Docker构建文件
+├── configs/                # 配置文件目录
+│   └── config.yaml         # 主配置文件
+├── internal/               # 内部代码（不对外暴露）
+│   ├── api-gateway/        # API网关
+│   │   ├── consts/         # 常量定义
+│   │   ├── handler/        # 请求处理器
+│   │   ├── middleware/     # 中间件
+│   │   ├── request/        # 请求模型
+│   │   ├── router/         # 路由定义
+│   │   └── main.go         # 网关入口
+│   ├── pkg/                # 公共包
+│   │   ├── configs/        # 配置定义
+│   │   ├── global/         # 全局变量
+│   │   ├── initialization/ # 初始化组件
+│   │   ├── model/          # 数据模型
+│   │   └── utils/          # 工具函数
+│   ├── proto/              # Protobuf生成代码
+│   └── server-*/           # 服务（可添加）
+│       ├── server/         # 服务实现
+│       └── main.go         # 服务入口
+├── scripts/                # 脚本文件
+│   ├── k6.js               # 压测脚本
+│   ├── migrate.sh          # 数据库迁移脚本
+│   └── rebate.sql          # 返利SQL脚本
+├── .gitignore              # Git忽略文件
+├── LICENSE                 # 许可证
+├── Makefile                # 构建脚本
+├── README.en.md            # 项目文档（英文）
+└── README.md               # 项目文档
 ```
 
 ## 核心功能模块
 
-### 统一认证与用户管理
-- 用户/司机注册与登录 (统一入口，区分角色)
-- 个人信息管理 (支持乘客和司机信息字段)
-- 身份认证与授权 (JWT双角色认证)
-- 密码重置与安全管理
+### 1. 统一认证与用户管理
+- **用户/司机注册与登录** (统一入口，区分角色)
+- **个人信息管理** (支持乘客和司机信息字段)
+- **身份认证与授权** (JWT双角色认证)
+- **密码重置与安全管理**
+- **实名认证** (身份证OCR识别与验证)
 
-### 订单管理 (用户/司机协同功能)
+### 2. 订单管理 (用户/司机协同功能)
 - **用户端功能**:
   - 叫车请求 (实时叫车/预约叫车)
   - 订单状态查询
@@ -80,31 +108,31 @@
   - 路线规划与导航
   - 距离与时间估算
 
-### 支付与结算系统
-- 在线支付 (支持多种支付方式)
-- 账单管理与明细查询
-- 优惠券系统与促销活动
-- 司机佣金结算
-- 退款处理
+### 3. 支付与结算系统
+- **在线支付** (支持多种支付方式)
+- **账单管理与明细查询**
+- **优惠券系统与促销活动**
+- **司机佣金结算**
+- **退款处理**
 
-### 消息通知系统
-- 实时消息推送 (用户/司机双向)
-- 短信验证码发送
-- 系统通知与活动推送
-- 行程状态变更通知
+### 4. 消息通知系统
+- **实时消息推送** (用户/司机双向)
+- **短信验证码发送**
+- **系统通知与活动推送**
+- **行程状态变更通知**
 
-### 地图与位置服务
-- 地理位置定位 (用户/司机实时位置)
-- 路线规划与导航
-- 距离计算
-- 附近司机搜索与展示
-- 热力图展示 (司机端)
+### 5. 地图与位置服务
+- **地理位置定位** (用户/司机实时位置)
+- **路线规划与导航**
+- **距离计算**
+- **附近司机搜索与展示**
+- **热力图展示** (司机端)
 
-### 管理后台功能
-- 用户/司机管理
-- 订单管理与统计
-- 财务管理
-- 系统配置与监控
+### 6. 管理后台功能
+- **用户/司机管理**
+- **订单管理与统计**
+- **财务管理**
+- **系统配置与监控**
 
 ## 双角色系统设计亮点
 
@@ -121,6 +149,7 @@
 3. **可扩展性**: 支持水平扩展，应对业务增长
 4. **高可用性**: 服务注册与发现，确保系统稳定运行
 5. **安全性**: 完善的认证授权机制，保障数据安全
+6. **可观测性**: 统一的日志、监控和告警系统
 
 ## 快速开始
 
@@ -177,6 +206,54 @@ make run-order
 - **consul**: 服务注册与发现配置
 - **jwt**: JWT双角色认证配置
 - **zap**: 日志配置（目录、级别、保留时间等）
+- **aliyun**: 阿里云服务配置（OCR等）
+- **map**: 地图服务配置
+
+## 核心流程示例
+
+### 用户叫车流程
+
+```mermaid
+sequenceDiagram
+    participant Client as 客户端
+    participant Gateway as API网关
+    participant OrderService as 订单服务
+    participant MapService as 地图服务
+    participant DriverService as 司机服务
+    participant DB as 数据库
+
+    Client->>Gateway: POST /api/v1/order/create
+    Gateway->>OrderService: 创建订单请求
+    OrderService->>MapService: 计算路线和预估价格
+    MapService-->>OrderService: 返回路线和价格
+    OrderService->>DB: 保存订单信息
+    OrderService->>DriverService: 寻找附近司机
+    DriverService-->>OrderService: 返回匹配的司机列表
+    OrderService->>DriverService: 推送订单给司机
+    OrderService-->>Gateway: 返回订单创建成功
+    Gateway-->>Client: 返回订单信息和状态
+```
+
+### 司机接单流程
+
+```mermaid
+sequenceDiagram
+    participant DriverApp as 司机端
+    participant Gateway as API网关
+    participant DriverService as 司机服务
+    participant OrderService as 订单服务
+    participant DB as 数据库
+
+    DriverApp->>Gateway: POST /api/v1/driver/accept-order
+    Gateway->>DriverService: 司机接单请求
+    DriverService->>OrderService: 确认接单
+    OrderService->>DB: 更新订单状态为"已接单"
+    OrderService-->>DriverService: 接单成功
+    DriverService-->>Gateway: 返回接单结果
+    Gateway-->>DriverApp: 返回接单成功
+    OrderService->>DriverService: 通知司机出发
+    DriverService->>DriverApp: 推送出发通知
+```
 
 ## API文档
 
@@ -185,6 +262,8 @@ make run-order
 - `POST /api/v1/user/login` - 用户登录
 - `GET /api/v1/user/profile` - 获取用户信息
 - `PUT /api/v1/user/profile` - 更新用户信息
+- `POST /api/v1/user/complete-info` - 完善用户信息
+- `POST /api/v1/user/student-verify` - 学生认证
 
 ### 司机相关API
 - `POST /api/v1/driver/register` - 司机注册
@@ -192,6 +271,9 @@ make run-order
 - `GET /api/v1/driver/profile` - 获取司机信息
 - `PUT /api/v1/driver/profile` - 更新司机信息
 - `POST /api/v1/driver/certify` - 司机认证
+- `POST /api/v1/driver/accept-order` - 接单
+- `POST /api/v1/driver/start-order` - 开始行程
+- `POST /api/v1/driver/end-order` - 结束行程
 
 ### 订单相关API
 - `POST /api/v1/order/create` - 创建订单
@@ -199,6 +281,8 @@ make run-order
 - `GET /api/v1/order/detail` - 获取订单详情
 - `PUT /api/v1/order/cancel` - 取消订单
 - `PUT /api/v1/order/confirm` - 确认订单
+- `POST /api/v1/order/pay` - 支付订单
+- `POST /api/v1/order/evaluate` - 评价订单
 
 ## 开发指南
 
@@ -216,6 +300,14 @@ make run-order
 - 单元测试：`go test ./...`
 - API测试：使用K6进行压测
 
+### 新增功能流程
+1. 在 `api/` 目录下定义新的API接口
+2. 生成Protobuf代码：`make proto`
+3. 在对应的服务中实现业务逻辑
+4. 在API网关中注册路由
+5. 编写测试用例
+6. 提交代码
+
 ## 部署方案
 
 ### 本地开发环境
@@ -227,6 +319,15 @@ make run-order
 - 配置HPA自动扩缩容
 - 使用Ingress进行流量管理
 - 配置监控和告警
+
+### 容器化部署
+```bash
+# 构建镜像
+make build
+
+# 运行容器
+make docker-run
+```
 
 ## 监控与日志
 
@@ -248,6 +349,7 @@ make run-order
 3. **API安全**: 实现请求频率限制，防止暴力攻击
 4. **数据脱敏**: 敏感数据（如身份证号）进行脱敏处理
 5. **HTTPS**: 生产环境使用HTTPS
+6. **OCR安全**: 确保OCR服务的访问密钥安全存储
 
 ## 常见问题
 
@@ -279,7 +381,7 @@ A: 可以从以下几个方面入手：
 本项目采用MIT许可证，详见LICENSE文件。
 
 ## 联系方式
-- 邮箱私信
+- github: 私信
 - 项目维护者: 无
 - 技术交流群: 无
 - 问题反馈: <issue链接>

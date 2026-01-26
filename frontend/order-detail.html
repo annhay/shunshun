@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单详情 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                @apply hover:shadow-lg transition-all-300;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-primary font-medium">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 订单详情内容 -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- 侧边栏 -->
+                <div class="w-full md:w-64 bg-white rounded-xl shadow-md p-6">
+                    <div class="flex flex-col items-center mb-8">
+                        <div class="relative mb-4">
+                            <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden border-4 border-primary">
+                                <img src="https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" 
+                                     alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800">张三</h3>
+                        <p class="text-sm text-gray-500">普通用户</p>
+                    </div>
+                    
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="personal-center.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-user-circle w-6"></i>
+                                <span class="ml-3">个人信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="complete-information.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-id-card w-6"></i>
+                                <span class="ml-3">完善信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="student-verification.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-graduation-cap w-6"></i>
+                                <span class="ml-3">学生认证</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="orders.html" class="flex items-center p-3 bg-blue-50 text-primary rounded-lg">
+                                <i class="fa fa-car w-6"></i>
+                                <span class="ml-3">我的订单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-credit-card w-6"></i>
+                                <span class="ml-3">我的钱包</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-cog w-6"></i>
+                                <span class="ml-3">设置</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-sign-out w-6"></i>
+                                <span class="ml-3">退出登录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 主内容区 -->
+                <div class="flex-1 bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center mb-6">
+                        <a href="orders.html" class="text-gray-600 hover:text-primary mr-4">
+                            <i class="fa fa-arrow-left text-xl"></i>
+                        </a>
+                        <h2 class="text-2xl font-bold text-gray-800">订单详情</h2>
+                    </div>
+                    
+                    <!-- 订单状态 -->
+                    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fa fa-check-circle text-success text-xl mr-3"></i>
+                            <div>
+                                <h3 class="font-medium text-gray-800">订单已完成</h3>
+                                <p class="text-sm text-gray-600">完成时间: 2026-01-23 10:30</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 行程信息 -->
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">行程信息</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="w-24 text-gray-600 flex-shrink-0">订单类型:</span>
+                                <span class="text-gray-800">顺风车</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-24 text-gray-600 flex-shrink-0">出发地:</span>
+                                <span class="text-gray-800">北京市朝阳区建国路88号</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-24 text-gray-600 flex-shrink-0">目的地:</span>
+                                <span class="text-gray-800">北京市海淀区中关村大街1号</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-24 text-gray-600 flex-shrink-0">出发时间:</span>
+                                <span class="text-gray-800">2026-01-23 10:00</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-24 text-gray-600 flex-shrink-0">乘车人数:</span>
+                                <span class="text-gray-800">1人</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-24 text-gray-600 flex-shrink-0">车辆类型:</span>
+                                <span class="text-gray-800">经济车</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 价格明细 -->
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">价格明细</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">基础费用</span>
+                                <span class="text-gray-800">¥25.00</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">里程费用</span>
+                                <span class="text-gray-800">¥10.00</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">优惠券</span>
+                                <span class="text-success">-¥0.00</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-gray-200">
+                                <span class="font-medium text-gray-800">总计</span>
+                                <span class="font-medium text-primary">¥35.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 司机信息 -->
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">司机信息</h3>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gray-200 overflow-hidden mr-4">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="司机头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <h4 class="font-medium text-gray-800 mr-2">王师傅</h4>
+                                    <div class="flex items-center">
+                                        <i class="fa fa-star text-warning text-xs"></i>
+                                        <i class="fa fa-star text-warning text-xs"></i>
+                                        <i class="fa fa-star text-warning text-xs"></i>
+                                        <i class="fa fa-star text-warning text-xs"></i>
+                                        <i class="fa fa-star-half-o text-warning text-xs"></i>
+                                        <span class="text-sm text-gray-600 ml-1">4.5</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">车牌号: 京A12345</p>
+                                <p class="text-sm text-gray-600">车型: 大众朗逸</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 操作按钮 -->
+                    <div class="flex space-x-4">
+                        <button class="flex-1 px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-all-300">
+                            <i class="fa fa-phone mr-2"></i>
+                            联系客服
+                        </button>
+                        <button class="flex-1 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all-300">
+                            <i class="fa fa-car mr-2"></i>
+                            再次下单
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 退出登录
+        document.querySelector('a[href="#"]:contains("退出登录")').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('确定要退出登录吗？')) {
+                alert('退出登录成功');
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // 再次下单
+        document.querySelector('button:contains("再次下单")').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+        
+        // 联系客服
+        document.querySelector('button:contains("联系客服")').addEventListener('click', function() {
+            alert('客服电话: 400-123-4567');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的钱包 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                @apply hover:shadow-lg transition-all-300;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-primary font-medium">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 个人中心内容 -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- 侧边栏 -->
+                <div class="w-full md:w-64 bg-white rounded-xl shadow-md p-6">
+                    <div class="flex flex-col items-center mb-8">
+                        <div class="relative mb-4">
+                            <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden border-4 border-primary">
+                                <img src="https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" 
+                                     alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800">张三</h3>
+                        <p class="text-sm text-gray-500">普通用户</p>
+                    </div>
+                    
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="personal-center.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-user-circle w-6"></i>
+                                <span class="ml-3">个人信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="complete-information.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-id-card w-6"></i>
+                                <span class="ml-3">完善信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="student-verification.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-graduation-cap w-6"></i>
+                                <span class="ml-3">学生认证</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="orders.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-car w-6"></i>
+                                <span class="ml-3">我的订单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet.html" class="flex items-center p-3 bg-blue-50 text-primary rounded-lg">
+                                <i class="fa fa-credit-card w-6"></i>
+                                <span class="ml-3">我的钱包</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-cog w-6"></i>
+                                <span class="ml-3">设置</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-sign-out w-6"></i>
+                                <span class="ml-3">退出登录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 主内容区 -->
+                <div class="flex-1 bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">我的钱包</h2>
+                    
+                    <!-- 余额卡片 -->
+                    <div class="bg-gradient-to-r from-primary to-blue-600 text-white rounded-lg p-6 mb-6 shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-medium">账户余额</h3>
+                            <button class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-1 rounded-full text-sm transition-all-300">
+                                <i class="fa fa-refresh mr-1"></i> 刷新
+                            </button>
+                        </div>
+                        <div class="text-4xl font-bold mb-2">¥286.50</div>
+                        <div class="flex space-x-4">
+                            <button class="bg-white text-primary px-6 py-2 rounded-full font-medium hover:bg-opacity-90 transition-all-300">
+                                <i class="fa fa-plus mr-2"></i> 充值
+                            </button>
+                            <button class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-2 rounded-full font-medium transition-all-300">
+                                <i class="fa fa-minus mr-2"></i> 提现
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 充值提现 -->
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">充值</h3>
+                        <div class="grid grid-cols-3 gap-4 mb-4">
+                            <button class="border border-gray-300 rounded-lg p-3 hover:border-primary hover:text-primary transition-all-300">
+                                ¥10
+                            </button>
+                            <button class="border border-gray-300 rounded-lg p-3 hover:border-primary hover:text-primary transition-all-300">
+                                ¥20
+                            </button>
+                            <button class="border border-gray-300 rounded-lg p-3 hover:border-primary hover:text-primary transition-all-300">
+                                ¥50
+                            </button>
+                            <button class="border border-gray-300 rounded-lg p-3 hover:border-primary hover:text-primary transition-all-300">
+                                ¥100
+                            </button>
+                            <button class="border border-gray-300 rounded-lg p-3 hover:border-primary hover:text-primary transition-all-300">
+                                ¥200
+                            </button>
+                            <button class="border border-gray-300 rounded-lg p-3 hover:border-primary hover:text-primary transition-all-300">
+                                自定义
+                            </button>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-blue-600 transition-all-300">
+                                <i class="fa fa-credit-card mr-2"></i> 支付宝支付
+                            </button>
+                            <button class="flex-1 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-all-300">
+                                <i class="fa fa-wechat mr-2"></i> 微信支付
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 交易记录 -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">交易记录</h3>
+                        <div class="flex overflow-x-auto pb-4 mb-4 border-b border-gray-200">
+                            <button class="flex-shrink-0 px-4 py-2 mr-4 bg-primary text-white rounded-lg">
+                                全部
+                            </button>
+                            <button class="flex-shrink-0 px-4 py-2 mr-4 text-gray-600 hover:bg-gray-100 rounded-lg transition-all-300">
+                                充值
+                            </button>
+                            <button class="flex-shrink-0 px-4 py-2 mr-4 text-gray-600 hover:bg-gray-100 rounded-lg transition-all-300">
+                                提现
+                            </button>
+                            <button class="flex-shrink-0 px-4 py-2 mr-4 text-gray-600 hover:bg-gray-100 rounded-lg transition-all-300">
+                                订单支付
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- 交易记录项 -->
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-car text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-800">订单支付</h4>
+                                        <p class="text-xs text-gray-500">2026-01-23 10:30</p>
+                                    </div>
+                                </div>
+                                <span class="text-danger font-medium">-¥35.00</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-plus text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-800">充值</h4>
+                                        <p class="text-xs text-gray-500">2026-01-22 15:00</p>
+                                    </div>
+                                </div>
+                                <span class="text-success font-medium">+¥100.00</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-car text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-800">订单支付</h4>
+                                        <p class="text-xs text-gray-500">2026-01-22 10:00</p>
+                                    </div>
+                                </div>
+                                <span class="text-danger font-medium">-¥42.00</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fa fa-plus text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-800">充值</h4>
+                                        <p class="text-xs text-gray-500">2026-01-21 09:00</p>
+                                    </div>
+                                </div>
+                                <span class="text-success font-medium">+¥200.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 分页 -->
+                    <div class="flex items-center justify-center mt-8">
+                        <nav class="flex items-center space-x-1">
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 transition-all-300">
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            <button class="px-3 py-1 rounded border border-primary bg-primary text-white">
+                                1
+                            </button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 transition-all-300">
+                                2
+                            </button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 transition-all-300">
+                                3
+                            </button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50 transition-all-300">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // API基础URL
+        const API_BASE_URL = 'http://localhost:8080/api/v1';
+        
+        // 工具函数
+        function showLoading() {
+            // 显示加载状态
+            if (!document.querySelector('#loading-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.id = 'loading-overlay';
+                overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                overlay.innerHTML = `
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        <p class="mt-2 text-center">加载中...</p>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        }
+        
+        function hideLoading() {
+            // 隐藏加载状态
+            const overlay = document.querySelector('#loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function showError(message) {
+            // 显示错误信息
+            alert(message);
+        }
+        
+        function showSuccess(message) {
+            // 显示成功信息
+            alert(message);
+        }
+        
+        // API调用函数
+        async function fetchAPI(endpoint, method = 'GET', data = null) {
+            showLoading();
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                };
+                
+                const options = {
+                    method,
+                    headers,
+                    credentials: 'include'
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API request failed:', error);
+                showError('网络请求失败，请稍后重试');
+                throw error;
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // 退出登录
+        document.querySelector('a[href="#"]:contains("退出登录")').addEventListener('click', async function(e) {
+            e.preventDefault();
+            if (confirm('确定要退出登录吗？')) {
+                try {
+                    await fetchAPI('/user/logout', 'POST');
+                    localStorage.removeItem('token');
+                    showSuccess('退出登录成功');
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    // 即使API调用失败，也跳转到登录页面
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+        
+        // 充值金额选择
+        document.querySelectorAll('.grid.grid-cols-3 button').forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的选中状态
+                document.querySelectorAll('.grid.grid-cols-3 button').forEach(btn => {
+                    btn.classList.remove('border-primary', 'text-primary');
+                });
+                
+                // 添加当前按钮的选中状态
+                this.classList.add('border-primary', 'text-primary');
+            });
+        });
+        
+        // 交易记录筛选
+        document.querySelectorAll('button.flex-shrink-0').forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的选中状态
+                document.querySelectorAll('button.flex-shrink-0').forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+                });
+                
+                // 添加当前按钮的选中状态
+                this.classList.remove('text-gray-600', 'hover:bg-gray-100');
+                this.classList.add('bg-primary', 'text-white');
+                
+                // 加载对应类型的交易记录
+                const type = this.textContent.trim();
+                loadTransactions(type);
+            });
+        });
+        
+        // 充值按钮
+        document.querySelector('button:contains("充值")').addEventListener('click', async function() {
+            // 获取选中的充值金额
+            const selectedAmount = document.querySelector('.grid.grid-cols-3 button.border-primary');
+            if (!selectedAmount) {
+                alert('请选择充值金额');
+                return;
+            }
+            
+            const amount = selectedAmount.textContent.trim().replace('¥', '');
+            if (amount === '自定义') {
+                const customAmount = prompt('请输入充值金额:');
+                if (!customAmount || isNaN(customAmount) || parseFloat(customAmount) <= 0) {
+                    alert('请输入有效的充值金额');
+                    return;
+                }
+            }
+            
+            try {
+                const result = await fetchAPI('/wallet/recharge', 'POST', { amount: parseFloat(amount) });
+                if (result.code === 0) {
+                    showSuccess('充值成功');
+                    // 刷新余额
+                    loadWalletBalance();
+                    // 刷新交易记录
+                    loadTransactions('全部');
+                } else {
+                    showError(result.message || '充值失败');
+                }
+            } catch (error) {
+                console.error('Recharge failed:', error);
+            }
+        });
+        
+        // 提现按钮
+        document.querySelector('button:contains("提现")').addEventListener('click', async function() {
+            const amount = prompt('请输入提现金额:');
+            if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+                alert('请输入有效的提现金额');
+                return;
+            }
+            
+            try {
+                const result = await fetchAPI('/wallet/withdraw', 'POST', { amount: parseFloat(amount) });
+                if (result.code === 0) {
+                    showSuccess('提现申请成功，等待处理');
+                    // 刷新余额
+                    loadWalletBalance();
+                    // 刷新交易记录
+                    loadTransactions('全部');
+                } else {
+                    showError(result.message || '提现失败');
+                }
+            } catch (error) {
+                console.error('Withdraw failed:', error);
+            }
+        });
+        
+        // 支付按钮
+        document.querySelectorAll('button:contains("支付")').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('支付功能开发中');
+            });
+        });
+        
+        // 加载钱包余额
+        async function loadWalletBalance() {
+            try {
+                const result = await fetchAPI('/wallet/balance');
+                if (result.code === 0 && result.data) {
+                    const balanceElement = document.querySelector('.text-4xl.font-bold');
+                    if (balanceElement) {
+                        balanceElement.textContent = `¥${result.data.balance.toFixed(2)}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Load wallet balance failed:', error);
+            }
+        }
+        
+        // 加载交易记录
+        async function loadTransactions(type = '全部') {
+            try {
+                let endpoint = '/wallet/transactions?page=1&pageSize=10';
+                if (type !== '全部') {
+                    // 映射类型到后端类型码
+                    const typeMap = {
+                        '充值': 'recharge',
+                        '提现': 'withdraw',
+                        '订单支付': 'order_pay'
+                    };
+                    const typeCode = typeMap[type];
+                    if (typeCode) {
+                        endpoint = `/wallet/transactions?page=1&pageSize=10&type=${typeCode}`;
+                    }
+                }
+                
+                const result = await fetchAPI(endpoint);
+                if (result.code === 0 && result.data && result.data.list) {
+                    // 渲染交易记录
+                    renderTransactions(result.data.list);
+                }
+            } catch (error) {
+                console.error('Load transactions failed:', error);
+            }
+        }
+        
+        // 渲染交易记录
+        function renderTransactions(transactions) {
+            const transactionListContainer = document.querySelector('.space-y-4');
+            if (!transactionListContainer) return;
+            
+            transactionListContainer.innerHTML = '';
+            
+            transactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover';
+                
+                // 类型图标和颜色
+                const typeConfig = {
+                    'recharge': { icon: 'fa-plus', color: 'text-success', bgColor: 'bg-green-100', text: '充值' },
+                    'withdraw': { icon: 'fa-minus', color: 'text-danger', bgColor: 'bg-red-100', text: '提现' },
+                    'order_pay': { icon: 'fa-car', color: 'text-danger', bgColor: 'bg-red-100', text: '订单支付' }
+                };
+                
+                const config = typeConfig[transaction.type] || { icon: 'fa-exchange', color: 'text-gray-600', bgColor: 'bg-gray-100', text: transaction.type };
+                const amountClass = transaction.type === 'recharge' ? 'text-success' : 'text-danger';
+                const amountSign = transaction.type === 'recharge' ? '+' : '-';
+                
+                transactionItem.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 ${config.bgColor} rounded-full flex items-center justify-center mr-4">
+                            <i class="fa ${config.icon} ${config.color}"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-800">${config.text}</h4>
+                            <p class="text-xs text-gray-500">${new Date(transaction.created_at).toLocaleString('zh-CN')}</p>
+                        </div>
+                    </div>
+                    <span class="${amountClass} font-medium">${amountSign}¥${transaction.amount.toFixed(2)}</span>
+                `;
+                
+                transactionListContainer.appendChild(transactionItem);
+            });
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查登录状态
+            if (!localStorage.getItem('token')) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // 加载钱包余额
+            loadWalletBalance();
+            // 加载交易记录
+            loadTransactions('全部');
+        });
+    </script>
+</body>
+</html>

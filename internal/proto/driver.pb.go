@@ -285,6 +285,214 @@ func (*NewDriverResp) Descriptor() ([]byte, []int) {
 	return file_driver_proto_rawDescGZIP(), []int{1}
 }
 
+type DetailDriverReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DetailDriverReq) Reset() {
+	*x = DetailDriverReq{}
+	mi := &file_driver_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DetailDriverReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DetailDriverReq) ProtoMessage() {}
+
+func (x *DetailDriverReq) ProtoReflect() protoreflect.Message {
+	mi := &file_driver_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DetailDriverReq.ProtoReflect.Descriptor instead.
+func (*DetailDriverReq) Descriptor() ([]byte, []int) {
+	return file_driver_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *DetailDriverReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type DetailDriverResp struct {
+	state                   protoimpl.MessageState `protogen:"open.v1"`
+	DriverLicenseNo         string                 `protobuf:"bytes,1,opt,name=DriverLicenseNo,proto3" json:"DriverLicenseNo,omitempty"`
+	DriverLicenseUrl        string                 `protobuf:"bytes,2,opt,name=DriverLicenseUrl,proto3" json:"DriverLicenseUrl,omitempty"`
+	DriverLicenseGetTime    string                 `protobuf:"bytes,3,opt,name=DriverLicenseGetTime,proto3" json:"DriverLicenseGetTime,omitempty"`
+	DriverLicenseExpireTime string                 `protobuf:"bytes,4,opt,name=DriverLicenseExpireTime,proto3" json:"DriverLicenseExpireTime,omitempty"`
+	DriverAge               int64                  `protobuf:"varint,5,opt,name=DriverAge,proto3" json:"DriverAge,omitempty"`
+	HealthCertUrl           string                 `protobuf:"bytes,6,opt,name=HealthCertUrl,proto3" json:"HealthCertUrl,omitempty"`
+	ResidencePermitUrl      string                 `protobuf:"bytes,7,opt,name=ResidencePermitUrl,proto3" json:"ResidencePermitUrl,omitempty"`
+	CityCode                string                 `protobuf:"bytes,8,opt,name=CityCode,proto3" json:"CityCode,omitempty"`
+	VehicleNo               string                 `protobuf:"bytes,9,opt,name=VehicleNo,proto3" json:"VehicleNo,omitempty"`
+	VehicleType             string                 `protobuf:"bytes,10,opt,name=VehicleType,proto3" json:"VehicleType,omitempty"`
+	VehicleBrand            string                 `protobuf:"bytes,11,opt,name=VehicleBrand,proto3" json:"VehicleBrand,omitempty"`
+	VehicleModel            string                 `protobuf:"bytes,12,opt,name=VehicleModel,proto3" json:"VehicleModel,omitempty"`
+	VehicleColor            string                 `protobuf:"bytes,13,opt,name=VehicleColor,proto3" json:"VehicleColor,omitempty"`
+	LicenseNo               string                 `protobuf:"bytes,14,opt,name=LicenseNo,proto3" json:"LicenseNo,omitempty"`
+	LicenseExpireDate       string                 `protobuf:"bytes,15,opt,name=LicenseExpireDate,proto3" json:"LicenseExpireDate,omitempty"`
+	InsuranceExpireDate     string                 `protobuf:"bytes,16,opt,name=InsuranceExpireDate,proto3" json:"InsuranceExpireDate,omitempty"`
+	unknownFields           protoimpl.UnknownFields
+	sizeCache               protoimpl.SizeCache
+}
+
+func (x *DetailDriverResp) Reset() {
+	*x = DetailDriverResp{}
+	mi := &file_driver_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DetailDriverResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DetailDriverResp) ProtoMessage() {}
+
+func (x *DetailDriverResp) ProtoReflect() protoreflect.Message {
+	mi := &file_driver_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DetailDriverResp.ProtoReflect.Descriptor instead.
+func (*DetailDriverResp) Descriptor() ([]byte, []int) {
+	return file_driver_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *DetailDriverResp) GetDriverLicenseNo() string {
+	if x != nil {
+		return x.DriverLicenseNo
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetDriverLicenseUrl() string {
+	if x != nil {
+		return x.DriverLicenseUrl
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetDriverLicenseGetTime() string {
+	if x != nil {
+		return x.DriverLicenseGetTime
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetDriverLicenseExpireTime() string {
+	if x != nil {
+		return x.DriverLicenseExpireTime
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetDriverAge() int64 {
+	if x != nil {
+		return x.DriverAge
+	}
+	return 0
+}
+
+func (x *DetailDriverResp) GetHealthCertUrl() string {
+	if x != nil {
+		return x.HealthCertUrl
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetResidencePermitUrl() string {
+	if x != nil {
+		return x.ResidencePermitUrl
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetCityCode() string {
+	if x != nil {
+		return x.CityCode
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetVehicleNo() string {
+	if x != nil {
+		return x.VehicleNo
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetVehicleType() string {
+	if x != nil {
+		return x.VehicleType
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetVehicleBrand() string {
+	if x != nil {
+		return x.VehicleBrand
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetVehicleModel() string {
+	if x != nil {
+		return x.VehicleModel
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetVehicleColor() string {
+	if x != nil {
+		return x.VehicleColor
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetLicenseNo() string {
+	if x != nil {
+		return x.LicenseNo
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetLicenseExpireDate() string {
+	if x != nil {
+		return x.LicenseExpireDate
+	}
+	return ""
+}
+
+func (x *DetailDriverResp) GetInsuranceExpireDate() string {
+	if x != nil {
+		return x.InsuranceExpireDate
+	}
+	return ""
+}
+
 type UpdDriverReq struct {
 	state                   protoimpl.MessageState `protogen:"open.v1"`
 	UserId                  int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
@@ -317,7 +525,7 @@ type UpdDriverReq struct {
 
 func (x *UpdDriverReq) Reset() {
 	*x = UpdDriverReq{}
-	mi := &file_driver_proto_msgTypes[2]
+	mi := &file_driver_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -329,7 +537,7 @@ func (x *UpdDriverReq) String() string {
 func (*UpdDriverReq) ProtoMessage() {}
 
 func (x *UpdDriverReq) ProtoReflect() protoreflect.Message {
-	mi := &file_driver_proto_msgTypes[2]
+	mi := &file_driver_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -342,7 +550,7 @@ func (x *UpdDriverReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdDriverReq.ProtoReflect.Descriptor instead.
 func (*UpdDriverReq) Descriptor() ([]byte, []int) {
-	return file_driver_proto_rawDescGZIP(), []int{2}
+	return file_driver_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UpdDriverReq) GetUserId() int64 {
@@ -521,7 +729,7 @@ type UpdDriverResp struct {
 
 func (x *UpdDriverResp) Reset() {
 	*x = UpdDriverResp{}
-	mi := &file_driver_proto_msgTypes[3]
+	mi := &file_driver_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -533,7 +741,7 @@ func (x *UpdDriverResp) String() string {
 func (*UpdDriverResp) ProtoMessage() {}
 
 func (x *UpdDriverResp) ProtoReflect() protoreflect.Message {
-	mi := &file_driver_proto_msgTypes[3]
+	mi := &file_driver_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -546,7 +754,7 @@ func (x *UpdDriverResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdDriverResp.ProtoReflect.Descriptor instead.
 func (*UpdDriverResp) Descriptor() ([]byte, []int) {
-	return file_driver_proto_rawDescGZIP(), []int{3}
+	return file_driver_proto_rawDescGZIP(), []int{5}
 }
 
 var File_driver_proto protoreflect.FileDescriptor
@@ -580,7 +788,27 @@ const file_driver_proto_rawDesc = "" +
 	"\tLicenseNo\x18\x16 \x01(\tR\tLicenseNo\x12,\n" +
 	"\x11LicenseExpireDate\x18\x17 \x01(\tR\x11LicenseExpireDate\x120\n" +
 	"\x13InsuranceExpireDate\x18\x18 \x01(\tR\x13InsuranceExpireDate\"\x0f\n" +
-	"\rNewDriverResp\"\x84\a\n" +
+	"\rNewDriverResp\")\n" +
+	"\x0fDetailDriverReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\"\x90\x05\n" +
+	"\x10DetailDriverResp\x12(\n" +
+	"\x0fDriverLicenseNo\x18\x01 \x01(\tR\x0fDriverLicenseNo\x12*\n" +
+	"\x10DriverLicenseUrl\x18\x02 \x01(\tR\x10DriverLicenseUrl\x122\n" +
+	"\x14DriverLicenseGetTime\x18\x03 \x01(\tR\x14DriverLicenseGetTime\x128\n" +
+	"\x17DriverLicenseExpireTime\x18\x04 \x01(\tR\x17DriverLicenseExpireTime\x12\x1c\n" +
+	"\tDriverAge\x18\x05 \x01(\x03R\tDriverAge\x12$\n" +
+	"\rHealthCertUrl\x18\x06 \x01(\tR\rHealthCertUrl\x12.\n" +
+	"\x12ResidencePermitUrl\x18\a \x01(\tR\x12ResidencePermitUrl\x12\x1a\n" +
+	"\bCityCode\x18\b \x01(\tR\bCityCode\x12\x1c\n" +
+	"\tVehicleNo\x18\t \x01(\tR\tVehicleNo\x12 \n" +
+	"\vVehicleType\x18\n" +
+	" \x01(\tR\vVehicleType\x12\"\n" +
+	"\fVehicleBrand\x18\v \x01(\tR\fVehicleBrand\x12\"\n" +
+	"\fVehicleModel\x18\f \x01(\tR\fVehicleModel\x12\"\n" +
+	"\fVehicleColor\x18\r \x01(\tR\fVehicleColor\x12\x1c\n" +
+	"\tLicenseNo\x18\x0e \x01(\tR\tLicenseNo\x12,\n" +
+	"\x11LicenseExpireDate\x18\x0f \x01(\tR\x11LicenseExpireDate\x120\n" +
+	"\x13InsuranceExpireDate\x18\x10 \x01(\tR\x13InsuranceExpireDate\"\x84\a\n" +
 	"\fUpdDriverReq\x12\x16\n" +
 	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
 	"\bRealName\x18\x02 \x01(\tR\bRealName\x12\x1a\n" +
@@ -607,9 +835,10 @@ const file_driver_proto_rawDesc = "" +
 	"\tLicenseNo\x18\x16 \x01(\tR\tLicenseNo\x12,\n" +
 	"\x11LicenseExpireDate\x18\x17 \x01(\tR\x11LicenseExpireDate\x120\n" +
 	"\x13InsuranceExpireDate\x18\x18 \x01(\tR\x13InsuranceExpireDate\"\x0f\n" +
-	"\rUpdDriverResp2l\n" +
+	"\rUpdDriverResp2\xa7\x01\n" +
 	"\x06Driver\x120\n" +
-	"\tNewDriver\x12\x10.v1.NewDriverReq\x1a\x11.v1.NewDriverResp\x120\n" +
+	"\tNewDriver\x12\x10.v1.NewDriverReq\x1a\x11.v1.NewDriverResp\x129\n" +
+	"\fDetailDriver\x12\x13.v1.DetailDriverReq\x1a\x14.v1.DetailDriverResp\x120\n" +
 	"\tUpdDriver\x12\x10.v1.UpdDriverReq\x1a\x11.v1.UpdDriverRespB\x19Z\x17../../../internal/protob\x06proto3"
 
 var (
@@ -624,20 +853,24 @@ func file_driver_proto_rawDescGZIP() []byte {
 	return file_driver_proto_rawDescData
 }
 
-var file_driver_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_driver_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_driver_proto_goTypes = []any{
-	(*NewDriverReq)(nil),  // 0: v1.NewDriverReq
-	(*NewDriverResp)(nil), // 1: v1.NewDriverResp
-	(*UpdDriverReq)(nil),  // 2: v1.UpdDriverReq
-	(*UpdDriverResp)(nil), // 3: v1.UpdDriverResp
+	(*NewDriverReq)(nil),     // 0: v1.NewDriverReq
+	(*NewDriverResp)(nil),    // 1: v1.NewDriverResp
+	(*DetailDriverReq)(nil),  // 2: v1.DetailDriverReq
+	(*DetailDriverResp)(nil), // 3: v1.DetailDriverResp
+	(*UpdDriverReq)(nil),     // 4: v1.UpdDriverReq
+	(*UpdDriverResp)(nil),    // 5: v1.UpdDriverResp
 }
 var file_driver_proto_depIdxs = []int32{
 	0, // 0: v1.Driver.NewDriver:input_type -> v1.NewDriverReq
-	2, // 1: v1.Driver.UpdDriver:input_type -> v1.UpdDriverReq
-	1, // 2: v1.Driver.NewDriver:output_type -> v1.NewDriverResp
-	3, // 3: v1.Driver.UpdDriver:output_type -> v1.UpdDriverResp
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	2, // 1: v1.Driver.DetailDriver:input_type -> v1.DetailDriverReq
+	4, // 2: v1.Driver.UpdDriver:input_type -> v1.UpdDriverReq
+	1, // 3: v1.Driver.NewDriver:output_type -> v1.NewDriverResp
+	3, // 4: v1.Driver.DetailDriver:output_type -> v1.DetailDriverResp
+	5, // 5: v1.Driver.UpdDriver:output_type -> v1.UpdDriverResp
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -654,7 +887,7 @@ func file_driver_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_driver_proto_rawDesc), len(file_driver_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

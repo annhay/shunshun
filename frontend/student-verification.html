@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生认证 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .input-focus {
+                @apply focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-primary font-medium">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 学生认证表单 -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center mb-6">
+                        <a href="personal-center.html" class="text-gray-600 hover:text-primary mr-4">
+                            <i class="fa fa-arrow-left text-xl"></i>
+                        </a>
+                        <h2 class="text-2xl font-bold text-gray-800">学生认证</h2>
+                    </div>
+                    
+                    <div class="mb-6 bg-blue-50 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <i class="fa fa-info-circle text-primary mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-medium text-gray-800">认证说明</h3>
+                                <p class="text-sm text-gray-600 mt-1">学生认证成功后，可享受学生专属优惠价格，认证信息仅用于身份验证，我们会严格保护您的个人信息安全。</p>
+                                <p class="text-sm text-gray-600 mt-1">请确保提交的信息真实有效，虚假信息将影响您的使用。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="student-verification-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 真实姓名 -->
+                            <div>
+                                <label for="real-name" class="block text-sm font-medium text-gray-700 mb-1">真实姓名</label>
+                                <input type="text" id="real-name" name="real-name" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="请输入真实姓名" required>
+                            </div>
+                            
+                            <!-- 学校名称 -->
+                            <div>
+                                <label for="school-name" class="block text-sm font-medium text-gray-700 mb-1">学校名称</label>
+                                <input type="text" id="school-name" name="school-name" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="请输入学校名称" required>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 学号 -->
+                            <div>
+                                <label for="student-id" class="block text-sm font-medium text-gray-700 mb-1">学号</label>
+                                <input type="text" id="student-id" name="student-id" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="请输入学号" required>
+                            </div>
+                            
+                            <!-- 入学年份 -->
+                            <div>
+                                <label for="enrollment-year" class="block text-sm font-medium text-gray-700 mb-1">入学年份</label>
+                                <input type="text" id="enrollment-year" name="enrollment-year" 
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm input-focus" 
+                                    placeholder="如：2020" required>
+                            </div>
+                        </div>
+                        
+                        <!-- 学生证照片 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">学生证照片</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-all-300 cursor-pointer">
+                                <i class="fa fa-graduation-cap text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-sm text-gray-600">点击上传学生证照片</p>
+                                <p class="text-xs text-gray-500 mt-1">请确保照片清晰可见，包含姓名、学号、学校名称等信息</p>
+                                <input type="file" id="student-id-photo" name="student-id-photo" class="hidden" accept="image/*">
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="agree-verification" name="agree-verification" type="checkbox" 
+                                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" required>
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="agree-verification" class="text-gray-700">
+                                    我承诺所提交的信息真实有效，如有虚假，愿意承担相应责任
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <button type="submit" 
+                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all-300">
+                                提交认证
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 学生证照片上传
+        document.querySelector('.border-dashed').addEventListener('click', function() {
+            document.getElementById('student-id-photo').click();
+        });
+        
+        document.getElementById('student-id-photo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const uploadArea = document.querySelector('.border-dashed');
+                    uploadArea.innerHTML = `
+                        <img src="${e.target.result}" alt="学生证" class="max-h-48 object-contain mb-2">
+                        <p class="text-sm text-gray-600">学生证照片</p>
+                        <p class="text-xs text-gray-500 mt-1">点击更换照片</p>
+                        <input type="file" id="student-id-photo" name="student-id-photo" class="hidden" accept="image/*">
+                    `;
+                    // 重新绑定点击事件
+                    document.querySelector('.border-dashed').addEventListener('click', function() {
+                        document.getElementById('student-id-photo').click();
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // 表单提交
+        document.getElementById('student-verification-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const realName = document.getElementById('real-name').value.trim();
+            const schoolName = document.getElementById('school-name').value.trim();
+            const studentId = document.getElementById('student-id').value.trim();
+            const enrollmentYear = document.getElementById('enrollment-year').value.trim();
+            const agreeVerification = document.getElementById('agree-verification').checked;
+            
+            if (!realName) {
+                alert('请输入真实姓名');
+                return;
+            }
+            
+            if (!schoolName) {
+                alert('请输入学校名称');
+                return;
+            }
+            
+            if (!studentId) {
+                alert('请输入学号');
+                return;
+            }
+            
+            if (!enrollmentYear) {
+                alert('请输入入学年份');
+                return;
+            }
+            
+            if (!/^\d{4}$/.test(enrollmentYear)) {
+                alert('请输入正确的入学年份');
+                return;
+            }
+            
+            if (!agreeVerification) {
+                alert('请确认所提交的信息真实有效');
+                return;
+            }
+            
+            // 这里可以添加实际的学生认证API调用
+            console.log('学生认证:', {
+                realName,
+                schoolName,
+                studentId,
+                enrollmentYear
+            });
+            
+            alert('认证提交成功，我们将尽快审核您的信息');
+            window.location.href = 'personal-center.html';
+        });
+    </script>
+</body>
+</html>

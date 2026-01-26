@@ -22,9 +22,21 @@ const (
 )
 
 type NewOrderReq struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	UserId             int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	TripType           string                 `protobuf:"bytes,2,opt,name=tripType,proto3" json:"tripType,omitempty"`
+	RideMode           string                 `protobuf:"bytes,3,opt,name=rideMode,proto3" json:"rideMode,omitempty"`
+	PassengerNum       int64                  `protobuf:"varint,4,opt,name=passengerNum,proto3" json:"passengerNum,omitempty"`
+	CarType            string                 `protobuf:"bytes,5,opt,name=carType,proto3" json:"carType,omitempty"`
+	DepartureTime      string                 `protobuf:"bytes,6,opt,name=departureTime,proto3" json:"departureTime,omitempty"`
+	WaitingTime        int64                  `protobuf:"varint,7,opt,name=waitingTime,proto3" json:"waitingTime,omitempty"`
+	StratDetailAddress string                 `protobuf:"bytes,8,opt,name=stratDetailAddress,proto3" json:"stratDetailAddress,omitempty"`
+	EndDetailAddress   string                 `protobuf:"bytes,9,opt,name=endDetailAddress,proto3" json:"endDetailAddress,omitempty"`
+	Remark             string                 `protobuf:"bytes,10,opt,name=remark,proto3" json:"remark,omitempty"`
+	CouponId           int64                  `protobuf:"varint,11,opt,name=couponId,proto3" json:"couponId,omitempty"`
+	PaymentMethod      string                 `protobuf:"bytes,12,opt,name=paymentMethod,proto3" json:"paymentMethod,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *NewOrderReq) Reset() {
@@ -57,8 +69,94 @@ func (*NewOrderReq) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{0}
 }
 
+func (x *NewOrderReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *NewOrderReq) GetTripType() string {
+	if x != nil {
+		return x.TripType
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetRideMode() string {
+	if x != nil {
+		return x.RideMode
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetPassengerNum() int64 {
+	if x != nil {
+		return x.PassengerNum
+	}
+	return 0
+}
+
+func (x *NewOrderReq) GetCarType() string {
+	if x != nil {
+		return x.CarType
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetDepartureTime() string {
+	if x != nil {
+		return x.DepartureTime
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetWaitingTime() int64 {
+	if x != nil {
+		return x.WaitingTime
+	}
+	return 0
+}
+
+func (x *NewOrderReq) GetStratDetailAddress() string {
+	if x != nil {
+		return x.StratDetailAddress
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetEndDetailAddress() string {
+	if x != nil {
+		return x.EndDetailAddress
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetRemark() string {
+	if x != nil {
+		return x.Remark
+	}
+	return ""
+}
+
+func (x *NewOrderReq) GetCouponId() int64 {
+	if x != nil {
+		return x.CouponId
+	}
+	return 0
+}
+
+func (x *NewOrderReq) GetPaymentMethod() string {
+	if x != nil {
+		return x.PaymentMethod
+	}
+	return ""
+}
+
 type NewOrderResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderCode     string                 `protobuf:"bytes,1,opt,name=orderCode,proto3" json:"orderCode,omitempty"`
+	PayUrl        string                 `protobuf:"bytes,2,opt,name=payUrl,proto3" json:"payUrl,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -93,15 +191,746 @@ func (*NewOrderResp) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{1}
 }
 
+func (x *NewOrderResp) GetOrderCode() string {
+	if x != nil {
+		return x.OrderCode
+	}
+	return ""
+}
+
+func (x *NewOrderResp) GetPayUrl() string {
+	if x != nil {
+		return x.PayUrl
+	}
+	return ""
+}
+
+type OrderNotifyReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderNotifyReq) Reset() {
+	*x = OrderNotifyReq{}
+	mi := &file_order_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderNotifyReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderNotifyReq) ProtoMessage() {}
+
+func (x *OrderNotifyReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderNotifyReq.ProtoReflect.Descriptor instead.
+func (*OrderNotifyReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{2}
+}
+
+type OrderNotifyResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderNotifyResp) Reset() {
+	*x = OrderNotifyResp{}
+	mi := &file_order_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderNotifyResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderNotifyResp) ProtoMessage() {}
+
+func (x *OrderNotifyResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderNotifyResp.ProtoReflect.Descriptor instead.
+func (*OrderNotifyResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{3}
+}
+
+type OrderReturnsReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderReturnsReq) Reset() {
+	*x = OrderReturnsReq{}
+	mi := &file_order_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderReturnsReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderReturnsReq) ProtoMessage() {}
+
+func (x *OrderReturnsReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderReturnsReq.ProtoReflect.Descriptor instead.
+func (*OrderReturnsReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{4}
+}
+
+type OrderReturnsResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrderReturnsResp) Reset() {
+	*x = OrderReturnsResp{}
+	mi := &file_order_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrderReturnsResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrderReturnsResp) ProtoMessage() {}
+
+func (x *OrderReturnsResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrderReturnsResp.ProtoReflect.Descriptor instead.
+func (*OrderReturnsResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{5}
+}
+
+type CancelOrderReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelOrderReq) Reset() {
+	*x = CancelOrderReq{}
+	mi := &file_order_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelOrderReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelOrderReq) ProtoMessage() {}
+
+func (x *CancelOrderReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelOrderReq.ProtoReflect.Descriptor instead.
+func (*CancelOrderReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{6}
+}
+
+type CancelOrderResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CancelOrderResp) Reset() {
+	*x = CancelOrderResp{}
+	mi := &file_order_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CancelOrderResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CancelOrderResp) ProtoMessage() {}
+
+func (x *CancelOrderResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CancelOrderResp.ProtoReflect.Descriptor instead.
+func (*CancelOrderResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{7}
+}
+
+type UserOrderListReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserOrderListReq) Reset() {
+	*x = UserOrderListReq{}
+	mi := &file_order_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserOrderListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserOrderListReq) ProtoMessage() {}
+
+func (x *UserOrderListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserOrderListReq.ProtoReflect.Descriptor instead.
+func (*UserOrderListReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{8}
+}
+
+type UserOrderListResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserOrderListResp) Reset() {
+	*x = UserOrderListResp{}
+	mi := &file_order_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserOrderListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserOrderListResp) ProtoMessage() {}
+
+func (x *UserOrderListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserOrderListResp.ProtoReflect.Descriptor instead.
+func (*UserOrderListResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{9}
+}
+
+type UserOrderDetailReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserOrderDetailReq) Reset() {
+	*x = UserOrderDetailReq{}
+	mi := &file_order_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserOrderDetailReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserOrderDetailReq) ProtoMessage() {}
+
+func (x *UserOrderDetailReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserOrderDetailReq.ProtoReflect.Descriptor instead.
+func (*UserOrderDetailReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{10}
+}
+
+type UserOrderDetailResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserOrderDetailResp) Reset() {
+	*x = UserOrderDetailResp{}
+	mi := &file_order_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserOrderDetailResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserOrderDetailResp) ProtoMessage() {}
+
+func (x *UserOrderDetailResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserOrderDetailResp.ProtoReflect.Descriptor instead.
+func (*UserOrderDetailResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{11}
+}
+
+type MatchOrderListReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MatchOrderListReq) Reset() {
+	*x = MatchOrderListReq{}
+	mi := &file_order_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MatchOrderListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatchOrderListReq) ProtoMessage() {}
+
+func (x *MatchOrderListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatchOrderListReq.ProtoReflect.Descriptor instead.
+func (*MatchOrderListReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{12}
+}
+
+type MatchOrderListResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MatchOrderListResp) Reset() {
+	*x = MatchOrderListResp{}
+	mi := &file_order_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MatchOrderListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatchOrderListResp) ProtoMessage() {}
+
+func (x *MatchOrderListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatchOrderListResp.ProtoReflect.Descriptor instead.
+func (*MatchOrderListResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{13}
+}
+
+type AcceptOrdersReq struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	UserId             int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	OrderId            int64                  `protobuf:"varint,2,opt,name=orderId,proto3" json:"orderId,omitempty"`
+	ActualPassengerNum int64                  `protobuf:"varint,3,opt,name=actualPassengerNum,proto3" json:"actualPassengerNum,omitempty"` // 实际乘车人数（司机填写）【打车】
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *AcceptOrdersReq) Reset() {
+	*x = AcceptOrdersReq{}
+	mi := &file_order_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AcceptOrdersReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AcceptOrdersReq) ProtoMessage() {}
+
+func (x *AcceptOrdersReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AcceptOrdersReq.ProtoReflect.Descriptor instead.
+func (*AcceptOrdersReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *AcceptOrdersReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *AcceptOrdersReq) GetOrderId() int64 {
+	if x != nil {
+		return x.OrderId
+	}
+	return 0
+}
+
+func (x *AcceptOrdersReq) GetActualPassengerNum() int64 {
+	if x != nil {
+		return x.ActualPassengerNum
+	}
+	return 0
+}
+
+type AcceptOrdersResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AcceptOrdersResp) Reset() {
+	*x = AcceptOrdersResp{}
+	mi := &file_order_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AcceptOrdersResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AcceptOrdersResp) ProtoMessage() {}
+
+func (x *AcceptOrdersResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AcceptOrdersResp.ProtoReflect.Descriptor instead.
+func (*AcceptOrdersResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{15}
+}
+
+type StatementListReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StatementListReq) Reset() {
+	*x = StatementListReq{}
+	mi := &file_order_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StatementListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StatementListReq) ProtoMessage() {}
+
+func (x *StatementListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StatementListReq.ProtoReflect.Descriptor instead.
+func (*StatementListReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{16}
+}
+
+type StatementListResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StatementListResp) Reset() {
+	*x = StatementListResp{}
+	mi := &file_order_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StatementListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StatementListResp) ProtoMessage() {}
+
+func (x *StatementListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StatementListResp.ProtoReflect.Descriptor instead.
+func (*StatementListResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{17}
+}
+
+type DriverOrderDetailReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DriverOrderDetailReq) Reset() {
+	*x = DriverOrderDetailReq{}
+	mi := &file_order_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DriverOrderDetailReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DriverOrderDetailReq) ProtoMessage() {}
+
+func (x *DriverOrderDetailReq) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DriverOrderDetailReq.ProtoReflect.Descriptor instead.
+func (*DriverOrderDetailReq) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{18}
+}
+
+type DriverOrderDetailResp struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DriverOrderDetailResp) Reset() {
+	*x = DriverOrderDetailResp{}
+	mi := &file_order_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DriverOrderDetailResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DriverOrderDetailResp) ProtoMessage() {}
+
+func (x *DriverOrderDetailResp) ProtoReflect() protoreflect.Message {
+	mi := &file_order_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DriverOrderDetailResp.ProtoReflect.Descriptor instead.
+func (*DriverOrderDetailResp) Descriptor() ([]byte, []int) {
+	return file_order_proto_rawDescGZIP(), []int{19}
+}
+
 var File_order_proto protoreflect.FileDescriptor
 
 const file_order_proto_rawDesc = "" +
 	"\n" +
-	"\vorder.proto\x12\btemplate\"\r\n" +
-	"\vNewOrderReq\"\x0e\n" +
-	"\fNewOrderResp2B\n" +
+	"\vorder.proto\x12\btemplate\"\x99\x03\n" +
+	"\vNewOrderReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
+	"\btripType\x18\x02 \x01(\tR\btripType\x12\x1a\n" +
+	"\brideMode\x18\x03 \x01(\tR\brideMode\x12\"\n" +
+	"\fpassengerNum\x18\x04 \x01(\x03R\fpassengerNum\x12\x18\n" +
+	"\acarType\x18\x05 \x01(\tR\acarType\x12$\n" +
+	"\rdepartureTime\x18\x06 \x01(\tR\rdepartureTime\x12 \n" +
+	"\vwaitingTime\x18\a \x01(\x03R\vwaitingTime\x12.\n" +
+	"\x12stratDetailAddress\x18\b \x01(\tR\x12stratDetailAddress\x12*\n" +
+	"\x10endDetailAddress\x18\t \x01(\tR\x10endDetailAddress\x12\x16\n" +
+	"\x06remark\x18\n" +
+	" \x01(\tR\x06remark\x12\x1a\n" +
+	"\bcouponId\x18\v \x01(\x03R\bcouponId\x12$\n" +
+	"\rpaymentMethod\x18\f \x01(\tR\rpaymentMethod\"D\n" +
+	"\fNewOrderResp\x12\x1c\n" +
+	"\torderCode\x18\x01 \x01(\tR\torderCode\x12\x16\n" +
+	"\x06payUrl\x18\x02 \x01(\tR\x06payUrl\"\x10\n" +
+	"\x0eOrderNotifyReq\"\x11\n" +
+	"\x0fOrderNotifyResp\"\x11\n" +
+	"\x0fOrderReturnsReq\"\x12\n" +
+	"\x10OrderReturnsResp\"\x10\n" +
+	"\x0eCancelOrderReq\"\x11\n" +
+	"\x0fCancelOrderResp\"\x12\n" +
+	"\x10UserOrderListReq\"\x13\n" +
+	"\x11UserOrderListResp\"\x14\n" +
+	"\x12UserOrderDetailReq\"\x15\n" +
+	"\x13UserOrderDetailResp\"\x13\n" +
+	"\x11MatchOrderListReq\"\x14\n" +
+	"\x12MatchOrderListResp\"s\n" +
+	"\x0fAcceptOrdersReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x18\n" +
+	"\aorderId\x18\x02 \x01(\x03R\aorderId\x12.\n" +
+	"\x12actualPassengerNum\x18\x03 \x01(\x03R\x12actualPassengerNum\"\x12\n" +
+	"\x10AcceptOrdersResp\"\x12\n" +
+	"\x10StatementListReq\"\x13\n" +
+	"\x11StatementListResp\"\x16\n" +
+	"\x14DriverOrderDetailReq\"\x17\n" +
+	"\x15DriverOrderDetailResp2\xdf\x05\n" +
 	"\x05Order\x129\n" +
-	"\bNewOrder\x12\x15.template.NewOrderReq\x1a\x16.template.NewOrderRespB\x19Z\x17../../../internal/protob\x06proto3"
+	"\bNewOrder\x12\x15.template.NewOrderReq\x1a\x16.template.NewOrderResp\x12B\n" +
+	"\vOrderNotify\x12\x18.template.OrderNotifyReq\x1a\x19.template.OrderNotifyResp\x12E\n" +
+	"\fOrderReturns\x12\x19.template.OrderReturnsReq\x1a\x1a.template.OrderReturnsResp\x12B\n" +
+	"\vCancelOrder\x12\x18.template.CancelOrderReq\x1a\x19.template.CancelOrderResp\x12H\n" +
+	"\rUserOrderList\x12\x1a.template.UserOrderListReq\x1a\x1b.template.UserOrderListResp\x12N\n" +
+	"\x0fUserOrderDetail\x12\x1c.template.UserOrderDetailReq\x1a\x1d.template.UserOrderDetailResp\x12K\n" +
+	"\x0eMatchOrderList\x12\x1b.template.MatchOrderListReq\x1a\x1c.template.MatchOrderListResp\x12E\n" +
+	"\fAcceptOrders\x12\x19.template.AcceptOrdersReq\x1a\x1a.template.AcceptOrdersResp\x12H\n" +
+	"\rStatementList\x12\x1a.template.StatementListReq\x1a\x1b.template.StatementListResp\x12T\n" +
+	"\x11DriverOrderDetail\x12\x1e.template.DriverOrderDetailReq\x1a\x1f.template.DriverOrderDetailRespB\x19Z\x17../../../internal/protob\x06proto3"
 
 var (
 	file_order_proto_rawDescOnce sync.Once
@@ -115,19 +944,55 @@ func file_order_proto_rawDescGZIP() []byte {
 	return file_order_proto_rawDescData
 }
 
-var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_order_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_order_proto_goTypes = []any{
-	(*NewOrderReq)(nil),  // 0: template.NewOrderReq
-	(*NewOrderResp)(nil), // 1: template.NewOrderResp
+	(*NewOrderReq)(nil),           // 0: template.NewOrderReq
+	(*NewOrderResp)(nil),          // 1: template.NewOrderResp
+	(*OrderNotifyReq)(nil),        // 2: template.OrderNotifyReq
+	(*OrderNotifyResp)(nil),       // 3: template.OrderNotifyResp
+	(*OrderReturnsReq)(nil),       // 4: template.OrderReturnsReq
+	(*OrderReturnsResp)(nil),      // 5: template.OrderReturnsResp
+	(*CancelOrderReq)(nil),        // 6: template.CancelOrderReq
+	(*CancelOrderResp)(nil),       // 7: template.CancelOrderResp
+	(*UserOrderListReq)(nil),      // 8: template.UserOrderListReq
+	(*UserOrderListResp)(nil),     // 9: template.UserOrderListResp
+	(*UserOrderDetailReq)(nil),    // 10: template.UserOrderDetailReq
+	(*UserOrderDetailResp)(nil),   // 11: template.UserOrderDetailResp
+	(*MatchOrderListReq)(nil),     // 12: template.MatchOrderListReq
+	(*MatchOrderListResp)(nil),    // 13: template.MatchOrderListResp
+	(*AcceptOrdersReq)(nil),       // 14: template.AcceptOrdersReq
+	(*AcceptOrdersResp)(nil),      // 15: template.AcceptOrdersResp
+	(*StatementListReq)(nil),      // 16: template.StatementListReq
+	(*StatementListResp)(nil),     // 17: template.StatementListResp
+	(*DriverOrderDetailReq)(nil),  // 18: template.DriverOrderDetailReq
+	(*DriverOrderDetailResp)(nil), // 19: template.DriverOrderDetailResp
 }
 var file_order_proto_depIdxs = []int32{
-	0, // 0: template.Order.NewOrder:input_type -> template.NewOrderReq
-	1, // 1: template.Order.NewOrder:output_type -> template.NewOrderResp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: template.Order.NewOrder:input_type -> template.NewOrderReq
+	2,  // 1: template.Order.OrderNotify:input_type -> template.OrderNotifyReq
+	4,  // 2: template.Order.OrderReturns:input_type -> template.OrderReturnsReq
+	6,  // 3: template.Order.CancelOrder:input_type -> template.CancelOrderReq
+	8,  // 4: template.Order.UserOrderList:input_type -> template.UserOrderListReq
+	10, // 5: template.Order.UserOrderDetail:input_type -> template.UserOrderDetailReq
+	12, // 6: template.Order.MatchOrderList:input_type -> template.MatchOrderListReq
+	14, // 7: template.Order.AcceptOrders:input_type -> template.AcceptOrdersReq
+	16, // 8: template.Order.StatementList:input_type -> template.StatementListReq
+	18, // 9: template.Order.DriverOrderDetail:input_type -> template.DriverOrderDetailReq
+	1,  // 10: template.Order.NewOrder:output_type -> template.NewOrderResp
+	3,  // 11: template.Order.OrderNotify:output_type -> template.OrderNotifyResp
+	5,  // 12: template.Order.OrderReturns:output_type -> template.OrderReturnsResp
+	7,  // 13: template.Order.CancelOrder:output_type -> template.CancelOrderResp
+	9,  // 14: template.Order.UserOrderList:output_type -> template.UserOrderListResp
+	11, // 15: template.Order.UserOrderDetail:output_type -> template.UserOrderDetailResp
+	13, // 16: template.Order.MatchOrderList:output_type -> template.MatchOrderListResp
+	15, // 17: template.Order.AcceptOrders:output_type -> template.AcceptOrdersResp
+	17, // 18: template.Order.StatementList:output_type -> template.StatementListResp
+	19, // 19: template.Order.DriverOrderDetail:output_type -> template.DriverOrderDetailResp
+	10, // [10:20] is the sub-list for method output_type
+	0,  // [0:10] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_order_proto_init() }
@@ -141,7 +1006,7 @@ func file_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_order_proto_rawDesc), len(file_order_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

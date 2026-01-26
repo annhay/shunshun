@@ -6,11 +6,14 @@ import (
 	"gorm.io/gorm"
 )
 
-type ShunCar struct { //车辆信息
+// ShunCar 车辆信息模型
+// 存储车辆的基本信息、行驶证信息、保险信息等
+
+type ShunCar struct { //车辆信息表
 	Id                  uint64    `gorm:"column:id;type:bigint UNSIGNED;primaryKey;not null;" json:"id"`
 	DriverId            uint64    `gorm:"column:driver_id;type:bigint UNSIGNED;comment:司机ID;not null;" json:"driver_id"`                        // 司机ID
 	VehicleNo           string    `gorm:"column:vehicle_no;type:varchar(20);comment:车牌号;not null;" json:"vehicle_no"`                           // 车牌号
-	VehicleType         string    `gorm:"column:vehicle_type;type:varchar(10);comment:车辆类型;not null;" json:"vehicle_type"`                      // 车辆类型
+	VehicleType         string    `gorm:"column:vehicle_type;type:varchar(10);comment:车辆类型：1-经济车 2-商务车 3六座车;not null;" json:"vehicle_type"`     // 车辆类型：1-经济车 2-商务车 3六座车
 	VehicleBrand        string    `gorm:"column:vehicle_brand;type:varchar(32);comment:车辆品牌;not null;" json:"vehicle_brand"`                    // 车辆品牌
 	VehicleModel        string    `gorm:"column:vehicle_model;type:varchar(64);comment:车辆车型;not null;" json:"vehicle_model"`                    // 车辆车型
 	VehicleColor        string    `gorm:"column:vehicle_color;type:varchar(20);comment:车辆颜色;not null;" json:"vehicle_color"`                    // 车辆颜色
@@ -27,17 +30,62 @@ type ShunCar struct { //车辆信息
 	DeletedAt           time.Time `gorm:"column:deleted_at;type:datetime(3);default:NULL;" json:"deleted_at"`
 }
 
+// TableName 指定表名
+//
+// 返回值:
+//   - string: 表名
 func (sc *ShunCar) TableName() string {
 	return "shun_car"
 }
+
+// CreateCar 创建车辆信息
+//
+// 参数:
+//   - db *gorm.DB: 数据库连接
+//
+// 返回值:
+//   - error: 错误信息
 func (sc *ShunCar) CreateCar(db *gorm.DB) error {
 	return db.Create(&sc).Error
 }
+
+// GetCarsByDriverId 根据司机ID获取车辆列表
+//
+// 参数:
+//   - db *gorm.DB: 数据库连接
+//   - driverId uint64: 司机ID
+//
+// 返回值:
+//   - []ShunCar: 车辆列表
+//   - error: 错误信息
 func (sc *ShunCar) GetCarsByDriverId(db *gorm.DB, driverId uint64) ([]ShunCar, error) {
 	var cars []ShunCar
 	err := db.Where("driver_id = ?", driverId).Find(&cars).Error
 	return cars, err
 }
+
+// UpdateCar 更新车辆信息
+//
+// 参数:
+//   - db *gorm.DB: 数据库连接
+//
+// 返回值:
+//   - error: 错误信息
 func (sc *ShunCar) UpdateCar(db *gorm.DB) error {
 	return db.Save(&sc).Error
+}
+
+// GetCarByDriverId 根据司机ID获取车辆信息
+//
+// 参数:
+//   - db *gorm.DB: 数据库连接
+//   - driverId uint64: 司机ID
+//
+// 返回值:
+//   - error: 错误信息
+func (sc *ShunCar) GetCarByDriverId(db *gorm.DB, driverId uint64) error {
+	return db.Where("driver_id = ?", driverId).First(&sc).Error
+}
+func (sc *ShunCar) GetCarByDriverIdOnNormal(db *gorm.DB, driverId uint64) error {
+	return db.Where("driver_id = ? and status = ?", driverId, "1").First(&sc).Error
 }

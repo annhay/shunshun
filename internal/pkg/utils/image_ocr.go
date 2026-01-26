@@ -12,6 +12,8 @@ import (
 )
 
 // OCRResult 结构化的OCR识别结果
+// 包含了各种证件的识别信息
+
 type OCRResult struct {
 	RealName   string `json:"real_name"`   // 真实姓名
 	IdCard     string `json:"id_card"`     // 身份证号
@@ -20,12 +22,21 @@ type OCRResult struct {
 	Address    string `json:"address"`     // 地址
 	SchoolName string `json:"school_name"` // 学校名称
 	StudentId  string `json:"student_id"`  // 学号
+	ExpireDate string `json:"expire_date"` // 到期日期
 }
 
 // AliOCR 阿里图片信息自动识别补充字段
-// imageURL: 待检测图片链接地址
-// cardType: 身份证类型，"id-card-front" 表示正面，"id-card-back" 表示反面
-// 返回识别结果和错误信息
+//
+// 参数:
+//   - imageURL: 待检测图片链接地址
+//   - cardType: 证件类型，支持以下类型：
+//   - "id-card-front": 身份证正面
+//   - "id-card-back": 身份证反面
+//   - "student-card": 学生证
+//
+// 返回值:
+//   - string: OCR识别结果的JSON字符串
+//   - error: 错误信息
 func AliOCR(imageURL, cardType string) (string, error) {
 	/**
 	 * 注意：此处实例化的client尽可能重复使用，提升检测性能。避免重复建立连接。
@@ -33,10 +44,11 @@ func AliOCR(imageURL, cardType string) (string, error) {
 	 *     获取RAM用户AccessKey ID：os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_ID")
 	 *     获取RAM用户AccessKey Secret：os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_SECRET")
 	 */
-	// accessorisesKey
+	// 获取阿里云 AccessKey
 	accessKeyID := os.Getenv(global.AppConf.AliYun.AccessKeyID)
 	accessKeySecret := os.Getenv(global.AppConf.AliYun.AccessKeySecret)
 
+	// 创建阿里云 Green 客户端
 	client, err := green.NewClientWithAccessKey(
 		"cn-shanghai",
 		accessKeyID,
@@ -46,15 +58,28 @@ func AliOCR(imageURL, cardType string) (string, error) {
 		return "", err
 	}
 
-	task1 := map[string]interface{}{"dataId": fmt.Sprintf("%d", GetTimestamp()), "url": imageURL}
-	cardExtras := map[string]interface{}{"card": cardType}
-	// scenes：检测场景。
+	// 构建 OCR 检测任务
+	task1 := map[string]interface{}{
+		"dataId": fmt.Sprintf("%d", GetTimestamp()), // 任务 ID
+		"url":    imageURL,                          // 图片 URL
+	}
+
+	// 构建额外参数
+	cardExtras := map[string]interface{}{
+		"card": cardType, // 证件类型
+	}
+
+	// 构建请求内容
 	content, _ := json.Marshal(
 		map[string]interface{}{
-			"tasks": []map[string]interface{}{task1}, "scenes": []string{"ocr"}, "bizType": "shunshun-ocr", "extras": cardExtras,
+			"tasks":   []map[string]interface{}{task1}, // 检测任务列表
+			"scenes":  []string{"ocr"},                 // 检测场景
+			"bizType": "shunshun-ocr",                  // 业务类型
+			"extras":  cardExtras,                      // 额外参数
 		},
 	)
 
+	// 创建并发送请求
 	request := green.CreateImageSyncScanRequest()
 	request.SetContent(content)
 	response, _err := client.ImageSyncScan(request)
@@ -62,21 +87,29 @@ func AliOCR(imageURL, cardType string) (string, error) {
 		fmt.Println(_err.Error())
 		return "", _err
 	}
+
+	// 检查响应状态
 	if response.GetHttpStatus() != 200 {
 		statusMsg := "response not success. status:" + strconv.Itoa(response.GetHttpStatus())
 		fmt.Println(statusMsg)
 		return "", fmt.Errorf(statusMsg)
 	}
 
+	// 获取响应结果
 	result := response.GetHttpContentString()
 	fmt.Println(result)
 	return result, nil
 }
 
 // ParseOCRResult 解析阿里OCR返回结果
-// ocrResult: 阿里OCR返回的JSON字符串
-// cardType: 身份证类型，"id-card-front" 表示正面，"id-card-back" 表示反面
-// 返回结构化的OCR识别结果
+//
+// 参数:
+//   - ocrResult: 阿里OCR返回的JSON字符串
+//   - cardType: 证件类型，与AliOCR函数的cardType参数对应
+//
+// 返回值:
+//   - *OCRResult: 结构化的OCR识别结果
+//   - error: 错误信息
 func ParseOCRResult(ocrResult, cardType string) (*OCRResult, error) {
 	// 解析 JSON 字符串
 	var result map[string]interface{}
@@ -142,6 +175,10 @@ func ParseOCRResult(ocrResult, cardType string) (*OCRResult, error) {
 						if studentId, ok := studentCardInfo["studentId"].(string); ok {
 							oCRResultStruct.StudentId = studentId
 						}
+						// 解析学生证到期时间
+						if expireDate, ok := studentCardInfo["expireDate"].(string); ok {
+							oCRResultStruct.ExpireDate = expireDate
+						}
 					}
 				}
 			}
@@ -154,6 +191,9 @@ func ParseOCRResult(ocrResult, cardType string) (*OCRResult, error) {
 }
 
 // GetTimestamp 获取当前时间戳
+//
+// 返回值:
+//   - int64: 当前时间戳（毫秒）
 func GetTimestamp() int64 {
 	return time.Now().UnixNano() / 1000000
 }

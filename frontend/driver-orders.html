@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>司机订单 - 顺顺出行</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 统一的样式配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        info: '#3b82f6',
+                        light: '#f3f4f6',
+                        dark: '#1f2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .card-hover {
+                @apply hover:shadow-lg transition-all-300;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-car text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-primary">顺顺出行</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition-all-300">首页</a>
+                <a href="login.html" class="text-gray-600 hover:text-primary transition-all-300">登录</a>
+                <a href="register.html" class="text-gray-600 hover:text-primary transition-all-300">注册</a>
+                <a href="personal-center.html" class="text-gray-600 hover:text-primary transition-all-300">个人中心</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-600 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 司机订单内容 -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- 侧边栏 -->
+                <div class="w-full md:w-64 bg-white rounded-xl shadow-md p-6">
+                    <div class="flex flex-col items-center mb-8">
+                        <div class="relative mb-4">
+                            <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden border-4 border-primary">
+                                <img src="https://gd-hbimg.huaban.com/9980f53d02800ebad0472f0fe1a6eed9a1ba699ec27f-mvUjPb_fw658" 
+                                     alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <i class="fa fa-camera"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800">张三</h3>
+                        <p class="text-sm text-gray-500">司机</p>
+                    </div>
+                    
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="personal-center.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-user-circle w-6"></i>
+                                <span class="ml-3">个人信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="complete-information.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-id-card w-6"></i>
+                                <span class="ml-3">完善信息</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="student-verification.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-graduation-cap w-6"></i>
+                                <span class="ml-3">学生认证</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="driver-orders.html" class="flex items-center p-3 bg-blue-50 text-primary rounded-lg">
+                                <i class="fa fa-list-alt w-6"></i>
+                                <span class="ml-3">司机订单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="driver-history.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-history w-6"></i>
+                                <span class="ml-3">历史接单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="orders.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-list w-6"></i>
+                                <span class="ml-3">我的订单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wallet.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-credit-card w-6"></i>
+                                <span class="ml-3">我的钱包</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300">
+                                <i class="fa fa-cog w-6"></i>
+                                <span class="ml-3">设置</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center p-3 text-gray-600 hover:bg-blue-50 hover:text-primary rounded-lg transition-all-300" id="logout-btn">
+                                <i class="fa fa-sign-out w-6"></i>
+                                <span class="ml-3">退出登录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 主内容区 -->
+                <div class="flex-1">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">匹配订单</h2>
+                        
+                        <!-- 订单筛选 -->
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg">
+                                <i class="fa fa-refresh mr-2"></i>
+                                刷新订单
+                            </button>
+                            <div class="relative">
+                                <select class="appearance-none bg-gray-100 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option>全部订单</option>
+                                    <option>实时订单</option>
+                                    <option>预约订单</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <i class="fa fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <select class="appearance-none bg-gray-100 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option>距离最近</option>
+                                    <option>收入最高</option>
+                                    <option>时间最短</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <i class="fa fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 订单列表 -->
+                        <div class="space-y-4" id="order-list">
+                            <!-- 订单卡片 1 -->
+                            <div class="bg-gray-50 rounded-lg p-4 card-hover">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm font-medium text-gray-800">实时订单</span>
+                                    <span class="text-sm text-gray-500">5分钟前</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-primary">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">北京市朝阳区建国路88号</p>
+                                            <p class="text-gray-600 text-sm mt-1">距离您 2.5 公里</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-primary">
+                                            <i class="fa fa-flag"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">北京市海淀区中关村大街1号</p>
+                                            <p class="text-gray-600 text-sm mt-1">预计行驶 25 分钟</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-2 border-t border-gray-200">
+                                        <div class="flex items-center">
+                                            <span class="text-primary font-medium text-lg">¥35.00</span>
+                                            <span class="text-gray-500 text-sm ml-2">预计收入</span>
+                                        </div>
+                                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-all-300 order-accept-btn" data-order-id="1">
+                                            接单
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 订单卡片 2 -->
+                            <div class="bg-gray-50 rounded-lg p-4 card-hover">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm font-medium text-gray-800">实时订单</span>
+                                    <span class="text-sm text-gray-500">10分钟前</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-primary">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">北京市朝阳区望京SOHO</p>
+                                            <p class="text-gray-600 text-sm mt-1">距离您 3.8 公里</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-primary">
+                                            <i class="fa fa-flag"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">北京市东城区王府井大街</p>
+                                            <p class="text-gray-600 text-sm mt-1">预计行驶 35 分钟</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-2 border-t border-gray-200">
+                                        <div class="flex items-center">
+                                            <span class="text-primary font-medium text-lg">¥45.00</span>
+                                            <span class="text-gray-500 text-sm ml-2">预计收入</span>
+                                        </div>
+                                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-all-300 order-accept-btn" data-order-id="2">
+                                            接单
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 订单卡片 3 -->
+                            <div class="bg-gray-50 rounded-lg p-4 card-hover">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-sm font-medium text-gray-800">预约订单</span>
+                                    <span class="text-sm text-gray-500">30分钟前</span>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-primary">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">北京市海淀区清华大学</p>
+                                            <p class="text-gray-600 text-sm mt-1">距离您 5.2 公里</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-primary">
+                                            <i class="fa fa-flag"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">北京市朝阳区首都国际机场</p>
+                                            <p class="text-gray-600 text-sm mt-1">预计行驶 45 分钟</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="mt-1 mr-3 text-gray-500">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-gray-800">预约时间：2026-01-27 08:30</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-2 border-t border-gray-200">
+                                        <div class="flex items-center">
+                                            <span class="text-primary font-medium text-lg">¥65.00</span>
+                                            <span class="text-gray-500 text-sm ml-2">预计收入</span>
+                                        </div>
+                                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-all-300 order-accept-btn" data-order-id="3">
+                                            接单
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 无订单提示 -->
+                        <div class="hidden text-center py-10" id="no-orders">
+                            <i class="fa fa-car text-gray-300 text-4xl mb-4"></i>
+                            <p class="text-gray-500">暂无匹配订单</p>
+                            <p class="text-gray-400 text-sm mt-2">请稍后刷新或调整筛选条件</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 接单状态 -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">接单状态</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-primary text-2xl font-bold">12</div>
+                                <div class="text-gray-600 text-sm mt-1">今日接单</div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-primary text-2xl font-bold">356</div>
+                                <div class="text-gray-600 text-sm mt-1">总接单量</div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 text-center">
+                                <div class="text-primary text-2xl font-bold">4.9</div>
+                                <div class="text-gray-600 text-sm mt-1">服务评分</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2026 顺顺出行 版权所有</p>
+                <p class="mt-2">客服热线: 400-123-4567</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 接单确认模态框 -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="accept-modal">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">确认接单</h3>
+            <p class="text-gray-600 mb-6">您确定要接此订单吗？</p>
+            <div class="flex justify-end space-x-4">
+                <button class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-all-300" id="cancel-accept">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-all-300" id="confirm-accept">
+                    确认接单
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // API基础URL
+        const API_BASE_URL = 'http://localhost:8080/api/v1';
+        let currentOrderId = null;
+        
+        // 工具函数
+        function showLoading() {
+            // 显示加载状态
+            if (!document.querySelector('#loading-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.id = 'loading-overlay';
+                overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                overlay.innerHTML = `
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        <p class="mt-2 text-center">加载中...</p>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        }
+        
+        function hideLoading() {
+            // 隐藏加载状态
+            const overlay = document.querySelector('#loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+        
+        function showError(message) {
+            // 显示错误信息
+            alert(message);
+        }
+        
+        function showSuccess(message) {
+            // 显示成功信息
+            alert(message);
+        }
+        
+        // API调用函数
+        async function fetchAPI(endpoint, method = 'GET', data = null) {
+            showLoading();
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+                };
+                
+                const options = {
+                    method,
+                    headers,
+                    credentials: 'include'
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API request failed:', error);
+                showError('网络请求失败，请稍后重试');
+                throw error;
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        // 退出登录
+        document.getElementById('logout-btn').addEventListener('click', async function(e) {
+            e.preventDefault();
+            if (confirm('确定要退出登录吗？')) {
+                try {
+                    await fetchAPI('/user/logout', 'POST');
+                    localStorage.removeItem('token');
+                    showSuccess('退出登录成功');
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    // 即使API调用失败，也跳转到登录页面
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+        
+        // 接单按钮点击事件
+        document.querySelectorAll('.order-accept-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                currentOrderId = this.getAttribute('data-order-id');
+                document.getElementById('accept-modal').classList.remove('hidden');
+            });
+        });
+        
+        // 取消接单按钮点击事件
+        document.getElementById('cancel-accept').addEventListener('click', function() {
+            document.getElementById('accept-modal').classList.add('hidden');
+            currentOrderId = null;
+        });
+        
+        // 确认接单按钮点击事件
+        document.getElementById('confirm-accept').addEventListener('click', async function() {
+            if (!currentOrderId) return;
+            
+            try {
+                const result = await fetchAPI(`/driver/order/accept`, 'POST', { orderId: currentOrderId });
+                showSuccess('接单成功');
+                document.getElementById('accept-modal').classList.add('hidden');
+                
+                // 移除已接单的订单卡片
+                const orderCard = document.querySelector(`.order-accept-btn[data-order-id="${currentOrderId}"]`).closest('.bg-gray-50');
+                if (orderCard) {
+                    orderCard.remove();
+                }
+                
+                // 检查是否还有订单
+                const orderList = document.getElementById('order-list');
+                const noOrders = document.getElementById('no-orders');
+                if (orderList.children.length === 0) {
+                    orderList.classList.add('hidden');
+                    noOrders.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Accept order failed:', error);
+            } finally {
+                currentOrderId = null;
+            }
+        });
+        
+        // 加载匹配订单
+        async function loadMatchingOrders() {
+            try {
+                const result = await fetchAPI('/driver/order/matching');
+                if (result.data && result.data.list) {
+                    // 更新订单列表
+                    updateOrderList(result.data.list);
+                }
+            } catch (error) {
+                console.error('Load matching orders failed:', error);
+            }
+        }
+        
+        // 更新订单列表
+        function updateOrderList(orders) {
+            const orderList = document.getElementById('order-list');
+            const noOrders = document.getElementById('no-orders');
+            
+            if (orders.length === 0) {
+                orderList.classList.add('hidden');
+                noOrders.classList.remove('hidden');
+                return;
+            }
+            
+            orderList.classList.remove('hidden');
+            noOrders.classList.add('hidden');
+            
+            // 清空现有订单
+            orderList.innerHTML = '';
+            
+            // 添加新订单
+            orders.forEach(order => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'bg-gray-50 rounded-lg p-4 card-hover';
+                orderCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-sm font-medium text-gray-800">${order.type === 'real-time' ? '实时订单' : '预约订单'}</span>
+                        <span class="text-sm text-gray-500">${order.createdAt}</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div class="mt-1 mr-3 text-primary">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-gray-800">${order.startAddress}</p>
+                                <p class="text-gray-600 text-sm mt-1">距离您 ${order.distance} 公里</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="mt-1 mr-3 text-primary">
+                                <i class="fa fa-flag"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-gray-800">${order.endAddress}</p>
+                                <p class="text-gray-600 text-sm mt-1">预计行驶 ${order.estimatedTime} 分钟</p>
+                            </div>
+                        </div>
+                        ${order.type === 'reserved' ? `
+                            <div class="flex items-start">
+                                <div class="mt-1 mr-3 text-gray-500">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-gray-800">预约时间：${order.reserveTime}</p>
+                                </div>
+                            </div>
+                        ` : ''}
+                        <div class="flex items-center justify-between pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <span class="text-primary font-medium text-lg">¥${order.price}</span>
+                                <span class="text-gray-500 text-sm ml-2">预计收入</span>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-all-300 order-accept-btn" data-order-id="${order.id}">
+                                接单
+                            </button>
+                        </div>
+                    </div>
+                `;
+                orderList.appendChild(orderCard);
+            });
+            
+            // 重新绑定接单按钮点击事件
+            document.querySelectorAll('.order-accept-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentOrderId = this.getAttribute('data-order-id');
+                    document.getElementById('accept-modal').classList.remove('hidden');
+                });
+            });
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查登录状态
+            if (!localStorage.getItem('token')) {
+                window.location.href = 'login.html';
+            }
+            
+            // 加载匹配订单
+            loadMatchingOrders();
+        });
+    </script>
+</body>
+</html>

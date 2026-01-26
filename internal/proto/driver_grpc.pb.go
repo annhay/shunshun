@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Driver_NewDriver_FullMethodName = "/v1.Driver/NewDriver"
-	Driver_UpdDriver_FullMethodName = "/v1.Driver/UpdDriver"
+	Driver_NewDriver_FullMethodName    = "/v1.Driver/NewDriver"
+	Driver_DetailDriver_FullMethodName = "/v1.Driver/DetailDriver"
+	Driver_UpdDriver_FullMethodName    = "/v1.Driver/UpdDriver"
 )
 
 // DriverClient is the client API for Driver service.
@@ -28,6 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DriverClient interface {
 	NewDriver(ctx context.Context, in *NewDriverReq, opts ...grpc.CallOption) (*NewDriverResp, error)
+	DetailDriver(ctx context.Context, in *DetailDriverReq, opts ...grpc.CallOption) (*DetailDriverResp, error)
 	UpdDriver(ctx context.Context, in *UpdDriverReq, opts ...grpc.CallOption) (*UpdDriverResp, error)
 }
 
@@ -49,6 +51,16 @@ func (c *driverClient) NewDriver(ctx context.Context, in *NewDriverReq, opts ...
 	return out, nil
 }
 
+func (c *driverClient) DetailDriver(ctx context.Context, in *DetailDriverReq, opts ...grpc.CallOption) (*DetailDriverResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DetailDriverResp)
+	err := c.cc.Invoke(ctx, Driver_DetailDriver_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *driverClient) UpdDriver(ctx context.Context, in *UpdDriverReq, opts ...grpc.CallOption) (*UpdDriverResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdDriverResp)
@@ -64,6 +76,7 @@ func (c *driverClient) UpdDriver(ctx context.Context, in *UpdDriverReq, opts ...
 // for forward compatibility.
 type DriverServer interface {
 	NewDriver(context.Context, *NewDriverReq) (*NewDriverResp, error)
+	DetailDriver(context.Context, *DetailDriverReq) (*DetailDriverResp, error)
 	UpdDriver(context.Context, *UpdDriverReq) (*UpdDriverResp, error)
 	mustEmbedUnimplementedDriverServer()
 }
@@ -77,6 +90,9 @@ type UnimplementedDriverServer struct{}
 
 func (UnimplementedDriverServer) NewDriver(context.Context, *NewDriverReq) (*NewDriverResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NewDriver not implemented")
+}
+func (UnimplementedDriverServer) DetailDriver(context.Context, *DetailDriverReq) (*DetailDriverResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DetailDriver not implemented")
 }
 func (UnimplementedDriverServer) UpdDriver(context.Context, *UpdDriverReq) (*UpdDriverResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdDriver not implemented")
@@ -120,6 +136,24 @@ func _Driver_NewDriver_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Driver_DetailDriver_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DetailDriverReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DriverServer).DetailDriver(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Driver_DetailDriver_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DriverServer).DetailDriver(ctx, req.(*DetailDriverReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Driver_UpdDriver_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdDriverReq)
 	if err := dec(in); err != nil {
@@ -148,6 +182,10 @@ var Driver_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NewDriver",
 			Handler:    _Driver_NewDriver_Handler,
+		},
+		{
+			MethodName: "DetailDriver",
+			Handler:    _Driver_DetailDriver_Handler,
 		},
 		{
 			MethodName: "UpdDriver",

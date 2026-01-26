@@ -10,6 +10,15 @@ import (
 )
 
 // NewDriver 司机认证
+//
+// 参数:
+//   - c *gin.Context: Gin上下文
+//
+// 处理逻辑:
+//  1. 绑定请求参数
+//  2. 从上下文获取用户ID
+//  3. 调用司机服务进行认证
+//  4. 返回认证结果
 func NewDriver(c *gin.Context) {
 	var form request.NewDriver
 	// 根据 Content-Type Header 推断使用哪个绑定器。
@@ -18,7 +27,7 @@ func NewDriver(c *gin.Context) {
 		return
 	}
 	_, err := global.DriverClient.NewDriver(c, &proto.NewDriverReq{
-		UserId:                  int64(c.GetUint("userId")),
+		UserId:                  int64(c.GetUint64("userId")),
 		RealName:                form.RealName,
 		IdCardNo:                form.IdCardNo,
 		IdCardFrontUrl:          form.IdCardFrontUrl,
@@ -51,6 +60,15 @@ func NewDriver(c *gin.Context) {
 }
 
 // UpdDriver 修改司机信息
+//
+// 参数:
+//   - c *gin.Context: Gin上下文
+//
+// 处理逻辑:
+//  1. 绑定请求参数
+//  2. 从上下文获取用户ID
+//  3. 调用司机服务修改信息
+//  4. 返回修改结果
 func UpdDriver(c *gin.Context) {
 	var form request.UpdDriver
 	// 根据 Content-Type Header 推断使用哪个绑定器。
@@ -59,7 +77,7 @@ func UpdDriver(c *gin.Context) {
 		return
 	}
 	_, err := global.DriverClient.UpdDriver(c, &proto.UpdDriverReq{
-		UserId:                  int64(c.GetUint("userId")),
+		UserId:                  int64(c.GetUint64("userId")),
 		RealName:                form.RealName,
 		IdCardNo:                form.IdCardNo,
 		IdCardFrontUrl:          form.IdCardFrontUrl,
