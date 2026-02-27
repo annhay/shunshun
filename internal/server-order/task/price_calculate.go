@@ -1,8 +1,11 @@
 package task
 
 import (
+	"fmt"
+	"shunshun/internal/pkg/global"
 	"shunshun/internal/pkg/utils"
 	"strconv"
+	"time"
 )
 
 // CalculateTravelDistance 计算行程距离
@@ -10,23 +13,43 @@ func CalculateTravelDistance(startLng, startLat, endLng, endLat float64) (float6
 	if startLng == 0 || startLat == 0 || endLng == 0 || endLat == 0 {
 		return 0, nil
 	}
-	
+
+	// 生成缓存键
+	cacheKey := fmt.Sprintf("distance:%f,%f,%f,%f", startLng, startLat, endLng, endLat)
+
+	// 检查缓存
+	if global.Rdb != nil {
+		cachedData, err := global.Rdb.Get(global.Ctx, cacheKey).Result()
+		if err == nil {
+			// 缓存命中
+			travelDistance, err := strconv.ParseFloat(cachedData, 64)
+			if err == nil {
+				return travelDistance, nil
+			}
+		}
+	}
+
 	// 转换为字符串格式
 	startLngStr := strconv.FormatFloat(startLng, 'f', 6, 64)
 	startLatStr := strconv.FormatFloat(startLat, 'f', 6, 64)
 	endLngStr := strconv.FormatFloat(endLng, 'f', 6, 64)
 	endLatStr := strconv.FormatFloat(endLat, 'f', 6, 64)
-	
+
 	// 调用地图服务计算距离
 	drivingResult, err := utils.DrivingRoute(startLngStr, startLatStr, endLngStr, endLatStr)
 	if err != nil {
 		return 0, err
 	}
-	
+
 	// 转换为公里
 	distance, _ := strconv.ParseFloat(drivingResult.Distance, 64)
 	travelDistance := distance / 1000
-	
+
+	// 将结果存入缓存
+	if global.Rdb != nil {
+		global.Rdb.Set(global.Ctx, cacheKey, travelDistance, 24*time.Hour)
+	}
+
 	return travelDistance, nil
 }
 
@@ -34,7 +57,7 @@ func CalculateTravelDistance(startLng, startLat, endLng, endLat float64) (float6
 func CalculateEstimatedAmount(travelDistance float64, carType string) float64 {
 	var basePrice float64
 	var distancePrice float64
-	
+
 	// 根据车辆类型调整价格
 	switch carType {
 	case "1": // 经济车
@@ -50,7 +73,7 @@ func CalculateEstimatedAmount(travelDistance float64, carType string) float64 {
 		basePrice = 10.0
 		distancePrice = 2.5
 	}
-	
+
 	// 计算预估金额
 	var estimatedAmount float64
 	if travelDistance <= 3 {
@@ -58,6 +81,6 @@ func CalculateEstimatedAmount(travelDistance float64, carType string) float64 {
 	} else {
 		estimatedAmount = basePrice + (travelDistance-3)*distancePrice
 	}
-	
+
 	return estimatedAmount
 }

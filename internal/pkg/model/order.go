@@ -58,3 +58,9 @@ func (so *ShunOrder) CreateOrder(db *gorm.DB) error {
 func (so *ShunOrder) Editor(db *gorm.DB) error {
 	return db.Updates(&so).Error
 }
+func (so *ShunOrder) GetOrderByCode(db *gorm.DB, code string) error {
+	return db.Where("order_code = ?", code).First(&so).Error
+}
+func (so *ShunOrder) GetOrderById(db *gorm.DB, id int64) error {
+	return db.Where("id = ?", id).First(&so).Error
+}

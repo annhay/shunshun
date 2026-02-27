@@ -207,6 +207,8 @@ func (x *NewOrderResp) GetPayUrl() string {
 
 type OrderNotifyReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderCode     string                 `protobuf:"bytes,1,opt,name=orderCode,proto3" json:"orderCode,omitempty"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -239,6 +241,20 @@ func (x *OrderNotifyReq) ProtoReflect() protoreflect.Message {
 // Deprecated: Use OrderNotifyReq.ProtoReflect.Descriptor instead.
 func (*OrderNotifyReq) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *OrderNotifyReq) GetOrderCode() string {
+	if x != nil {
+		return x.OrderCode
+	}
+	return ""
+}
+
+func (x *OrderNotifyReq) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
 }
 
 type OrderNotifyResp struct {
@@ -279,6 +295,7 @@ func (*OrderNotifyResp) Descriptor() ([]byte, []int) {
 
 type OrderReturnsReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderCode     string                 `protobuf:"bytes,1,opt,name=orderCode,proto3" json:"orderCode,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -313,8 +330,17 @@ func (*OrderReturnsReq) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{4}
 }
 
+func (x *OrderReturnsReq) GetOrderCode() string {
+	if x != nil {
+		return x.OrderCode
+	}
+	return ""
+}
+
 type OrderReturnsResp struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Price         float32                `protobuf:"fixed32,1,opt,name=price,proto3" json:"price,omitempty"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -349,8 +375,24 @@ func (*OrderReturnsResp) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{5}
 }
 
+func (x *OrderReturnsResp) GetPrice() float32 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *OrderReturnsResp) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 type CancelOrderReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	OrderId       int64                  `protobuf:"varint,2,opt,name=orderId,proto3" json:"orderId,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -383,6 +425,20 @@ func (x *CancelOrderReq) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CancelOrderReq.ProtoReflect.Descriptor instead.
 func (*CancelOrderReq) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CancelOrderReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *CancelOrderReq) GetOrderId() int64 {
+	if x != nil {
+		return x.OrderId
+	}
+	return 0
 }
 
 type CancelOrderResp struct {
@@ -898,12 +954,19 @@ const file_order_proto_rawDesc = "" +
 	"\rpaymentMethod\x18\f \x01(\tR\rpaymentMethod\"D\n" +
 	"\fNewOrderResp\x12\x1c\n" +
 	"\torderCode\x18\x01 \x01(\tR\torderCode\x12\x16\n" +
-	"\x06payUrl\x18\x02 \x01(\tR\x06payUrl\"\x10\n" +
-	"\x0eOrderNotifyReq\"\x11\n" +
-	"\x0fOrderNotifyResp\"\x11\n" +
-	"\x0fOrderReturnsReq\"\x12\n" +
-	"\x10OrderReturnsResp\"\x10\n" +
-	"\x0eCancelOrderReq\"\x11\n" +
+	"\x06payUrl\x18\x02 \x01(\tR\x06payUrl\"F\n" +
+	"\x0eOrderNotifyReq\x12\x1c\n" +
+	"\torderCode\x18\x01 \x01(\tR\torderCode\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"\x11\n" +
+	"\x0fOrderNotifyResp\"/\n" +
+	"\x0fOrderReturnsReq\x12\x1c\n" +
+	"\torderCode\x18\x01 \x01(\tR\torderCode\"@\n" +
+	"\x10OrderReturnsResp\x12\x14\n" +
+	"\x05price\x18\x01 \x01(\x02R\x05price\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"B\n" +
+	"\x0eCancelOrderReq\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId\x12\x18\n" +
+	"\aorderId\x18\x02 \x01(\x03R\aorderId\"\x11\n" +
 	"\x0fCancelOrderResp\"\x12\n" +
 	"\x10UserOrderListReq\"\x13\n" +
 	"\x11UserOrderListResp\"\x14\n" +
