@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"shunshun/internal/pkg/global"
@@ -92,7 +93,7 @@ func AliOCR(imageURL, cardType string) (string, error) {
 	if response.GetHttpStatus() != 200 {
 		statusMsg := "response not success. status:" + strconv.Itoa(response.GetHttpStatus())
 		fmt.Println(statusMsg)
-		return "", fmt.Errorf(statusMsg)
+		return "", errors.New(statusMsg)
 	}
 
 	// 获取响应结果

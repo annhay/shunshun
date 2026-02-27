@@ -27,9 +27,9 @@ func (s *Server) NewOrder(ctx context.Context, in *proto.NewOrderReq) (*proto.Ne
 	global.Logger.Info("开始创建订单", zap.Int64("userId", in.UserId), zap.String("tripType", in.TripType), zap.String("rideMode", in.RideMode))
 
 	// 使用Redis setnx防止用户重复下单
-	lockKey := fmt.Sprintf("order:lock:%d:%d", in.UserId, time.Now().UnixNano()/int64(time.Millisecond))
+	lockKey := fmt.Sprintf("order:lock:%d", in.UserId)
 	lockValue := "1"
-	lockExpiration := 30 * time.Second
+	lockExpiration := 10 * time.Second
 
 	// 尝试获取锁
 	success, err := global.Rdb.SetNX(ctx, lockKey, lockValue, lockExpiration).Result()
@@ -128,8 +128,8 @@ func (s *Server) NewOrder(ctx context.Context, in *proto.NewOrderReq) (*proto.Ne
 
 	global.Logger.Info("用户验证通过", zap.Int64("userId", in.UserId), zap.String("realName", user.RealName))
 
-	// 获取起点经纬度
-	startGeo, err := utils.Geocode(in.StratDetailAddress)
+	// 获取起点经纬度（使用缓存）
+	startGeo, err := utils.GeocodeWithCache(in.StratDetailAddress)
 	if err != nil {
 		global.Logger.Error("获取起点位置信息失败", zap.Int64("userId", in.UserId), zap.String("address", in.StratDetailAddress), zap.Error(err))
 		return nil, errors.New("获取起点位置信息失败")
@@ -137,8 +137,8 @@ func (s *Server) NewOrder(ctx context.Context, in *proto.NewOrderReq) (*proto.Ne
 	startLng, _ := strconv.ParseFloat(startGeo.Lng, 64)
 	startLat, _ := strconv.ParseFloat(startGeo.Lat, 64)
 
-	// 获取终点经纬度
-	endGeo, err := utils.Geocode(in.EndDetailAddress)
+	// 获取终点经纬度（使用缓存）
+	endGeo, err := utils.GeocodeWithCache(in.EndDetailAddress)
 	if err != nil {
 		global.Logger.Error("获取终点位置信息失败", zap.Int64("userId", in.UserId), zap.String("address", in.EndDetailAddress), zap.Error(err))
 		return nil, errors.New("获取终点位置信息失败")
@@ -158,27 +158,42 @@ func (s *Server) NewOrder(ctx context.Context, in *proto.NewOrderReq) (*proto.Ne
 
 	global.Logger.Info("行程距离计算成功", zap.Int64("userId", in.UserId), zap.Float64("distance", travelDistance))
 
+	// 获取实时路况分析
+	trafficCondition, tErr := utils.GetTrafficCondition(startLng, startLat, endLng, endLat)
+	if tErr != nil {
+		global.Logger.Warn("获取路况信息失败，使用默认价格", zap.Int64("userId", in.UserId), zap.Error(tErr))
+	} else {
+		global.Logger.Info("路况分析成功", zap.Int64("userId", in.UserId), zap.Int("congestionLevel", trafficCondition.CongestionLevel), zap.Float64("averageSpeed", trafficCondition.AverageSpeed))
+	}
+
+	// 获取备选路线
+	routeOptions, rErr := utils.GetAlternativeRoute(startLng, startLat, endLng, endLat)
+	if rErr != nil {
+		global.Logger.Warn("获取备选路线失败", zap.Int64("userId", in.UserId), zap.Error(rErr))
+	} else {
+		global.Logger.Info("备选路线获取成功", zap.Int64("userId", in.UserId), zap.Int("routeCount", len(routeOptions)))
+	}
+
 	// 计算预估金额
 	var estimatedAmount float64
 	if in.TripType == "2" {
 		// 打车订单计算预估金额
-		estimatedAmount = task.CalculateEstimatedAmount(travelDistance, in.CarType)
-		global.Logger.Info("打车订单预估金额计算成功", zap.Int64("userId", in.UserId), zap.Float64("estimatedAmount", estimatedAmount))
-	} else {
-		// 顺风车订单计算预估金额
-		// 基础预估金额
 		baseAmount := task.CalculateEstimatedAmount(travelDistance, in.CarType)
 
-		// 拼单模式折扣
-		if in.RideMode == "1" || in.RideMode == "2" {
-			// 拼单模式，价格打8折
-			estimatedAmount = baseAmount * 0.8
-			global.Logger.Info("顺风车拼单模式预估金额计算成功", zap.Int64("userId", in.UserId), zap.Float64("baseAmount", baseAmount), zap.Float64("estimatedAmount", estimatedAmount))
+		// 根据路况动态调整价格
+		if trafficCondition != nil {
+			estimatedAmount = utils.CalculateDynamicPrice(baseAmount, trafficCondition)
+			global.Logger.Info("根据路况动态调整价格", zap.Int64("userId", in.UserId), zap.Float64("baseAmount", baseAmount), zap.Float64("estimatedAmount", estimatedAmount), zap.Int("congestionLevel", trafficCondition.CongestionLevel))
 		} else {
-			// 独享模式，原价
 			estimatedAmount = baseAmount
-			global.Logger.Info("顺风车独享模式预估金额计算成功", zap.Int64("userId", in.UserId), zap.Float64("estimatedAmount", estimatedAmount))
+			global.Logger.Info("使用默认价格", zap.Int64("userId", in.UserId), zap.Float64("estimatedAmount", estimatedAmount))
 		}
+
+		global.Logger.Info("打车订单预估金额计算成功", zap.Int64("userId", in.UserId), zap.Float64("estimatedAmount", estimatedAmount))
+	} else {
+		// 顺风车订单不计算预估金额，只有实付金额
+		estimatedAmount = 0
+		global.Logger.Info("顺风车订单不计算预估金额", zap.Int64("userId", in.UserId))
 	}
 
 	// 处理优惠券
@@ -288,11 +303,30 @@ func (s *Server) NewOrder(ctx context.Context, in *proto.NewOrderReq) (*proto.Ne
 	var payUrl string
 	if in.TripType == "1" {
 		// 顺风车订单生成支付链接（需要10分钟内支付）
-		// 使用计算的预估金额
-		payAmount := estimatedAmount - couponAmount
+		// 顺风车只有实付金额，需要根据里程、车型等因素计算
+		// 基础金额
+		baseAmount := task.CalculateEstimatedAmount(travelDistance, in.CarType)
+
+		// 拼单模式折扣
+		actualAmount := baseAmount
+		if in.RideMode == "1" || in.RideMode == "2" {
+			// 拼单模式，价格打8折
+			actualAmount = baseAmount * 0.8
+		}
+
+		// 根据路况动态调整价格
+		if trafficCondition != nil {
+			trafficAdjustedAmount := utils.CalculateDynamicPrice(actualAmount, trafficCondition)
+			global.Logger.Info("根据路况动态调整顺风车价格", zap.Int64("userId", in.UserId), zap.Float64("actualAmount", actualAmount), zap.Float64("trafficAdjustedAmount", trafficAdjustedAmount), zap.Int("congestionLevel", trafficCondition.CongestionLevel))
+			actualAmount = trafficAdjustedAmount
+		}
+
+		// 减去优惠金额
+		payAmount := actualAmount - couponAmount
 		if payAmount < 0 {
 			payAmount = 0
 		}
+
 		payUrl = utils.AliPay(order.OrderCode, strconv.FormatFloat(payAmount, 'f', 2, 64))
 		global.Logger.Info("顺风车订单支付链接生成成功", zap.Int64("userId", in.UserId), zap.String("orderCode", order.OrderCode), zap.Float64("payAmount", payAmount))
 	} else {
@@ -307,9 +341,53 @@ func (s *Server) NewOrder(ctx context.Context, in *proto.NewOrderReq) (*proto.Ne
 	}, nil
 }
 
-//支付异步回调
-//支付同步回调
-//取消订单
+// OrderNotify 支付异步回调
+func (s *Server) OrderNotify(_ context.Context, in *proto.OrderNotifyReq) (*proto.OrderNotifyResp, error) {
+	var order model.ShunOrder
+	if err := order.GetOrderByCode(global.DB, in.OrderCode); err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("订单查询失败")
+		}
+	}
+
+	return &proto.OrderNotifyResp{}, nil
+}
+
+// OrderReturns 支付同步回调
+func (s *Server) OrderReturns(_ context.Context, in *proto.OrderReturnsReq) (*proto.OrderReturnsResp, error) {
+	var order model.ShunOrder
+	if err := order.GetOrderByCode(global.DB, in.OrderCode); err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("订单查询失败")
+		}
+	}
+	return &proto.OrderReturnsResp{
+		Price:  float32(order.ActualAmount),
+		Status: order.OrderStatus,
+	}, nil
+}
+
+// CancelOrder 取消订单
+func (s *Server) CancelOrder(_ context.Context, in *proto.CancelOrderReq) (*proto.CancelOrderResp, error) {
+	var user model.ShunUser
+	if err := user.GetUserById(global.DB, int(in.UserId)); err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+	}
+	var order model.ShunOrder
+	if err := order.GetOrderById(global.DB, in.OrderId); err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+	}
+	order.OrderStatus = "8"
+	if err := order.Editor(global.DB); err != nil {
+		return nil, err
+	}
+	return &proto.CancelOrderResp{}, nil
+}
+
 //用户订单列表
 //用户订单详情
 //司机匹配的订单列表

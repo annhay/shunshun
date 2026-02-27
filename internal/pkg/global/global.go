@@ -1,6 +1,7 @@
 package global
 
 import (
+	"context"
 	"shunshun/internal/pkg/configs"
 	"shunshun/internal/proto"
 
@@ -17,4 +18,5 @@ var (
 	UserClient   proto.UserClient
 	DriverClient proto.DriverClient
 	OrderClient  proto.OrderClient
+	Ctx          = context.Background()
 )

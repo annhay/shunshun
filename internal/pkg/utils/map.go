@@ -152,6 +152,41 @@ func Geocode(address string) (*GeocodeResult, error) {
 	}, nil
 }
 
+// GeocodeWithCache 带缓存的地址转经纬度
+func GeocodeWithCache(address string) (*GeocodeResult, error) {
+	// 生成缓存键
+	cacheKey := fmt.Sprintf("geocode:%s", url.QueryEscape(address))
+	cacheExpiration := 24 * time.Hour
+
+	// 检查缓存
+	if global.Rdb != nil {
+		cachedData, err := global.Rdb.Get(global.Ctx, cacheKey).Result()
+		if err == nil {
+			// 缓存命中
+			var result GeocodeResult
+			if err := json.Unmarshal([]byte(cachedData), &result); err == nil {
+				return &result, nil
+			}
+		}
+	}
+
+	// 缓存未命中，调用原始Geocode函数
+	result, err := Geocode(address)
+	if err != nil {
+		return nil, err
+	}
+
+	// 将结果存入缓存
+	if global.Rdb != nil {
+		data, err := json.Marshal(result)
+		if err == nil {
+			global.Rdb.Set(global.Ctx, cacheKey, data, cacheExpiration)
+		}
+	}
+
+	return result, nil
+}
+
 // -------------------------- 逆地理编码相关 --------------------------
 
 // RegeocodeResponse 逆地理编码响应结构
